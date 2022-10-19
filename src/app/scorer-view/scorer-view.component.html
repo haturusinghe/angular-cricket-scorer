@@ -1,13 +1,15 @@
 <crx-toolbar></crx-toolbar>
-
-<div fxLayout="row">
-  <div class="container-1" fxFlex="50"><crx-runs-panel></crx-runs-panel></div>
-  <div class="container-1" fxFlex="50">
-    <crx-batter-panel></crx-batter-panel>
+<div fxLayout="row" fxLayoutAlign="start stretch">
+  <div class="container-1" fxFlex fxFill>
+    <crx-wagon-wheel-selector></crx-wagon-wheel-selector>
+    <div class="container-1" fxFlex="90"><crx-runs-panel></crx-runs-panel></div>
   </div>
 </div>
 <div fxLayout="row">
-  <div class="container-1" fxFlex="50">
-    <crx-wagon-wheel-selector></crx-wagon-wheel-selector>
+  <div class="container-1" fxFlex="50" fxFill>
+    <crx-batter-panel></crx-batter-panel>
+  </div>
+  <div class="container-1" fxFlex="50" fxFill>
+    <crx-bowler-panel></crx-bowler-panel>
   </div>
 </div>

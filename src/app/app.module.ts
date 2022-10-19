@@ -23,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { RunsPanelComponent } from './scorer-view/runs-panel/runs-panel.component';
 import { BatterPanelComponent } from './scorer-view/batter-panel/batter-panel.component';
 import { WagonWheelSelectorComponent } from './scorer-view/wagon-wheel-selector/wagon-wheel-selector.component';
+import { BowlerPanelComponent } from './scorer-view/bowler-panel/bowler-panel.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { WagonWheelSelectorComponent } from './scorer-view/wagon-wheel-selector/
     RunsPanelComponent,
     BatterPanelComponent,
     WagonWheelSelectorComponent,
+    BowlerPanelComponent,
   ],
   imports: [
     ReactiveFormsModule,
