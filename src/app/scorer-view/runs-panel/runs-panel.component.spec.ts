@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SettingsDialogComponent } from './settings-dialog.component';
+import { RunsPanelComponent } from './runs-panel.component';
 
-describe('SettingsDialogComponent', () => {
-  let component: SettingsDialogComponent;
-  let fixture: ComponentFixture<SettingsDialogComponent>;
+describe('RunsPanelComponent', () => {
+  let component: RunsPanelComponent;
+  let fixture: ComponentFixture<RunsPanelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SettingsDialogComponent ]
+      declarations: [ RunsPanelComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SettingsDialogComponent);
+    fixture = TestBed.createComponent(RunsPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
