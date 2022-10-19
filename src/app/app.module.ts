@@ -10,6 +10,7 @@ import { ScorerViewComponent } from './scorer-view/scorer-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialExampleModule } from '../material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 //Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,6 +21,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { RunsPanelComponent } from './scorer-view/runs-panel/runs-panel.component';
+import { BatterPanelComponent } from './scorer-view/batter-panel/batter-panel.component';
+import { WagonWheelSelectorComponent } from './scorer-view/wagon-wheel-selector/wagon-wheel-selector.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,8 @@ import { RunsPanelComponent } from './scorer-view/runs-panel/runs-panel.componen
     ScorerViewComponent,
     ToolbarComponent,
     RunsPanelComponent,
+    BatterPanelComponent,
+    WagonWheelSelectorComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -35,6 +40,7 @@ import { RunsPanelComponent } from './scorer-view/runs-panel/runs-panel.componen
     BrowserAnimationsModule,
     MaterialExampleModule,
     FlexLayoutModule,
+    NgxSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

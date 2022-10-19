@@ -1,0 +1,50 @@
+<section>
+  <mat-card>
+    <mat-card-title>Batting Panel</mat-card-title>
+    <mat-card-subtitle>Batting Info</mat-card-subtitle>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Batsman</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="r">
+          <th mat-header-cell *matHeaderCellDef>R</th>
+          <td mat-cell *matCellDef="let element">{{ element.r }}</td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="b">
+          <th mat-header-cell *matHeaderCellDef>B</th>
+          <td mat-cell *matCellDef="let element">{{ element.b }}</td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="_4s">
+          <th mat-header-cell *matHeaderCellDef>4s</th>
+          <td mat-cell *matCellDef="let element">{{ element._4s }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="_6s">
+          <th mat-header-cell *matHeaderCellDef>6s</th>
+          <td mat-cell *matCellDef="let element">{{ element._6s }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="sr">
+          <th mat-header-cell *matHeaderCellDef>SR</th>
+          <td mat-cell *matCellDef="let element">{{ element.sr }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</section>
