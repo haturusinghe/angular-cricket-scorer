@@ -1,0 +1,38 @@
+mat-button-toggle-group {
+  width: 100%;
+  margin: 1%;
+}
+
+mat-button-toggle {
+  width: 100%;
+}
+
+section {
+  padding: 10px;
+}
+
+mat-expansion-panel {
+  margin: 10px;
+}
+
+mat-panel-title {
+  text-align: center;
+  display: block;
+}
+
+.bgcolor {
+  .mat-expansion-panel-header.mat-expanded,
+  .mat-expansion-panel-header.mat-expanded:hover {
+    background: orangered;
+    color: white;
+  }
+}
+
+.wk-wrapper {
+  margin: 10px;
+  width: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+}

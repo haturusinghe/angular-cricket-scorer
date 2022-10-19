@@ -7,23 +7,21 @@ import { FormBuilder } from '@angular/forms';
 })
 export class RunsPanelComponent implements OnInit {
   run: number = 0;
-  extras = {
+  toppings = this._formBuilder.group({
     WD: false,
     NB: false,
-    LB: false,
     B: false,
-    P: false,
-  };
-  boundry = {
-    runs: 0,
-    distance: 0,
-  };
-
-  toppings = this._formBuilder.group({
-    pepperoni: false,
-    extracheese: false,
-    mushroom: false,
+    LB: false,
   });
+
+  wicket: Wicket[] = [
+    { value: 'B', viewValue: 'Bowled' },
+    { value: 'C', viewValue: 'Caught' },
+    { value: 'S', viewValue: 'Stumped' },
+    { value: 'ROS', viewValue: 'Run-out Striker' },
+    { value: 'RON', viewValue: 'Run-out Non-striker' },
+    { value: 'HW', viewValue: 'Hit-wicket' },
+  ];
 
   constructor(private _formBuilder: FormBuilder) {}
 
@@ -32,30 +30,9 @@ export class RunsPanelComponent implements OnInit {
   changeRun(run: number) {
     this.run = run;
   }
-  changeBoundry(runs: number) {
-    if (this.boundry.runs == runs) {
-      this.boundry.runs = 0;
-    } else {
-      this.boundry.runs = runs;
-    }
-  }
+}
 
-  changeExtras(type: string) {
-    /*     if (this.extras[type] == true) {
-      this.extras[type] = false;
-    } else {
-      this.extras[type] = true;
-      if (type == 'WD') {
-        this.extras['NB'] = false;
-      } else if (type == 'B') {
-        this.extras['LB'] = false;
-        this.extras['WD'] = false;
-      } else if (type == 'LB') {
-        this.extras['B'] = false;
-        this.extras['WD'] = false;
-      } else if (type == 'NB') {
-        this.extras['WD'] = false;
-      }
-    } */
-  }
+interface Wicket {
+  value: string;
+  viewValue: string;
 }

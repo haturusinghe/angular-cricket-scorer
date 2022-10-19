@@ -4,7 +4,10 @@
     <mat-card-subtitle>Select the Runs</mat-card-subtitle>
 
     <mat-card-content>
-      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+      <mat-divider></mat-divider>
+      <mat-label class="small-lbl">Runs</mat-label>
+      <!-- Button Group for Selecting Runs -->
+      <mat-button-toggle-group>
         <mat-button-toggle value="0">0</mat-button-toggle>
         <mat-button-toggle value="1">1</mat-button-toggle>
         <mat-button-toggle value="2">2</mat-button-toggle>
@@ -13,28 +16,44 @@
         <mat-button-toggle value="5">5</mat-button-toggle>
         <mat-button-toggle value="6">6</mat-button-toggle>
       </mat-button-toggle-group>
+
       <mat-divider></mat-divider>
-      <section class="example-section" [formGroup]="toppings">
-        <h4>Select your toppings:</h4>
-        <p>
-          <mat-checkbox formControlName="pepperoni">Pepperoni</mat-checkbox>
-        </p>
-        <p>
-          <mat-checkbox formControlName="extracheese"
-            >Extra Cheese</mat-checkbox
-          >
-        </p>
-        <p><mat-checkbox formControlName="mushroom">Mushroom</mat-checkbox></p>
+      <mat-label class="small-lbl">Extras</mat-label>
+      <section
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        [formGroup]="toppings"
+      >
+        <mat-checkbox formControlName="WD">Wide</mat-checkbox>
+        <mat-checkbox formControlName="NB">No Ball</mat-checkbox>
+        <mat-checkbox formControlName="B">Bye</mat-checkbox>
+        <mat-checkbox formControlName="LB">Leg Bye</mat-checkbox>
       </section>
 
-      <section class="example-section" [formGroup]="toppings">
-        <h4>You chose:</h4>
-        {{ toppings.value | json }}
-      </section>
+      <mat-divider></mat-divider>
+
+      <mat-expansion-panel hideToggle="" class="bgcolor">
+        <mat-expansion-panel-header>
+          <mat-panel-title> Wicket </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <mat-panel-description>
+          <div class="wk-wrapper">
+            <mat-form-field appearance="fill">
+              <mat-label>Wicket Type</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let w of wicket" [value]="w.value">
+                  {{ w.viewValue }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </mat-panel-description>
+      </mat-expansion-panel>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button color="warn">Reset</button>
-      <button mat-raised-button color="primary">Submit</button>
+      <button mat-raised-button color="primary">Record Ball</button>
     </mat-card-actions>
   </mat-card>
 </section>
