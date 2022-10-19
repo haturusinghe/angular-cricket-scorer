@@ -10,9 +10,10 @@ import { ScorerViewComponent } from './scorer-view/scorer-view.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { SettingsDialogComponent } from './scorer-view/settings-dialog/settings-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, ScorerViewComponent],
+  declarations: [AppComponent, ScorerViewComponent, SettingsDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
