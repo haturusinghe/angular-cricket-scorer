@@ -9,6 +9,7 @@ import { ScorerViewComponent } from './scorer-view/scorer-view.component';
 //Other
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialExampleModule } from '../material.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 //Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -33,6 +34,7 @@ import { RunsPanelComponent } from './scorer-view/runs-panel/runs-panel.componen
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialExampleModule,
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

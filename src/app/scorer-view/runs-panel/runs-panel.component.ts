@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormBuilder } from '@angular/forms';
 @Component({
   selector: 'crx-runs-panel',
   templateUrl: './runs-panel.component.html',
@@ -19,7 +19,13 @@ export class RunsPanelComponent implements OnInit {
     distance: 0,
   };
 
-  constructor() {}
+  toppings = this._formBuilder.group({
+    pepperoni: false,
+    extracheese: false,
+    mushroom: false,
+  });
+
+  constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit(): void {}
 
