@@ -1,0 +1,70 @@
+<section>
+  <mat-card>
+    <mat-card-title>Match Summary</mat-card-title>
+    <mat-card-subtitle>Infromation on the Match</mat-card-subtitle>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <!-- Left Side -->
+        <div fxFlex="50" fxLayout="column" fxLayoutAlign="center center">
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-form-field appearance="standard">
+              <input class="score team" matInput value="England" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+              <input class="score" matInput value="154/4" readonly />
+            </mat-form-field>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <mat-form-field appearance="standard">
+              <input class="score team" matInput value="Sri Lanka" readonly />
+            </mat-form-field>
+            <mat-form-field appearance="standard">
+              <input class="score" matInput value="56/1" readonly />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Right Side -->
+        <div
+          class="sec-2"
+          fxFlex="50"
+          fxLayout="column"
+          fxLayoutAlign="space-evenly center"
+        >
+          <div fxLayout="row" fxFlex="50" fxLayoutAlign="start center">
+            <div fxFlex class="sec-3">
+              <!-- Tournament Name -->
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Tournament Name</mat-label>
+                <input matInput readonly="" [value]="tournamentName" />
+              </mat-form-field>
+            </div>
+            <div fxFlex class="sec-3">
+              <!-- Tournament Name -->
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Batting Team</mat-label>
+                <input matInput readonly="" [value]="batting" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxFlex="50" fxLayoutAlign="space-between center">
+            <!-- Tournament Name -->
+            <mat-form-field class="sec-3" appearance="outline">
+              <mat-label>Current Over</mat-label>
+              <input matInput readonly="" [value]="currentOver" />
+            </mat-form-field>
+
+            <!-- Tournament Name -->
+            <mat-form-field class="sec-3" appearance="outline">
+              <mat-label>Total Overs</mat-label>
+              <input matInput readonly="" [value]="totalOvers" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

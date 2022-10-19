@@ -24,6 +24,7 @@ import { RunsPanelComponent } from './scorer-view/runs-panel/runs-panel.componen
 import { BatterPanelComponent } from './scorer-view/batter-panel/batter-panel.component';
 import { WagonWheelSelectorComponent } from './scorer-view/wagon-wheel-selector/wagon-wheel-selector.component';
 import { BowlerPanelComponent } from './scorer-view/bowler-panel/bowler-panel.component';
+import { MatchSummaryComponent } from './scorer-view/match-summary/match-summary.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { BowlerPanelComponent } from './scorer-view/bowler-panel/bowler-panel.co
     BatterPanelComponent,
     WagonWheelSelectorComponent,
     BowlerPanelComponent,
+    MatchSummaryComponent,
   ],
   imports: [
     ReactiveFormsModule,
