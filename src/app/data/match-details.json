@@ -1,0 +1,19 @@
+{
+  "match-name": "Annual Cricket Match",
+  "teamA": { "players": [{ "name": "Jon Doe", "number": 55, "id": "p001" }] },
+  "teamB": { "players": [] },
+  "date": "2022-10-10",
+  "overs": 20,
+  "wickets": 10,
+  "toss": { "won": "teamA", "decision": "BAT" },
+  "over-balls": [{ "over-number": 1 }],
+  "ball": {
+    "id": 1,
+    "striker": "Striker Name",
+    "run": 2,
+    "bowler": "Bowler Name",
+    "is4": false,
+    "is6": false,
+    "Out": {"type":"BOWLED"}
+  }
+}
