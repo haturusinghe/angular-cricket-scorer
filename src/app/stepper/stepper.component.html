@@ -1,0 +1,64 @@
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+  {{ !isLinear ? "Enable linear mode" : "Disable linear mode" }}
+</button>
+<mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <h4>Select Teams</h4>
+    <mat-form-field appearance="fill">
+      <mat-label>team1</mat-label>
+      <mat-select [(ngModel)]="selectedValue">
+        <mat-option *ngFor="let teams of team" [value]="teams.name">
+          {{ teams.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <h4>V.S</h4>
+    <mat-form-field appearance="fill">
+      <mat-label>team2</mat-label>
+      <mat-select [(ngModel)]="selectedValue">
+        <mat-option *ngFor="let teams of team" [value]="teams.name">
+          {{ teams.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperNext (onclick)="getPlayers()">Next</button>
+    </div>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup" label="Select players for Team1">
+    <form [formGroup]="secondFormGroup">
+      <div *ngIf="selectedValue">
+        <section class="example-section">
+          <span class="example-list-section">
+            <ul>
+              <li *ngFor="let player of team1.players">
+                <mat-checkbox>
+                  {{ player.name }}
+                </mat-checkbox>
+              </li>
+            </ul>
+          </span>
+        </section>
+        {{ team1.name }}
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
+
+<!-- Copyright 2022 Google LLC. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at https://angular.io/license -->
