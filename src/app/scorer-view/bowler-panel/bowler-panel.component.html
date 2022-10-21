@@ -45,6 +45,24 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+
+      <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10">
+        <mat-form-field hintLabel="in Km/h" appearance="outline">
+          <mat-label>Bowl Speed</mat-label>
+          <input matInput #input maxlength="10" placeholder="Ex. Nougat" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Select Bowl Type</mat-label>
+          <mat-select>
+            <mat-option value="option">In Swinger</mat-option>
+          </mat-select>
+          <mat-hint align="end">Delivered Bowl Type</mat-hint>
+        </mat-form-field>
+      </div>
     </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-raised-button color color="primary">Change Bowler</button>
+    </mat-card-actions>
   </mat-card>
 </section>

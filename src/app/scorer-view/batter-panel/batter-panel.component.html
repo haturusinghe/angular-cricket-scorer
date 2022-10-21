@@ -45,6 +45,20 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
+
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-around end"
+        style="padding: 15px"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Shot Played</mat-label>
+          <mat-select>
+            <mat-option value="cd">Cover Drive</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color color="primary">Change Striker</button>
+      </div>
     </mat-card-content>
   </mat-card>
 </section>
