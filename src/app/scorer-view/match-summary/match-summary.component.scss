@@ -12,7 +12,7 @@ section {
 
 .score {
   text-align: right;
-  font-size: large;
+  font-size: 50px;
 }
 .team {
   text-align: left;
@@ -20,4 +20,12 @@ section {
 
 .mat-form-field-underline {
   height: 0;
+}
+
+mat-form-field {
+  height: 60px;
+}
+
+mat-card {
+  height: 30vh;
 }
