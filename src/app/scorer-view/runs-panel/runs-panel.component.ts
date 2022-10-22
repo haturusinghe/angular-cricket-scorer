@@ -99,8 +99,6 @@ export class RunsPanelComponent implements OnInit {
         this.extrasToSend.add(e.value);
       }
     });
-
-    console.log(this.extrasToSend);
   }
 }
 
