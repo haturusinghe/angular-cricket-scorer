@@ -24,16 +24,21 @@
 
       <!-- Select Extras -->
       <mat-label class="small-lbl">Extras</mat-label>
-      <section
-        fxLayout="row"
-        fxLayoutAlign="space-between center"
-        [formGroup]="extras"
-      >
-        <mat-checkbox formControlName="WD">Wide</mat-checkbox>
-        <mat-checkbox formControlName="NB">No Ball</mat-checkbox>
-        <mat-checkbox formControlName="B">Bye</mat-checkbox>
-        <mat-checkbox formControlName="LB">Leg Bye</mat-checkbox>
+      <section fxLayout="row" fxLayoutAlign="space-between center">
+        <span *ngFor="let e of extraVals">
+          <mat-checkbox [(ngModel)]="e.isOn"
+                        (ngModelChange)="updateExtraValues(e)">
+            {{e.name}}
+          </mat-checkbox>
+        </span>
+        <span *ngFor="let e of extraValsBys">
+          <mat-checkbox [(ngModel)]="e.isOn"
+                        (ngModelChange)="updateExtraValues(e)">
+            {{e.name}}
+          </mat-checkbox>
+        </span>
       </section>
+      
 
       <mat-divider></mat-divider>
 
@@ -51,7 +56,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Wicket Type</mat-label>
               <mat-select [formControl]="wicketControl" name="wicket">
-                <mat-option *ngFor="let w of wicket" [value]="w.value">
+                <mat-option *ngFor="let w of wicketVals" [value]="w.value">
                   {{ w.viewValue }}
                 </mat-option>
               </mat-select>
