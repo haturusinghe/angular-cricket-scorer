@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Ball } from '../i/ball';
 import { Over } from '../i/over';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { PlayerDataService } from './player-data.service';
 import { Team } from '../i/team';
 import { OverData } from '../i/over-data';
@@ -9,6 +9,7 @@ import { BowlerScore } from '../i/bowler-score';
 import { BatterScore } from '../i/player-score';
 import { TeamScore } from '../i/team-score';
 import { Player } from '../i/player';
+import { PlayerChangeService } from './player-change.service';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +65,10 @@ export class MatchDataServiceService {
     economyRate: 0,
   };
 
-  constructor(private playerDataService: PlayerDataService) {}
+  constructor(
+    private playerDataService: PlayerDataService,
+    private playerChangeService: PlayerChangeService
+  ) {}
 
   getBattingTeamPlayers(): Observable<Player[]> {
     const batters = of(this.teams[this.battingTeamIndex].players);
@@ -82,14 +86,12 @@ export class MatchDataServiceService {
     );
     let randomPlayer = this.teams[this.battingTeamIndex].players[index];
 
-    this.bowler = {
-      player: player,
-      runs: 0,
-      maidenOvers: 0,
-      overs: 0,
-      wickets: 0,
-      economyRate: 0,
-    };
+    this.bowler.player = player;
+    this.bowler.economyRate = 0;
+    this.bowler.maidenOvers = 0;
+    this.bowler.overs = 0;
+    this.bowler.runs = 0;
+    this.bowler.wickets = 0;
   }
 
   changeStriker(player: Player) {
@@ -97,14 +99,12 @@ export class MatchDataServiceService {
       Math.random() * this.teams[this.battingTeamIndex].players.length
     );
     let randomPlayer = this.teams[this.battingTeamIndex].players[index];
-    this.striker = {
-      player: player,
-      runs: 0,
-      ballsFaced: 0,
-      fours: 0,
-      sixes: 0,
-      strikeRate: 0,
-    };
+    this.striker.player = player;
+    this.striker.ballsFaced = 0;
+    this.striker.fours = 0;
+    this.striker.runs = 0;
+    this.striker.sixes = 0;
+    this.striker.strikeRate = 0;
   }
 
   swapBatsman() {
@@ -221,6 +221,31 @@ export class MatchDataServiceService {
       if (sum == 0) {
         this.bowler.maidenOvers++;
       }
+      this.playerChangeService.changeBowler().subscribe((p) => {
+        console.log(p);
+        this.changeBowler(p);
+      });
+    }
+
+    if (ball.Out.isOut) {
+      this.playerChangeService.changeStriker().subscribe((p) => {
+        console.log(p);
+        this.changeStriker(p);
+      });
     }
   }
+
+    /* changeCurrentBowler() {
+    this.playerChangeService.getBowlerDetails().subscribe((p) => {
+      console.log(p);
+      this.changeBowler(p);
+      this.myDataSetter(p);
+    });
+  }
+
+  changeCurrentStriker() {
+    this.playerChangeService
+      .getStrikerDetails()
+      .subscribe((p) => this.changeStriker(p));
+  } */
 }
