@@ -29,7 +29,7 @@ export class MatchDataServiceService {
   // Batters
   striker: BatterScore = {
     player: this.teams[this.battingTeamIndex].players[2],
-    runs: 10,
+    runs: 0,
     ballsFaced: 0,
     fours: 0,
     sixes: 0,
@@ -39,7 +39,7 @@ export class MatchDataServiceService {
   nonStriker: BatterScore = {
     player: this.teams[this.battingTeamIndex].players[3],
     runs: 0,
-    ballsFaced: 50,
+    ballsFaced: 0,
     fours: 0,
     sixes: 0,
     strikeRate: 0,
@@ -125,50 +125,63 @@ export class MatchDataServiceService {
   }
 
   recordBall(ball: Ball) {
+    let extraScore: number = 0;
+    if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
+      extraScore++;
+    }
+    //Update Bowler Score
+    this.bowler.runs += ball.runs + extraScore;
+
+    //Updating Striker Score
+    this.striker.ballsFaced++;
+    this.striker.runs += ball.runs;
+    if (ball.is4) {
+      this.striker.fours++;
+    }
+    if (ball.is6) {
+      this.striker.sixes++;
+    }
+    this.striker.strikeRate =
+      Math.round((this.striker.runs / this.striker.ballsFaced) * 100 * 100) /
+      100;
+
+    if (ball.runs % 2 == 1) {
+      this.swapBatsman();
+    }
+
     if (this.ballLeftForOver < 1) {
+      //For handling when balls in an over ends
       this.allOvers.push({
+        // Add current over data to large array containing all over data
         overNumber: this.currentOverNumber,
         balls: this.ballsForThisOver,
       });
-      console.log(this.allOvers);
-      this.ballLeftForOver = 6;
-      // this.currentOver.ballsLeft = 6;
-      this.currentOverNumber++;
 
-      this.ballsForThisOver = new Array<Ball>();
+      this.ballLeftForOver = 6; //Update Number of balls for new Over
+      this.currentOverNumber++; //Update current over number to next over
+
+      this.ballsForThisOver = new Array<Ball>(); //Replace Balls Array with Empty array
     }
-
     if (!(ball.extras.includes('WD') || ball.extras.includes('NB'))) {
+      //Decrement balls count when its not a Wide or No Ball
       this.ballLeftForOver--;
       this.currentOver.ballsLeft--;
     }
 
-    console.log(
-      'Current Over:' +
-        this.currentOverNumber +
-        ' Balls Left:' +
-        this.ballLeftForOver
-    );
-
     this.ballsForThisOver.push(ball);
-    console.log(this.ballsForThisOver);
 
     if (this.ballLeftForOver == 0) {
+      //Update Current Over Data to Next over when balls are finished for this over
       this.currentOver.currentOver++;
       this.currentOver.ballsLeft = 6;
+      this.bowler.overs++;
+      let sum = 0;
+      this.ballsForThisOver.forEach((ball) => {
+        sum += ball.runs;
+      });
+      if (sum == 0) {
+        this.bowler.maidenOvers++;
+      }
     }
-    /* if (this.ballLeftForOver < 1) {
-      this.ballLeftForOver = 6;
-      this.overs.push(this.currentOverData);
-      this.currentOverData.overNumber++;
-      console.log(this.overs);
-    }
-
-    if (!ball.extras.includes('W') || !ball.extras.includes('WD')) {
-      this.ballLeftForOver--;
-    }
-
-    this.currentOverData.balls.push(ball);
-    console.log(this.currentOverData); */
   }
 }
