@@ -46,7 +46,7 @@ export class MatchDataServiceService {
   };
 
   //Bowler
-  bowler?: BowlerScore = {
+  bowler: BowlerScore = {
     player: this.teams[this.bowlerTeamIndex].players[3],
     runs: 0,
     maidenOvers: 0,
@@ -99,6 +99,11 @@ export class MatchDataServiceService {
   getNonStrikerDetails(): Observable<BatterScore> {
     const nonStriker = of(this.nonStriker);
     return nonStriker;
+  }
+
+  getBowlerDetails(): Observable<BowlerScore> {
+    const bowler = of(this.bowler);
+    return bowler;
   }
 
   getOverDetails(): Observable<Over[]> {
