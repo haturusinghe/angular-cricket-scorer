@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BatterScore } from '../i/player-score';
+import { MatchDataServiceService } from '../services/match-data-service.service';
 
 @Component({
   selector: 'crx-batter-panel',
@@ -9,12 +11,46 @@ export class BatterPanelComponent implements OnInit {
   // displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   displayedColumns: string[] = ['name', 'r', 'b', '_4s', '_6s', 'sr'];
 
+  displayColumns: string[] = [
+    'player',
+    'runs',
+    'ballsFaced',
+    'sixes',
+    'fours',
+    'strikeRate',
+  ];
+
+  striker?: BatterScore;
+  nonStriker?: BatterScore;
+
   dataSource = BAT_DATA;
-  constructor() {}
 
-  ngOnInit(): void {}
+  batTableData = [this.striker, this.nonStriker];
+
+  constructor(private matchDataService: MatchDataServiceService) {}
+
+  ngOnInit(): void {
+    this.getStriker();
+    this.getNonStriker();
+  }
+
+  getStriker(): void {
+    this.matchDataService
+      .getStrikerDetails()
+      .subscribe((s) => (this.striker = s));
+  }
+
+  getNonStriker(): void {
+    this.matchDataService
+      .getNonStrikerDetails()
+      .subscribe((n) => (this.nonStriker = n));
+  }
+
+  displayTest() {
+    console.log(this.striker);
+    console.log(this.nonStriker);
+  }
 }
-
 
 export interface BatterTableRow {
   name: string;
