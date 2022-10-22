@@ -125,6 +125,10 @@ export class MatchDataServiceService {
   }
 
   recordBall(ball: Ball) {
+    //Update the Striker and Bowler for this
+    ball.bowler = this.bowler.player;
+    ball.striker = this.striker.player;
+
     let extraScore: number = 0;
     if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
       extraScore++;
@@ -151,11 +155,11 @@ export class MatchDataServiceService {
 
     if (this.ballLeftForOver < 1) {
       //For handling when balls in an over ends
-      this.allOvers.push({
+      /* this.allOvers.push({
         // Add current over data to large array containing all over data
         overNumber: this.currentOverNumber,
         balls: this.ballsForThisOver,
-      });
+      }); */
 
       this.ballLeftForOver = 6; //Update Number of balls for new Over
       this.currentOverNumber++; //Update current over number to next over
@@ -169,11 +173,18 @@ export class MatchDataServiceService {
     }
 
     this.ballsForThisOver.push(ball);
+    this.currentOver.balls = this.ballsForThisOver;
 
     if (this.ballLeftForOver == 0) {
       //Update Current Over Data to Next over when balls are finished for this over
+      this.allOvers.push({
+        // Add current over data to large array containing all over data
+        overNumber: this.currentOverNumber,
+        balls: this.ballsForThisOver,
+      });
       this.currentOver.currentOver++;
       this.currentOver.ballsLeft = 6;
+      this.currentOver.balls = [];
       this.bowler.overs++;
       let sum = 0;
       this.ballsForThisOver.forEach((ball) => {
