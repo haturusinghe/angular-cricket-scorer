@@ -20,8 +20,22 @@ export class BatterPanelComponent implements OnInit {
     'strikeRate',
   ];
 
-  striker?: BatterScore;
-  nonStriker?: BatterScore;
+  striker: BatterScore = {
+    player: { id: 99, first_name: 'Axl', last_name: 'Rose' },
+    ballsFaced: -1,
+    runs: -1,
+    sixes: -1,
+    fours: -1,
+    strikeRate: -1,
+  };
+  nonStriker: BatterScore = {
+    player: { id: 69, first_name: 'Bon', last_name: 'Jovi' },
+    ballsFaced: -1,
+    runs: -1,
+    sixes: -1,
+    fours: -1,
+    strikeRate: -1,
+  };
 
   dataSource = BAT_DATA;
 
@@ -32,6 +46,7 @@ export class BatterPanelComponent implements OnInit {
   ngOnInit(): void {
     this.getStriker();
     this.getNonStriker();
+    this.batTableData = [this.striker, this.nonStriker];
   }
 
   getStriker(): void {
