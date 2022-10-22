@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { ChangeBatsmanComponent } from '../change-batsman/change-batsman.component';
 import { ChangeBowlerComponent } from '../change-bowler/change-bowler.component';
 import { Player } from '../i/player';
+import { MatchDataServiceService } from './match-data-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,39 +15,42 @@ export class PlayerChangeService {
 
   constructor(public dialog: MatDialog) {}
 
-  changeBowler() {
+  changeBowler(): Observable<Player> {
     const dialogRef = this.dialog.open(ChangeBowlerComponent, {
       width: '300px',
       data: { selectedPlayer: this.selectedBowler },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    return dialogRef.afterClosed(); /* .subscribe((result) => {
       if (result) {
         this.selectedBowler = result;
+        console.log(result);
       }
-    });
+    }); */
   }
 
-  changeStriker() {
+  changeStriker(): Observable<Player> {
     const dialogRef = this.dialog.open(ChangeBatsmanComponent, {
       width: '300px',
       data: { selectedPlayer: this.selectedBatsman },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    return dialogRef.afterClosed(); /* .subscribe((result) => {
       if (result) {
         this.selectedBatsman = result;
       }
-    });
+    }); */
   }
 
-  getStrikerDetails(): Observable<Player> {
+  /*   getStrikerDetails(): Observable<Player> {
+    this.changeStriker();
     const striker = of(this.selectedBatsman);
     return striker;
   }
 
   getBowlerDetails(): Observable<Player> {
+    this.changeBowler();
     const bowler = of(this.selectedBowler);
     return bowler;
-  }
+  } */
 }
