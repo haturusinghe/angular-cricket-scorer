@@ -7,6 +7,7 @@ import { MatchDataServiceService } from '../services/match-data-service.service'
   styleUrls: ['./runs-panel.component.scss'],
 })
 export class RunsPanelComponent implements OnInit {
+  selectedRun: string = '0';
   run: number = 0;
   isWicket: boolean = false;
 
@@ -52,6 +53,18 @@ export class RunsPanelComponent implements OnInit {
         type: this.isWicket ? this.wicketControl.value?.toString() : '',
       },
     });
+  }
+
+  resetPanel() {
+    this.extrasToSend.clear();
+    this.extraVals.forEach((e) => {
+      e.isOn = false;
+    });
+    this.extraValsBys.forEach((e) => {
+      e.isOn = false;
+    });
+    this.selectedRun = '0';
+    this.isWicket = false;
   }
 
   setWicketStatus() {
