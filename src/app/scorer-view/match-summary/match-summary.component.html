@@ -22,15 +22,20 @@
           fxLayout="column"
           fxLayoutAlign="space-evenly center"
         >
-          <div fxLayout="row" fxFlex="50" fxLayoutAlign="start center">
-            <div fxFlex class="sec-3">
+          <div
+            fxLayout="row"
+            fxFlex="50"
+            fxLayoutAlign="start center"
+            fxLayoutGap="20"
+          >
+            <div>
               <!-- Tournament Name -->
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Tournament Name</mat-label>
                 <input matInput readonly="" [value]="tournamentName" />
               </mat-form-field>
             </div>
-            <div fxFlex class="sec-3">
+            <div fxFlex>
               <!-- Tournament Name -->
               <mat-form-field fxFlex appearance="outline">
                 <mat-label>Batting Team</mat-label>
@@ -41,8 +46,13 @@
           <div fxLayout="row" fxFlex="50" fxLayoutAlign="space-between center">
             <!-- Tournament Name -->
             <mat-form-field class="sec-3" appearance="outline">
+              <mat-label>Balls Left</mat-label>
+              <input matInput readonly="" [value]="currentOver.ballsLeft" />
+            </mat-form-field>
+            <!-- Tournament Name -->
+            <mat-form-field class="sec-3" appearance="outline">
               <mat-label>Current Over</mat-label>
-              <input matInput readonly="" [value]="currentOver" />
+              <input matInput readonly="" [value]="currentOver.currentOver" />
             </mat-form-field>
 
             <!-- Tournament Name -->
