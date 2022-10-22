@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Over } from '../../i/over';
+import { OverData } from '../../i/over-data';
 
 @Component({
   selector: 'crx-over-card',
@@ -8,6 +9,7 @@ import { Over } from '../../i/over';
 })
 export class OverCardComponent implements OnInit {
   @Input() over: Over = { overNumber: 0, balls: [] };
+  @Input() currentOver?: OverData;
 
   constructor() {}
 

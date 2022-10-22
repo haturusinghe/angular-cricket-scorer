@@ -1,4 +1,30 @@
-<section>
+<section *ngIf="currentOver">
+  <mat-card>
+    <mat-card-title
+      >Current Over : {{ currentOver.currentOver }}</mat-card-title
+    >
+    <mat-card-subtitle
+      >Balls Left in Over: {{ currentOver.ballsLeft }}</mat-card-subtitle
+    >
+    <mat-card-content *ngIf="currentOver.balls">
+      <mat-list>
+        <div mat-subheader>Balls</div>
+        <mat-list-item *ngFor="let b of currentOver.balls">
+          <mat-chip mat-list-icon color="primary"
+            ><span class="run-chip">{{ b.runs }}</span></mat-chip
+          >
+          <div mat-line>{{ b.striker?.first_name }}</div>
+
+          <button mat-icon-button>
+            <mat-icon class="mat-12">edit</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</section>
+
+<section *ngIf="over.overNumber != 0">
   <mat-card>
     <mat-card-title>Over {{ over.overNumber }}</mat-card-title>
     <mat-card-content *ngIf="over.balls.length > 0">
