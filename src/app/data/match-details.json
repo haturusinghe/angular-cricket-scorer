@@ -8,12 +8,10 @@
   "toss": { "won": "teamA", "decision": "BAT" },
   "over-balls": [{ "over-number": 1 }],
   "ball": {
-    "id": 1,
-    "striker": "Striker Name",
     "run": 2,
-    "bowler": "Bowler Name",
     "is4": false,
     "is6": false,
-    "Out": {"type":"BOWLED"}
+    "extras": ["W", "B"],
+    "Out": { "type": "BOWLED" }
   }
 }
