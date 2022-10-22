@@ -7,6 +7,7 @@ import { Team } from '../i/team';
 import { OverData } from '../i/over-data';
 import { BowlerScore } from '../i/bowler-score';
 import { BatterScore } from '../i/player-score';
+import { TeamScore } from '../i/team-score';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,13 @@ export class MatchDataServiceService {
   battingTeamIndex: number = 1;
   bowlerTeamIndex: number = 0;
   totalOvers: number = 50;
+
+  battingTeamScore: TeamScore = {
+    teamName: this.teams[this.battingTeamIndex].teamName,
+    inning: '1st',
+    totalScore: 0,
+    wickets: 0,
+  };
 
   currentOver: OverData = { currentOver: 1, ballsLeft: 6 };
 
@@ -111,6 +119,11 @@ export class MatchDataServiceService {
     return overs;
   }
 
+  getBattingTeamScore(): Observable<TeamScore> {
+    const bts = of(this.battingTeamScore);
+    return bts;
+  }
+
   getMatchMetaDetails() {
     return {
       tName: this.tournamentName,
@@ -135,6 +148,7 @@ export class MatchDataServiceService {
     }
     //Update Bowler Score
     this.bowler.runs += ball.runs + extraScore;
+    this.battingTeamScore.totalScore += ball.runs + extraScore;
 
     //Updating Striker Score
     this.striker.ballsFaced++;
