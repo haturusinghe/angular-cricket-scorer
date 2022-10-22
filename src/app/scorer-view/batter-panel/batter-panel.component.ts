@@ -39,9 +39,7 @@ export class BatterPanelComponent implements OnInit {
   constructor(private matchDataService: MatchDataServiceService) {}
 
   ngOnInit(): void {
-    this.getStriker();
-    this.getNonStriker();
-    this.batTableData = [this.striker, this.nonStriker];
+    this.updatePlayers();
   }
 
   getStriker(): void {
@@ -56,8 +54,19 @@ export class BatterPanelComponent implements OnInit {
       .subscribe((n) => (this.nonStriker = n));
   }
 
-  displayTest() {
-    console.log(this.striker);
-    console.log(this.nonStriker);
+  updatePlayers() {
+    this.getStriker();
+    this.getNonStriker();
+    this.batTableData = [this.striker, this.nonStriker];
+  }
+
+  changeStriker() {
+    this.matchDataService.changeStriker();
+    this.updatePlayers();
+  }
+
+  swapSides() {
+    this.matchDataService.swapBatsman();
+    this.updatePlayers();
   }
 }

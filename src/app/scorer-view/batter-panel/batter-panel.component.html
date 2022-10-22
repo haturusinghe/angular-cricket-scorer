@@ -59,8 +59,16 @@
             <mat-option value="cd">Cover Drive</mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-raised-button color color="primary" (click)="displayTest()">
+        <button
+          mat-raised-button
+          color
+          color="primary"
+          (click)="changeStriker()"
+        >
           Change Striker
+        </button>
+        <button mat-raised-button color color="primary" (click)="swapSides()">
+          Swap Sides
         </button>
       </div>
     </mat-card-content>
