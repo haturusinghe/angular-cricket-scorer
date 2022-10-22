@@ -1,0 +1,24 @@
+<section>
+  <mat-card>
+    <mat-card-title>Over {{ over.overNumber }}</mat-card-title>
+    <mat-card-content *ngIf="over.balls.length > 0">
+      <mat-divider></mat-divider>
+      <mat-list>
+        <div mat-subheader>Balls</div>
+        <mat-list-item *ngFor="let b of over.balls">
+          <mat-chip mat-list-icon color="primary"
+            ><span class="run-chip">{{ b.runs }}</span></mat-chip
+          >
+          <div mat-line>{{ b.runs }}</div>
+
+          <button mat-icon-button>
+            <mat-icon class="mat-12">edit</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+      <!-- <div *ngFor="let b of over.balls">
+        {{ b.runs }}
+      </div> -->
+    </mat-card-content>
+  </mat-card>
+</section>
