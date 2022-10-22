@@ -21,6 +21,7 @@ export class MatchDataServiceService {
   tournamentName: string = 'England Tour of Sri Lanka';
   teams: Team[] = this.playerDataService.getTeams();
   battingTeamIndex: number = 1;
+  bowlerTeamIndex: number = 0;
   totalOvers: number = 50;
 
   currentOver: OverData = { currentOver: 1, ballsLeft: 6 };
@@ -45,9 +46,50 @@ export class MatchDataServiceService {
   };
 
   //Bowler
-  bowler?: BowlerScore;
+  bowler?: BowlerScore = {
+    player: this.teams[this.bowlerTeamIndex].players[3],
+    runs: 0,
+    maidenOvers: 0,
+    overs: 0,
+    wickets: 0,
+    economyRate: 0,
+  };
 
   constructor(private playerDataService: PlayerDataService) {}
+
+  changeBowler() {
+    const index = Math.floor(
+      Math.random() * this.teams[this.bowlerTeamIndex].players.length
+    );
+    this.bowler = {
+      player: this.teams[this.battingTeamIndex].players[index],
+      runs: 0,
+      maidenOvers: 0,
+      overs: 0,
+      wickets: 0,
+      economyRate: 0,
+    };
+  }
+
+  changeStriker() {
+    const index = Math.floor(
+      Math.random() * this.teams[this.battingTeamIndex].players.length
+    );
+    this.striker = {
+      player: this.teams[this.battingTeamIndex].players[index],
+      runs: 0,
+      ballsFaced: 0,
+      fours: 0,
+      sixes: 0,
+      strikeRate: 0,
+    };
+  }
+
+  swapBatsman() {
+    let temp = this.striker;
+    this.striker = this.nonStriker;
+    this.nonStriker = temp;
+  }
 
   getStrikerDetails(): Observable<BatterScore> {
     const striker = of(this.striker);
