@@ -53,6 +53,7 @@ export class RunsPanelComponent implements OnInit {
         type: this.isWicket ? this.wicketControl.value?.toString() : '',
       },
     });
+    this.resetPanel();
   }
 
   resetPanel() {
