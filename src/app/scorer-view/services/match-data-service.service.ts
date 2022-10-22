@@ -8,6 +8,7 @@ import { OverData } from '../i/over-data';
 import { BowlerScore } from '../i/bowler-score';
 import { BatterScore } from '../i/player-score';
 import { TeamScore } from '../i/team-score';
+import { Player } from '../i/player';
 
 @Injectable({
   providedIn: 'root',
@@ -65,12 +66,24 @@ export class MatchDataServiceService {
 
   constructor(private playerDataService: PlayerDataService) {}
 
-  changeBowler() {
+  getBattingTeamPlayers(): Observable<Player[]> {
+    const batters = of(this.teams[this.battingTeamIndex].players);
+    return batters;
+  }
+
+  getBowlingTeamPlayers(): Observable<Player[]> {
+    const bowlers = of(this.teams[this.bowlerTeamIndex].players);
+    return bowlers;
+  }
+
+  changeBowler(player: Player) {
     const index = Math.floor(
       Math.random() * this.teams[this.bowlerTeamIndex].players.length
     );
+    let randomPlayer = this.teams[this.battingTeamIndex].players[index];
+
     this.bowler = {
-      player: this.teams[this.battingTeamIndex].players[index],
+      player: player,
       runs: 0,
       maidenOvers: 0,
       overs: 0,
