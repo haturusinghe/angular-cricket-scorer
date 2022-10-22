@@ -5,6 +5,8 @@ import { Observable, of } from 'rxjs';
 import { PlayerDataService } from './player-data.service';
 import { Team } from '../i/team';
 import { OverData } from '../i/over-data';
+import { BowlerScore } from '../i/bowler-score';
+import { BatterScore } from '../i/player-score';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +25,39 @@ export class MatchDataServiceService {
 
   currentOver: OverData = { currentOver: 1, ballsLeft: 6 };
 
+  // Batters
+  striker: BatterScore = {
+    player: this.teams[this.battingTeamIndex].players[2],
+    runs: 0,
+    ballsFaced: 0,
+    fours: 0,
+    sixes: 0,
+    strikeRate: 0,
+  };
+
+  nonStriker: BatterScore = {
+    player: this.teams[this.battingTeamIndex].players[3],
+    runs: 0,
+    ballsFaced: 0,
+    fours: 0,
+    sixes: 0,
+    strikeRate: 0,
+  };
+
+  //Bowler
+  bowler?: BowlerScore;
+
   constructor(private playerDataService: PlayerDataService) {}
+
+  getStrikerDetails(): Observable<BatterScore> {
+    const striker = of(this.striker);
+    return striker;
+  }
+
+  getNonStrikerDetails(): Observable<BatterScore> {
+    const nonStriker = of(this.nonStriker);
+    return nonStriker;
+  }
 
   getOverDetails(): Observable<Over[]> {
     const overs = of(this.allOvers);
@@ -44,20 +78,6 @@ export class MatchDataServiceService {
   }
 
   recordBall(ball: Ball) {
-    /* if (this.ballLeftForOver < 1) {
-      this.ballLeftForOver = 6;
-      this.overs.push(this.currentOverData);
-      this.currentOverData.overNumber++;
-      console.log(this.overs);
-    }
-
-    if (!ball.extras.includes('W') || !ball.extras.includes('WD')) {
-      this.ballLeftForOver--;
-    }
-
-    this.currentOverData.balls.push(ball);
-    console.log(this.currentOverData); */
-
     if (this.ballLeftForOver < 1) {
       this.allOvers.push({
         overNumber: this.currentOverNumber,
@@ -90,5 +110,18 @@ export class MatchDataServiceService {
       this.currentOver.currentOver++;
       this.currentOver.ballsLeft = 6;
     }
+    /* if (this.ballLeftForOver < 1) {
+      this.ballLeftForOver = 6;
+      this.overs.push(this.currentOverData);
+      this.currentOverData.overNumber++;
+      console.log(this.overs);
+    }
+
+    if (!ball.extras.includes('W') || !ball.extras.includes('WD')) {
+      this.ballLeftForOver--;
+    }
+
+    this.currentOverData.balls.push(ball);
+    console.log(this.currentOverData); */
   }
 }
