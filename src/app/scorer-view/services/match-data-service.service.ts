@@ -92,12 +92,13 @@ export class MatchDataServiceService {
     };
   }
 
-  changeStriker() {
+  changeStriker(player: Player) {
     const index = Math.floor(
       Math.random() * this.teams[this.battingTeamIndex].players.length
     );
+    let randomPlayer = this.teams[this.battingTeamIndex].players[index];
     this.striker = {
-      player: this.teams[this.battingTeamIndex].players[index],
+      player: player,
       runs: 0,
       ballsFaced: 0,
       fours: 0,

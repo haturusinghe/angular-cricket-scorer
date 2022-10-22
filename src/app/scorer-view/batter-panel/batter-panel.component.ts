@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangeBatsmanComponent } from '../change-batsman/change-batsman.component';
+import { Player } from '../i/player';
 import { BatterScore } from '../i/player-score';
 import { MatchDataServiceService } from '../services/match-data-service.service';
-
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'crx-batter-panel',
   templateUrl: './batter-panel.component.html',
   styleUrls: ['./batter-panel.component.scss'],
 })
 export class BatterPanelComponent implements OnInit {
+  selectedBatsman?: Player;
   displayColumns: string[] = [
     'player',
     'runs',
@@ -36,7 +39,10 @@ export class BatterPanelComponent implements OnInit {
 
   batTableData = [this.striker, this.nonStriker];
 
-  constructor(private matchDataService: MatchDataServiceService) {}
+  constructor(
+    private matchDataService: MatchDataServiceService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.updatePlayers();
@@ -61,8 +67,21 @@ export class BatterPanelComponent implements OnInit {
   }
 
   changeStriker() {
-    this.matchDataService.changeStriker();
-    this.updatePlayers();
+    const dialogRef = this.dialog.open(ChangeBatsmanComponent, {
+      width: '300px',
+      data: { selectedPlayer: this.selectedBatsman },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.selectedBatsman = result;
+      if (result) {
+        this.matchDataService.changeStriker(result);
+        this.updatePlayers();
+      }
+    });
+
+    /*     this.matchDataService.changeStriker();
+    this.updatePlayers(); */
   }
 
   swapSides() {
