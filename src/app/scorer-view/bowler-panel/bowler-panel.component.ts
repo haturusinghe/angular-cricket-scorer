@@ -39,18 +39,14 @@ export class BowlerPanelComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.updatePlayers();
+    this.getBowler();
   }
 
   getBowler(): void {
-    this.matchDataService
-      .getBowlerDetails()
-      .subscribe((b) => (this.bowler = b));
-  }
-
-  updatePlayers() {
-    this.getBowler();
-    this.bowlerTableData = [this.bowler];
+    this.matchDataService.getBowlerDetails().subscribe((b) => {
+      this.bowler = b;
+      this.bowlerTableData = [this.bowler];
+    });
   }
 
   changeBowler() {
@@ -63,7 +59,7 @@ export class BowlerPanelComponent implements OnInit {
       this.selectedBowler = result;
       if (result) {
         this.matchDataService.changeBowler(result);
-        this.updatePlayers();
+        this.getBowler();
       }
     });
   }
