@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BowlerScore } from '../i/bowler-score';
 import { MatchDataServiceService } from '../services/match-data-service.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ChangeBowlerComponent } from '../change-bowler/change-bowler.component';
+import { Player } from '../i/player';
 
 @Component({
   selector: 'crx-bowler-panel',
@@ -8,6 +11,8 @@ import { MatchDataServiceService } from '../services/match-data-service.service'
   styleUrls: ['./bowler-panel.component.scss'],
 })
 export class BowlerPanelComponent implements OnInit {
+  selectedBowler?: Player;
+
   displayColumns: string[] = [
     'player',
     'runs',
@@ -28,7 +33,10 @@ export class BowlerPanelComponent implements OnInit {
 
   bowlerTableData = [this.bowler];
 
-  constructor(private matchDataService: MatchDataServiceService) {}
+  constructor(
+    private matchDataService: MatchDataServiceService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.updatePlayers();
@@ -46,9 +54,17 @@ export class BowlerPanelComponent implements OnInit {
   }
 
   changeBowler() {
-    this.matchDataService.changeBowler();
-    this.updatePlayers();
+    const dialogRef = this.dialog.open(ChangeBowlerComponent, {
+      width: '300px',
+      data: { selectedPlayer: this.selectedBowler },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      this.selectedBowler = result;
+      if (result) {
+        this.matchDataService.changeBowler(result);
+        this.updatePlayers();
+      }
+    });
   }
 }
-
-
