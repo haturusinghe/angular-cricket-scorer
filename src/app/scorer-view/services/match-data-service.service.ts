@@ -28,7 +28,7 @@ export class MatchDataServiceService {
   // Batters
   striker: BatterScore = {
     player: this.teams[this.battingTeamIndex].players[2],
-    runs: 0,
+    runs: 10,
     ballsFaced: 0,
     fours: 0,
     sixes: 0,
@@ -38,7 +38,7 @@ export class MatchDataServiceService {
   nonStriker: BatterScore = {
     player: this.teams[this.battingTeamIndex].players[3],
     runs: 0,
-    ballsFaced: 0,
+    ballsFaced: 50,
     fours: 0,
     sixes: 0,
     strikeRate: 0,
