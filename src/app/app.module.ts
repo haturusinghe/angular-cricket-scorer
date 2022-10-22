@@ -42,6 +42,7 @@ import { TeamScoresComponent } from './scorer-view/team-scores/team-scores.compo
   imports: [
     ReactiveFormsModule,
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialExampleModule,
