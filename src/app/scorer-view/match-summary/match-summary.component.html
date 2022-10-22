@@ -4,13 +4,18 @@
     <mat-card-subtitle>Infromation on the Match</mat-card-subtitle>
     <mat-card-content>
       <mat-divider></mat-divider>
-      <mat-card-subtitle class="batting-team-title"
-        >England, 1st Inning</mat-card-subtitle
-      >
-      <div>
-        <h1>19 - 0</h1>
+      <div *ngIf="battingTeamScore">
+        <mat-card-subtitle class="batting-team-title"
+          >{{ battingTeamScore.teamName }},
+          {{ battingTeamScore.inning }} Inning</mat-card-subtitle
+        >
+        <div>
+          <h1>
+            {{ battingTeamScore.totalScore }} - {{ battingTeamScore.wickets }}
+          </h1>
+        </div>
+        <!-- Team Score -->
       </div>
-      <!-- Team Score -->
 
       <mat-divider></mat-divider>
 
