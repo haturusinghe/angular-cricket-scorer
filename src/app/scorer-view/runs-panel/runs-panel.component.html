@@ -1,6 +1,14 @@
 <section>
   <mat-card>
-    <mat-card-title>Runs Panel</mat-card-title>
+    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center"
+      >Runs Panel
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+        <button mat-button color="warn" (click)="resetPanel()">Reset</button>
+        <button mat-raised-button color="primary" (click)="onClick()">
+          Record Ball
+        </button>
+      </div></mat-card-title
+    >
     <mat-card-subtitle>Select the Runs</mat-card-subtitle>
 
     <mat-card-content>
@@ -72,11 +80,5 @@
         </mat-panel-description>
       </mat-expansion-panel>
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-button color="warn" (click)="resetPanel()">Reset</button>
-      <button mat-raised-button color="primary" (click)="onClick()">
-        Record Ball
-      </button>
-    </mat-card-actions>
   </mat-card>
 </section>
