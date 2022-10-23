@@ -68,7 +68,7 @@ export class MatchDataServiceService {
     economyRate: 0,
   };
   lastBowlSpeed: number = 0;
-  lastBowlType: String = '';
+  lastBowlType: string = '';
 
   constructor(
     private playerDataService: PlayerDataService,
@@ -174,7 +174,12 @@ export class MatchDataServiceService {
   recordBall(ball: Ball) {
     //Update the Striker and Bowler for this
     ball.bowler = this.bowler.player;
+    ball.bowlType = this.lastBowlType;
+    ball.bowlSpeed = this.lastBowlSpeed;
+
     ball.striker = this.striker.player;
+    ball.shotType = this.lastShotPlayed;
+    ball.nonStriker = this.nonStriker.player;
 
     let extraScore: number = 0;
     if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
@@ -253,6 +258,8 @@ export class MatchDataServiceService {
         this.changeStriker(p);
       });
     }
+
+    console.log(ball);
   }
 
   /* changeCurrentBowler() {

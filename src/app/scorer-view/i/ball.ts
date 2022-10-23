@@ -10,6 +10,10 @@ export interface Ball {
   is6: boolean;
   extras: string[];
   striker?: Player;
+  shotType?: string;
+  nonStriker?: Player;
   bowler?: Player;
+  bowlType?: string;
+  bowlSpeed?: number;
   Out: Out;
 }
