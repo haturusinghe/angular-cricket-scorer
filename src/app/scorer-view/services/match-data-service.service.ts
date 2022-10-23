@@ -44,6 +44,7 @@ export class MatchDataServiceService {
     fours: 0,
     sixes: 0,
     strikeRate: 0,
+    isStrikingNow: true,
   };
   lastShotPlayed: string = '';
 
@@ -54,6 +55,7 @@ export class MatchDataServiceService {
     fours: 0,
     sixes: 0,
     strikeRate: 0,
+    isStrikingNow: false,
   };
 
   //Bowler
@@ -98,22 +100,28 @@ export class MatchDataServiceService {
   }
 
   changeStriker(player: Player) {
-    const index = Math.floor(
+    /* const index = Math.floor(
       Math.random() * this.teams[this.battingTeamIndex].players.length
     );
-    let randomPlayer = this.teams[this.battingTeamIndex].players[index];
+    let randomPlayer = this.teams[this.battingTeamIndex].players[index]; */
+
     this.striker.player = player;
     this.striker.ballsFaced = 0;
     this.striker.fours = 0;
     this.striker.runs = 0;
     this.striker.sixes = 0;
     this.striker.strikeRate = 0;
+    this.striker.isStrikingNow = true;
   }
 
   swapBatsman() {
     let temp = this.striker;
     this.striker = this.nonStriker;
     this.nonStriker = temp;
+
+    //
+    this.striker.isStrikingNow = true;
+    this.nonStriker.isStrikingNow = false;
   }
 
   getStrikerDetails(): Observable<BatterScore> {

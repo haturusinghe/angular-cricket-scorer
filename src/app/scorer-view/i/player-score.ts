@@ -7,4 +7,5 @@ export interface BatterScore {
   sixes: number;
   fours: number;
   strikeRate: number;
+  isStrikingNow?: boolean;
 }

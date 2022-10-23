@@ -26,7 +26,15 @@
         <!-- Position Column -->
         <ng-container matColumnDef="player">
           <th mat-header-cell *matHeaderCellDef>Batsman</th>
-          <td mat-cell *matCellDef="let element">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [ngStyle]="{
+              'background-color':
+                element.isStrikingNow == true ? '#5f5fc4' : '#ffffff',
+              color: element.isStrikingNow == true ? '#fff' : 'black'
+            }"
+          >
             {{ element.player.first_name }} {{ element.player.last_name }}
           </td>
         </ng-container>
