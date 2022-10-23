@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Options } from '@angular-slider/ngx-slider';
+import { MatchDataServiceService } from '../services/match-data-service.service';
 @Component({
   selector: 'crx-wagon-wheel-selector',
   templateUrl: './wagon-wheel-selector.component.html',
@@ -14,7 +15,7 @@ export class WagonWheelSelectorComponent implements OnInit {
     floor: 0,
     ceil: 360,
   };
-  constructor() {}
+  constructor(private matchDataService: MatchDataServiceService) {}
 
   ngOnInit(): void {}
 
@@ -24,5 +25,6 @@ export class WagonWheelSelectorComponent implements OnInit {
     let theta = Math.atan2(dy, dx);
     theta *= 180 / Math.PI; // rads to degs
     this.shotAngle = (theta + 360 + 90) % 360;
+    this.matchDataService.changeLastShotAngle(this.shotAngle);
   }
 }

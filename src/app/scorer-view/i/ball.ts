@@ -11,6 +11,7 @@ export interface Ball {
   extras: string[];
   striker?: Player;
   shotType?: string;
+  shotAngle?: number;
   nonStriker?: Player;
   bowler?: Player;
   bowlType?: string;

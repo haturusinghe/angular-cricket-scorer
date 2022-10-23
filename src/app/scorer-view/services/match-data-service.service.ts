@@ -47,6 +47,7 @@ export class MatchDataServiceService {
     isStrikingNow: true,
   };
   lastShotPlayed: string = '';
+  lastShotAngle: number = 0;
 
   nonStriker: BatterScore = {
     player: this.teams[this.battingTeamIndex].players[3],
@@ -77,6 +78,10 @@ export class MatchDataServiceService {
 
   changeLastShotType(shot: string) {
     this.lastShotPlayed = shot;
+  }
+
+  changeLastShotAngle(angle: number) {
+    this.lastShotAngle = angle;
   }
 
   changeLastBowlInfo(type: string, speed: number) {
@@ -179,6 +184,8 @@ export class MatchDataServiceService {
 
     ball.striker = this.striker.player;
     ball.shotType = this.lastShotPlayed;
+    ball.shotAngle = this.lastShotAngle;
+
     ball.nonStriker = this.nonStriker.player;
 
     let extraScore: number = 0;
