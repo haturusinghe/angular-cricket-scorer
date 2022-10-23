@@ -4,6 +4,7 @@ import { MatchDataServiceService } from '../services/match-data-service.service'
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChangeBowlerComponent } from '../change-bowler/change-bowler.component';
 import { Player } from '../i/player';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'crx-bowler-panel',
@@ -32,6 +33,18 @@ export class BowlerPanelComponent implements OnInit {
   };
 
   bowlerTableData = [this.bowler];
+
+  bowlVals: string[] = [
+    'Bouncer',
+    'Outswinger',
+    'Inswingers',
+    'Reverse Swing',
+    'Leg and Off Cutter',
+    'Yorker',
+    'Slower Ball',
+  ];
+  selectedBowl = this.bowlVals[0];
+  bowlSpeed: number = 0;
 
   constructor(
     private matchDataService: MatchDataServiceService,
@@ -62,5 +75,10 @@ export class BowlerPanelComponent implements OnInit {
         this.getBowler();
       }
     });
+  }
+
+  updateBowlInfo() {
+    console.log(this.selectedBowl, this.bowlSpeed);
+    this.matchDataService.changeLastBowlInfo(this.selectedBowl, this.bowlSpeed);
   }
 }
