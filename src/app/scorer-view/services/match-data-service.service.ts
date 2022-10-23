@@ -75,6 +75,15 @@ export class MatchDataServiceService {
     private playerChangeService: PlayerChangeService
   ) {}
 
+  changeLastShotType(shot: string) {
+    this.lastShotPlayed = shot;
+  }
+
+  changeLastBowlInfo(type: string, speed: number) {
+    this.lastBowlType = type;
+    this.lastBowlSpeed = speed;
+  }
+
   getBattingTeamPlayers(): Observable<Player[]> {
     const batters = of(this.teams[this.battingTeamIndex].players);
     return batters;
