@@ -10,6 +10,7 @@ import { BatterScore } from '../i/player-score';
 import { TeamScore } from '../i/team-score';
 import { Player } from '../i/player';
 import { PlayerChangeService } from './player-change.service';
+import { PreGameDataService } from './pre-game-data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -73,7 +74,8 @@ export class MatchDataServiceService {
 
   constructor(
     private playerDataService: PlayerDataService,
-    private playerChangeService: PlayerChangeService
+    private playerChangeService: PlayerChangeService,
+    private preGameDataService: PreGameDataService
   ) {}
 
   changeLastShotType(shot: string) {

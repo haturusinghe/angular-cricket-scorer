@@ -30,6 +30,8 @@ import { ByBallComponent } from './scorer-view/by-ball/by-ball.component';
 import { OverCardComponent } from './scorer-view/by-ball/over-card/over-card.component';
 import { ChangeBatsmanComponent } from './scorer-view/change-batsman/change-batsman.component';
 import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler.component';
+import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
+import { TeamsComponent } from './scorer-view/pre-game/teams/teams.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler
     OverCardComponent,
     ChangeBatsmanComponent,
     ChangeBowlerComponent,
+    PreGameComponent,
+    TeamsComponent,
   ],
   imports: [
     ReactiveFormsModule,
