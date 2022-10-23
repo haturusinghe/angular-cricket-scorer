@@ -4,6 +4,7 @@ import { Player } from '../i/player';
 import { BatterScore } from '../i/player-score';
 import { MatchDataServiceService } from '../services/match-data-service.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'crx-batter-panel',
   templateUrl: './batter-panel.component.html',
@@ -38,6 +39,18 @@ export class BatterPanelComponent implements OnInit {
   };
 
   batTableData = [this.striker, this.nonStriker];
+
+  shotVals: string[] = [
+    'Defensive shot',
+    'Drive',
+    'Flick',
+    'Cut',
+    'Square drive',
+    'Pull and hook',
+    'Sweep',
+    'Reverse sweep',
+  ];
+  selectedShot = this.shotVals[1];
 
   constructor(
     private matchDataService: MatchDataServiceService,
@@ -87,5 +100,9 @@ export class BatterPanelComponent implements OnInit {
   swapSides() {
     this.matchDataService.swapBatsman();
     this.updatePlayers();
+  }
+
+  updateLastShot() {
+    this.matchDataService.changeLastShotType(this.selectedShot);
   }
 }

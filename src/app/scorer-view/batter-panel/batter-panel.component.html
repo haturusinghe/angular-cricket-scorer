@@ -79,8 +79,14 @@
       >
         <mat-form-field appearance="outline">
           <mat-label>Shot Played</mat-label>
-          <mat-select>
-            <mat-option value="cd">Cover Drive</mat-option>
+          <mat-select
+            [(ngModel)]="selectedShot"
+            name="shotType"
+            (ngModelChange)="updateLastShot()"
+          >
+            <mat-option *ngFor="let s of shotVals" [value]="s">
+              {{ s }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
