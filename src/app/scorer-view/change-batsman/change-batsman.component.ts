@@ -60,6 +60,8 @@ export class ChangeBatsmanComponent implements OnInit {
   }
 
   save() {
-    this.dialogRef.close(this.myControl.value);
+    if (this.myControl.value) {
+      this.dialogRef.close(this.myControl.value);
+    }
   }
 }

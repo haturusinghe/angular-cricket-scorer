@@ -18,6 +18,7 @@ export class PlayerChangeService {
   changeBowler(): Observable<Player> {
     const dialogRef = this.dialog.open(ChangeBowlerComponent, {
       width: '300px',
+      disableClose: true,
       data: { selectedPlayer: this.selectedBowler },
     });
 
@@ -32,6 +33,7 @@ export class PlayerChangeService {
   changeStriker(): Observable<Player> {
     const dialogRef = this.dialog.open(ChangeBatsmanComponent, {
       width: '300px',
+      disableClose: true,
       data: { selectedPlayer: this.selectedBatsman },
     });
 

@@ -45,6 +45,7 @@ export class MatchDataServiceService {
     sixes: 0,
     strikeRate: 0,
   };
+  lastShotPlayed: string = '';
 
   nonStriker: BatterScore = {
     player: this.teams[this.battingTeamIndex].players[3],
@@ -64,6 +65,8 @@ export class MatchDataServiceService {
     wickets: 0,
     economyRate: 0,
   };
+  lastBowlSpeed: number = 0;
+  lastBowlType: String = '';
 
   constructor(
     private playerDataService: PlayerDataService,
@@ -235,7 +238,7 @@ export class MatchDataServiceService {
     }
   }
 
-    /* changeCurrentBowler() {
+  /* changeCurrentBowler() {
     this.playerChangeService.getBowlerDetails().subscribe((p) => {
       console.log(p);
       this.changeBowler(p);
