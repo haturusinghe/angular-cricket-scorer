@@ -24,7 +24,13 @@ export class WagonWheelSelectorComponent implements OnInit {
     const dx = event.offsetX - event.target.clientWidth / 2;
     let theta = Math.atan2(dy, dx);
     theta *= 180 / Math.PI; // rads to degs
-    this.shotAngle = (theta + 360 + 90) % 360;
+    this.shotAngle = Math.floor((theta + 360 + 90) % 360);
     this.matchDataService.changeLastShotAngle(this.shotAngle);
+    console.log(this.shotAngle);
+  }
+
+  sliderEvent() {
+    this.matchDataService.changeLastShotAngle(this.shotAngle);
+    console.log(this.shotAngle);
   }
 }

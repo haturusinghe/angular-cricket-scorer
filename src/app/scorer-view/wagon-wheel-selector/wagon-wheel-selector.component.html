@@ -25,7 +25,11 @@
             />
           </div>
           <div>
-            <ngx-slider [(value)]="shotAngle" [options]="options"></ngx-slider>
+            <ngx-slider
+              [(value)]="shotAngle"
+              [options]="options"
+              (userChangeEnd)="sliderEvent()"
+            ></ngx-slider>
           </div>
         </div>
       </div>
