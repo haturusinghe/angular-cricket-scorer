@@ -10,7 +10,7 @@ export class WagonWheelSelectorComponent implements OnInit {
   linePosX: number = 20;
   linePosY: number = 60;
   sliderProps = {};
-  shotAngle: number = 90;
+  shotAngle: number = 0;
   options: Options = {
     floor: 0,
     ceil: 360,
