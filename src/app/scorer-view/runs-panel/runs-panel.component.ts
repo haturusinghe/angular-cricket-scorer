@@ -66,6 +66,7 @@ export class RunsPanelComponent implements OnInit {
     });
     this.selectedRun = '0';
     this.isWicket = false;
+    this.run = 0;
   }
 
   setWicketStatus() {
@@ -75,6 +76,8 @@ export class RunsPanelComponent implements OnInit {
   updateExtraValues(val: Extra) {
     if (val.value == 'WD' && val.isOn) {
       this.extraVals[1].isOn = false;
+      this.extraValsBys[0].isOn = false;
+      this.extraValsBys[1].isOn = false;
     }
 
     if (val.value == 'NB' && val.isOn) {
@@ -83,10 +86,12 @@ export class RunsPanelComponent implements OnInit {
 
     if (val.value == 'By' && val.isOn) {
       this.extraValsBys[1].isOn = false;
+      this.extraVals[0].isOn = false;
     }
 
     if (val.value == 'LBy' && val.isOn) {
       this.extraValsBys[0].isOn = false;
+      this.extraVals[0].isOn = false;
     }
 
     this.extrasToSend.clear();
