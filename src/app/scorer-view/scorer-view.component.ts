@@ -1,3 +1,4 @@
+import { PreGameDataService } from './services/pre-game-data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 @Component({
@@ -8,8 +9,17 @@ import { FormControl } from '@angular/forms';
 export class ScorerViewComponent implements OnInit {
   currentStrikerControl = new FormControl('');
   player?: string;
+  startGame: boolean = false;
+  constructor(private preGameDataService: PreGameDataService) {}
 
-  constructor() {}
+  ngOnInit(): void {
+    this.gameStart();
+  }
 
-  ngOnInit(): void {}
+  gameStart(): void {
+    this.preGameDataService.start().subscribe((s) => (this.startGame = s));
+  }
+  newGame() {
+    this.preGameDataService.setStart(true);
+  }
 }

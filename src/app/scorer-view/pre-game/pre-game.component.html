@@ -1,4 +1,4 @@
-<div class="steper">
+<div class="steper" *ngIf="!startGame">
   <mat-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup" label="Select Teams ">
       <div class="steper">
@@ -29,7 +29,7 @@
         </mat-form-field>
         <div>
           <button
-            *ngIf="selectedValue2"
+            *ngIf="selectedValue2 && selectedValue1"
             mat-button
             matStepperNext
             (onclick)="getPlayingTeams()"
@@ -45,11 +45,15 @@
         <div class="teams">
           <div *ngIf="selectedValue1" class="team">
             <h3>{{ selectedValue1 }}</h3>
+            <h3>Players selected : {{ playingXi[0].players.length }}</h3>
             <section class="example-section">
               <span class="example-list-section">
                 <ul>
                   <li *ngFor="let player of playingTeams[0].players">
-                    <mat-checkbox [(ngModel)]="player.checked">
+                    <mat-checkbox
+                      [(ngModel)]="player.checked"
+                      (change)="selectPlayingXi(0)"
+                    >
                       {{ player.first_name }} {{ player.last_name }}
                     </mat-checkbox>
                   </li>
@@ -60,11 +64,15 @@
 
           <div *ngIf="selectedValue2" class="team">
             <h3>{{ selectedValue2 }}</h3>
+            <h3>Players selected : {{ playingXi[1].players.length }}</h3>
             <section class="example-section">
               <span class="example-list-section">
                 <ul>
                   <li *ngFor="let player of playingTeams[1].players">
-                    <mat-checkbox [(ngModel)]="player.checked">
+                    <mat-checkbox
+                      [(ngModel)]="player.checked"
+                      (change)="selectPlayingXi(1)"
+                    >
                       {{ player.first_name }} {{ player.last_name }}
                     </mat-checkbox>
                   </li>
@@ -75,7 +83,7 @@
         </div>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext *ngIf="next">Next</button>
         </div>
       </div>
     </mat-step>
@@ -104,7 +112,9 @@
         </mat-form-field>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="onSubmit()">New Game</button>
+          <button mat-button *ngIf="toss && role" (onclick)="newGames()">
+            New Game
+          </button>
         </div>
       </div>
     </mat-step>

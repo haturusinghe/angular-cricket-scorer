@@ -1,7 +1,7 @@
 import { Player } from './../i/player';
 // import { GameDetailsService } from './../game-details.service';
 // import { team } from './../teams/team';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 // import { Teams } from '../teams/mockTeam';
@@ -18,15 +18,20 @@ import { PreGameDataService } from '../services/pre-game-data.service';
   styleUrls: ['./pre-game.component.scss'],
 })
 export class PreGameComponent implements OnInit {
+  // @Output('newGame') newGame: EventEmitter<any> = new EventEmitter();
+
   teams!: Team[];
   selectedValue1!: string;
   selectedValue2!: string;
 
   teamx!: Player[];
   teamy!: Player[];
-
+  next: boolean = false;
   toss!: string;
   role!: string;
+
+  startGame: boolean = false;
+
   playingTeams: Team[] = [
     {
       teamName: 'SL',
@@ -38,11 +43,19 @@ export class PreGameComponent implements OnInit {
     },
   ];
 
-  playingXi: Team[] = this.playingTeams;
+  playingXi!: Team[];
 
   ngOnInit(): void {
     this.getAllTeams();
     this.getPlayingTeams();
+    this.getPlayingTeamXi();
+    this.setToss();
+    this.setRole();
+    this.gameStart();
+  }
+
+  gameStart(): void {
+    this.preGameDataService.start().subscribe((s) => (this.startGame = s));
   }
 
   getAllTeams(): void {
@@ -52,6 +65,11 @@ export class PreGameComponent implements OnInit {
     this.preGameDataService
       .getPlayingTeams()
       .subscribe((s) => (this.playingTeams = s));
+  }
+  getPlayingTeamXi(): void {
+    this.preGameDataService
+      .getPlayingTeamXi()
+      .subscribe((s) => (this.playingXi = s));
   }
 
   setToss() {
@@ -67,28 +85,25 @@ export class PreGameComponent implements OnInit {
         this.preGameDataService.addPlayingTeams(team, n);
       }
     });
-    this.getPlayingTeams();
   }
 
-  onSubmit(): void {
-    this.playingXi[0].teamName = this.playingTeams[0].teamName;
-    this.playingXi[0].players = this.playingTeams[0].players.filter(
+  selectPlayingXi(n: number): void {
+    this.playingXi[n].teamName = this.playingTeams[n].teamName;
+
+    this.playingXi[n].players = this.playingTeams[n].players.filter(
       (x: Player) => x.checked == true
     );
 
-    this.preGameDataService.setPlayingXi(this.playingXi[0], 0);
-    this.playingXi[1].teamName = this.playingTeams[1].teamName;
-
-    this.playingXi[1].players = this.playingTeams[1].players.filter(
-      (x: Player) => x.checked == true
-    );
-    this.preGameDataService.setPlayingXi(this.playingXi[1], 1);
+    this.preGameDataService.clearPlayingTeamsXi(n);
+    this.preGameDataService.addPlayingXi(this.playingTeams[n], n);
+    this.getPlayingTeamXi();
+    this.teamValid(this.playingXi);
   }
 
-  TeamValid(team: Player[]): boolean {
-    if (team.length != 12) {
-      return false;
-    } else return true;
+  teamValid(team: Team[]): void {
+    if (team[0].players.length != 11 || team[1].players.length != 11) {
+      this.next = false;
+    } else this.next = true;
   }
 
   constructor(
@@ -96,10 +111,13 @@ export class PreGameComponent implements OnInit {
     private preGameDataService: PreGameDataService
   ) {}
 
+  newGames() {
+    this.preGameDataService.setStart(true);
+    this.startGame = true;
+  }
+
   isLinear = false;
-  // addToGames(game: game) {
-  //   this.gameDetailsService.addToGames(game);
-  // }
+
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });

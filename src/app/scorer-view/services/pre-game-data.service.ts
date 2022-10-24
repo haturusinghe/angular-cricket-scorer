@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Player } from '../i/player';
 import { BatterScore } from '../i/player-score';
 import { Team } from '../i/team';
 import { PlayerDataService } from './player-data.service';
@@ -8,6 +9,7 @@ import { PlayerDataService } from './player-data.service';
   providedIn: 'root',
 })
 export class PreGameDataService {
+  startGame: boolean = false;
   teams: Team[] = this.playerDataService.getTeams();
   playingTeams: Team[] = [
     {
@@ -19,7 +21,16 @@ export class PreGameDataService {
       players: [{ id: 5, first_name: 'Lanna', last_name: 'Smead' }],
     },
   ];
-  playingTeamsXi: Team[] = this.playingTeams;
+  playingTeamsXi: Team[] = [
+    {
+      teamName: 'SL',
+      players: [{ id: 5, first_name: 'Lanna', last_name: 'Smead' }],
+    },
+    {
+      teamName: 'ind',
+      players: [{ id: 5, first_name: 'Lanna', last_name: 'Smead' }],
+    },
+  ];
   toss: string = 'SL';
   choose: string = 'batting';
 
@@ -27,9 +38,22 @@ export class PreGameDataService {
     const teams = of(this.teams);
     return teams;
   }
+  start(): Observable<boolean> {
+    const start = of(this.startGame);
+    return start;
+  }
+
+  setStart(b: boolean) {
+    this.startGame = b;
+  }
 
   getPlayingTeams(): Observable<Team[]> {
     const playingteams = of(this.playingTeams);
+    return playingteams;
+  }
+
+  getPlayingTeamXi(): Observable<Team[]> {
+    const playingteams = of(this.playingTeamsXi);
     return playingteams;
   }
 
@@ -44,8 +68,16 @@ export class PreGameDataService {
     this.playingTeams[n].teamName = '';
     this.playingTeams[n].players = [];
   }
-  setPlayingXi(playingXi: Team, n: number) {
-    this.playingTeamsXi[n] = playingXi;
+  clearPlayingTeamsXi(n: number) {
+    this.playingTeamsXi[n].teamName = '';
+    this.playingTeamsXi[n].players = [];
+  }
+  addPlayingXi(playingTeams: Team, n: number) {
+    this.playingTeamsXi[n].players = playingTeams.players.filter(
+      (x: Player) => x.checked == true
+    );
+
+    this.playingTeamsXi[n].teamName = playingTeams.teamName;
   }
 
   selectToss(teamName: string) {
