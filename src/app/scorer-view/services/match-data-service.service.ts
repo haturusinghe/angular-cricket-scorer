@@ -10,6 +10,12 @@ import { BatterScore } from '../i/player-score';
 import { TeamScore } from '../i/team-score';
 import { Player } from '../i/player';
 import { PlayerChangeService } from './player-change.service';
+import {
+  LocalStorageService,
+  SessionStorageService,
+  LocalStorage,
+  SessionStorage,
+} from 'angular-web-storage';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +31,7 @@ export class MatchDataServiceService {
   teams: Team[] = this.playerDataService.getTeams();
   battingTeamIndex: number = 1;
   bowlerTeamIndex: number = 0;
-  totalOvers: number = 50;
+  totalOvers: number = 3;
 
   battingTeamScore: TeamScore = {
     teamName: this.teams[this.battingTeamIndex].teamName,
@@ -73,7 +79,9 @@ export class MatchDataServiceService {
 
   constructor(
     private playerDataService: PlayerDataService,
-    private playerChangeService: PlayerChangeService
+    private playerChangeService: PlayerChangeService,
+    private local: LocalStorageService,
+    private session: SessionStorageService
   ) {}
 
   changeLastShotType(shot: string) {
@@ -100,11 +108,6 @@ export class MatchDataServiceService {
   }
 
   changeBowler(player: Player) {
-    const index = Math.floor(
-      Math.random() * this.teams[this.bowlerTeamIndex].players.length
-    );
-    let randomPlayer = this.teams[this.battingTeamIndex].players[index];
-
     this.bowler.player = player;
     this.bowler.economyRate = 0;
     this.bowler.maidenOvers = 0;
@@ -114,11 +117,6 @@ export class MatchDataServiceService {
   }
 
   changeStriker(player: Player) {
-    /* const index = Math.floor(
-      Math.random() * this.teams[this.battingTeamIndex].players.length
-    );
-    let randomPlayer = this.teams[this.battingTeamIndex].players[index]; */
-
     this.striker.player = player;
     this.striker.ballsFaced = 0;
     this.striker.fours = 0;
@@ -126,6 +124,17 @@ export class MatchDataServiceService {
     this.striker.sixes = 0;
     this.striker.strikeRate = 0;
     this.striker.isStrikingNow = true;
+  }
+
+  //Change Non Striker
+  changeNonStriker(player: Player) {
+    this.nonStriker.player = player;
+    this.nonStriker.ballsFaced = 0;
+    this.nonStriker.fours = 0;
+    this.nonStriker.runs = 0;
+    this.nonStriker.sixes = 0;
+    this.nonStriker.strikeRate = 0;
+    this.nonStriker.isStrikingNow = false;
   }
 
   swapBatsman() {
@@ -136,6 +145,48 @@ export class MatchDataServiceService {
     //
     this.striker.isStrikingNow = true;
     this.nonStriker.isStrikingNow = false;
+  }
+
+  //Swap Batting Teams when Overs/Wickets are over
+  swapBattingTeam() {
+    let temp = this.battingTeamIndex;
+    this.battingTeamIndex = this.bowlerTeamIndex;
+    this.bowlerTeamIndex = temp;
+
+    this.currentOver.currentOver = 1;
+    this.currentOver.ballsLeft = 6;
+
+    this.battingTeamScore.teamName = this.teams[this.battingTeamIndex].teamName;
+    this.battingTeamScore.totalScore = 0;
+    this.battingTeamScore.wickets = 0;
+    this.battingTeamScore.inning = '2nd';
+
+    while (this.allOvers.length > 0) {
+      this.allOvers.pop();
+    }
+    console.log(this.allOvers);
+
+    this.selectOpeningPlayers();
+  }
+
+  selectOpeningPlayers() {
+    this.playerChangeService
+      .changeStriker('Select Starting Striker')
+      .subscribe((p) => {
+        this.changeStriker(p);
+
+        this.playerChangeService
+          .changeStriker('Select Starting Non-Striker')
+          .subscribe((p) => {
+            this.changeNonStriker(p);
+
+            this.playerChangeService
+              .changeBowler('Select Starting Bowler')
+              .subscribe((p) => {
+                this.changeBowler(p);
+              });
+          });
+      });
   }
 
   getStrikerDetails(): Observable<BatterScore> {
@@ -174,6 +225,22 @@ export class MatchDataServiceService {
   getCurrentOver(): Observable<OverData> {
     const c = of(this.currentOver);
     return c;
+  }
+
+  //Saving Data Locally
+  saveAllOversLocally() {
+    this.local.set('CURRENT_MATCH', {
+      teams: this.teams,
+      battingTeamScore: this.battingTeamScore,
+      battingTeamIndex: this.battingTeamIndex,
+      bowlerTeamIndex: this.bowlerTeamIndex,
+      totalOvers: this.totalOvers,
+      currentOver: this.currentOver,
+      allOvers: this.allOvers,
+      striker: this.striker,
+      nonStriker: this.nonStriker,
+      bowler: this.bowler,
+    });
   }
 
   recordBall(ball: Ball) {
@@ -242,6 +309,7 @@ export class MatchDataServiceService {
         overNumber: this.currentOverNumber,
         balls: this.ballsForThisOver,
       });
+
       this.currentOver.currentOver++;
       this.currentOver.ballsLeft = 6;
       this.currentOver.balls = [];
@@ -253,20 +321,34 @@ export class MatchDataServiceService {
       if (sum == 0) {
         this.bowler.maidenOvers++;
       }
-      this.playerChangeService.changeBowler().subscribe((p) => {
-        console.log(p);
-        this.changeBowler(p);
-      });
+
+      if (this.currentOver.currentOver <= this.totalOvers) {
+        this.playerChangeService
+          .changeBowler('Select Next Bowler')
+          .subscribe((p) => {
+            console.log(p);
+            this.changeBowler(p);
+          });
+      }
     }
 
-    if (ball.Out.isOut) {
-      this.playerChangeService.changeStriker().subscribe((p) => {
-        console.log(p);
-        this.changeStriker(p);
-      });
+    if (this.currentOver.currentOver <= this.totalOvers) {
+      if (ball.Out.isOut) {
+        this.battingTeamScore.wickets++;
+        this.playerChangeService
+          .changeStriker('Select Next Striker')
+          .subscribe((p) => {
+            console.log(p);
+            this.changeStriker(p);
+          });
+      }
     }
 
-    console.log(ball);
+    // Swap Batting Team when Overs over
+    if (this.currentOver.currentOver > this.totalOvers) {
+      this.swapBattingTeam();
+    }
+    this.saveAllOversLocally();
   }
 
   /* changeCurrentBowler() {
