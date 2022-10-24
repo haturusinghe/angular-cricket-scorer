@@ -15,11 +15,11 @@ export class PlayerChangeService {
 
   constructor(public dialog: MatDialog) {}
 
-  changeBowler(): Observable<Player> {
+  changeBowler(title: string): Observable<Player> {
     const dialogRef = this.dialog.open(ChangeBowlerComponent, {
       width: '300px',
       disableClose: true,
-      data: { selectedPlayer: this.selectedBowler },
+      data: { selectedPlayer: this.selectedBowler, title: title },
     });
 
     return dialogRef.afterClosed(); /* .subscribe((result) => {
@@ -30,11 +30,11 @@ export class PlayerChangeService {
     }); */
   }
 
-  changeStriker(): Observable<Player> {
+  changeStriker(title: string): Observable<Player> {
     const dialogRef = this.dialog.open(ChangeBatsmanComponent, {
       width: '300px',
       disableClose: true,
-      data: { selectedPlayer: this.selectedBatsman },
+      data: { selectedPlayer: this.selectedBatsman, title: title },
     });
 
     return dialogRef.afterClosed(); /* .subscribe((result) => {
