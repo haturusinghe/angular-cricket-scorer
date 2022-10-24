@@ -1,8 +1,14 @@
 <crx-over-card [currentOver]="currentOver"></crx-over-card>
 <mat-divider></mat-divider>
-<div *ngFor="let o of allOvers">
-  <crx-over-card [over]="o"></crx-over-card>
-</div>
+
+<mat-card>
+  <mat-card-title>Over Summary</mat-card-title>
+
+  <mat-card-content *ngFor="let o of allOvers">
+    <mat-divider></mat-divider>
+    <crx-over-card [over]="o"></crx-over-card>
+  </mat-card-content>
+</mat-card>
 
 <!-- <div class="mat-typography">
   <h1 class="mat-display-4">display-4 &mdash; 112px light</h1>

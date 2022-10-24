@@ -77,7 +77,7 @@ export class OverCardComponent implements OnInit {
   getPlayerRB(p: any) {
     let stat = 'N/A';
     if (p) {
-      stat = p.runs + '(' + p.ballsFaced + ')';
+      stat = 'Runs: ' + p.runs + '\t Balls: ' + p.ballsFaced + '';
     }
     return stat;
   }

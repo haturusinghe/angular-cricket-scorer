@@ -9,11 +9,13 @@
       >
     </div>
     <mat-card-content *ngIf="currentOver.balls">
+      <mat-divider></mat-divider>
       <mat-list>
         <div mat-subheader>Balls</div>
+        <mat-divider></mat-divider>
         <mat-list-item *ngFor="let b of currentOver.balls">
           <!-- Runs Chip -->
-
+          <mat-divider></mat-divider>
           <mat-chip
             mat-list-icon
             disableRipple
@@ -138,29 +140,32 @@
       <mat-divider></mat-divider>
 
       <div class="osum-players">
-        <div
-          class="osum-batters"
-          fxLayout="column"
-          fxLayoutAlign="center start"
-        >
-          <div
-            fxLayout="row"
-            fxLayoutAlign="space-between center"
-            style="width: 100%"
-          >
-            <p>{{ getPlayerName(over.striker) }}</p>
-            <p>{{ getPlayerRB(over.striker) }}</p>
-          </div>
 
-          <div
-            fxLayout="row"
-            fxLayoutAlign="space-between center"
-            style="width: 100%"
-          >
-            <p>{{ getPlayerName(over.nonStriker) }}</p>
-            <p>{{ getPlayerRB(over.nonStriker) }}</p>
-          </div>
-        </div>
+        <mat-list>
+          <div mat-subheader>Batters</div>
+          <mat-list-item>
+            <mat-icon mat-list-icon>sports_cricket</mat-icon>
+            <div mat-line>{{ getPlayerName(over.striker) }}</div>
+            <div mat-line>{{ getPlayerRB(over.striker) }}</div>
+          </mat-list-item>
+          <mat-list-item>
+            <mat-icon mat-list-icon>sports_cricket</mat-icon>
+            <div mat-line>{{ getPlayerName(over.nonStriker) }}</div>
+            <div mat-line>{{ getPlayerRB(over.nonStriker) }}</div>
+          </mat-list-item>
+
+          <mat-divider></mat-divider>
+
+          <div mat-subheader>Bowlers</div>
+          <mat-list-item>
+            <mat-icon mat-list-icon>sports_baseball</mat-icon>
+            <div mat-line>{{ getPlayerName(over.bowler) }}</div>
+            <div mat-line>{{ "Placeholder" }}</div>
+          </mat-list-item>
+        </mat-list>
+
+
+        
       </div>
 
       <mat-divider></mat-divider>
