@@ -7,6 +7,8 @@ import { Team } from '../i/team';
 })
 export class PlayerDataService {
 
+  selectedTeams:Team[]=[];
+
   constructor() { }
 
   getTeams(): Team[] {
