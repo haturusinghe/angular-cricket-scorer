@@ -17,6 +17,7 @@ import {
   SessionStorage,
 } from 'angular-web-storage';
 import { PostScore } from '../i/post-scores';
+import { PreGameDataService } from './pre-game-data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,9 @@ export class MatchDataServiceService {
   allOvers = new Array<Over>();
 
   tournamentName: string = 'England Tour of Sri Lanka';
+
   teams: Team[] = this.playerDataService.getTeams();
+
   battingTeamIndex: number = 1;
   bowlerTeamIndex: number = 0;
   totalOvers: number = 3;
@@ -96,6 +99,7 @@ export class MatchDataServiceService {
   lastBowlType: string = '';
 
   constructor(
+    private preGameDataService: PreGameDataService,
     private playerDataService: PlayerDataService,
     private playerChangeService: PlayerChangeService,
     private local: LocalStorageService,
@@ -111,6 +115,12 @@ export class MatchDataServiceService {
     if (d.allOvers) {
       this.allOvers = d.allOvers;
     } */
+  }
+
+  testingPreGameDataService() {
+    this.preGameDataService.getAllTeams().subscribe((s) => console.log(s));
+    this.preGameDataService.getPlayingTeamXi().subscribe((s) => console.log(s));
+    this.preGameDataService.getPlayingTeams().subscribe((s) => console.log(s));
   }
 
   getTeamNames() {

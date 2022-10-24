@@ -38,6 +38,7 @@ export class PreGameDataService {
     const teams = of(this.teams);
     return teams;
   }
+
   start(): Observable<any> {
     const start = of(this.startGame);
     return start;
@@ -86,6 +87,17 @@ export class PreGameDataService {
 
   TossSelect(role: string) {
     this.choose = role;
+  }
+
+  //# TODO :
+  getPreGameData() {
+    return {
+      tournamentName: 'England Tour of Sri Lanka',
+      teams: [],
+      battingTeamIndex: -1,
+      bowlerTeamIndex: -1,
+      totalOvers: -1,
+    };
   }
 
   constructor(private playerDataService: PlayerDataService) {}
