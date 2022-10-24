@@ -123,16 +123,52 @@
 <section *ngIf="over.overNumber != 0">
   <mat-card>
     <mat-card-content *ngIf="over.balls.length > 0">
-      <div>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        class="osum-header"
+      >
         <mat-card-title>Over {{ over.overNumber }}</mat-card-title>
         <mat-card-title>Runs {{ getTotalRuns(over.balls) }}</mat-card-title>
       </div>
+
       <mat-divider></mat-divider>
 
-      <div>
+      <div class="osum-players">
+        <div
+          class="osum-batters"
+          fxLayout="column"
+          fxLayoutAlign="center start"
+        >
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            style="width: 100%"
+          >
+            <p>{{ getPlayerName(over.striker) }}</p>
+            <p>{{ getPlayerRB(over.striker) }}</p>
+          </div>
+
+          <div
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+            style="width: 100%"
+          >
+            <p>{{ getPlayerName(over.nonStriker) }}</p>
+            <p>{{ getPlayerRB(over.nonStriker) }}</p>
+          </div>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div fxLayout="row" fxLayoutAlign="center center" class="osum-chips">
         <mat-chip-list>
           <mat-chip *ngFor="let b of over.balls" selected>
-            {{ b.runs }}
+            <span *ngIf="b.runs > 0 || b.extras.length < 1">{{ b.runs }} </span>
+            <span *ngFor="let e of b.extras" style="margin-left: 2px">
+              {{ e }}
+            </span>
           </mat-chip>
         </mat-chip-list>
       </div>

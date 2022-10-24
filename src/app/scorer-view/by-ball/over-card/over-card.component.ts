@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Ball } from '../../i/ball';
 import { Over } from '../../i/over';
 import { OverData } from '../../i/over-data';
+import { BatterScore } from '../../i/player-score';
 
 @Component({
   selector: 'crx-over-card',
@@ -64,6 +65,21 @@ export class OverCardComponent implements OnInit {
       totalRuns += b.runs;
     });
     return totalRuns;
+  }
+
+  getPlayerName(p: any) {
+    let name = 'N/A';
+    if (p) {
+      name = p.player.first_name + ' ' + p.player.last_name;
+    }
+    return name;
+  }
+  getPlayerRB(p: any) {
+    let stat = 'N/A';
+    if (p) {
+      stat = p.runs + '(' + p.ballsFaced + ')';
+    }
+    return stat;
   }
 
   getExtraScore(balls: Ball[]) {
