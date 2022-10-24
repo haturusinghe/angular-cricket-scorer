@@ -1,9 +1,12 @@
-<crx-over-card [currentOver]="currentOver"></crx-over-card>
+<crx-over-card
+  *ngIf="currentOver.ballsLeft <= 5"
+  [currentOver]="currentOver"
+></crx-over-card>
 <mat-divider></mat-divider>
 
-<mat-card>
+<mat-card *ngIf="allOvers.length > 0">
   <mat-card-title>Over Summary</mat-card-title>
-
+  <mat-divider></mat-divider>
   <mat-card-content *ngFor="let o of allOvers">
     <mat-divider></mat-divider>
     <crx-over-card [over]="o"></crx-over-card>
