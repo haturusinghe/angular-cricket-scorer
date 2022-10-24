@@ -26,7 +26,7 @@ import { OverCardComponent } from './scorer-view/by-ball/over-card/over-card.com
 import { ChangeBatsmanComponent } from './scorer-view/change-batsman/change-batsman.component';
 import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler.component';
 import { PlayerScoreCardComponent } from './scorer-view/player-score-card/player-score-card.component';
-
+import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
 //
 
 @NgModule({
@@ -37,6 +37,7 @@ import { PlayerScoreCardComponent } from './scorer-view/player-score-card/player
     RunsPanelComponent,
     BatterPanelComponent,
     WagonWheelSelectorComponent,
+    PreGameComponent,
     BowlerPanelComponent,
     MatchSummaryComponent,
     TeamScoresComponent,

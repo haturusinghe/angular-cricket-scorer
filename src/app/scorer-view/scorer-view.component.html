@@ -1,6 +1,11 @@
 <!-- <crx-toolbar></crx-toolbar> -->
-
-<mat-tab-group mat-align-tabs="end" color="primary" backgroundColor="primary">
+<crx-pre-game></crx-pre-game>
+<mat-tab-group
+  mat-align-tabs="end"
+  color="primary"
+  backgroundColor="primary"
+  *ngIf="stepperClosed.isOn"
+>
   <mat-tab label="Scorer"
     ><div class="bgx" fxLayout="row" fxLayoutAlign="space-between start">
       <div class="container-1" fxFlex="32" fxFill>
