@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatchDataServiceService } from './services/match-data-service.service';
 @Component({
   selector: 'crx-scorer-view',
   templateUrl: './scorer-view.component.html',
@@ -9,7 +10,9 @@ export class ScorerViewComponent implements OnInit {
   currentStrikerControl = new FormControl('');
   player?: string;
 
-  constructor() {}
+  constructor(private matchDataService: MatchDataServiceService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.matchDataService.selectOpeningPlayers();
+  }
 }
