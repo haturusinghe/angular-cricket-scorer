@@ -16,12 +16,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { MatStepperModule } from '@angular/material/stepper';
 import { OverlayModule } from '@angular/cdk/overlay';
 // import { CdkMenuModule } from '@angular/cdk/menu';
 import { DialogModule } from '@angular/cdk/dialog';
@@ -34,12 +34,14 @@ import { DialogModule } from '@angular/cdk/dialog';
     MatAutocompleteModule,
     DialogModule,
     OverlayModule,
+    MatStepperModule,
     // MatBadgeModule,
     // MatBottomSheetModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
+    MatSelectModule,
 
     // MatDividerModule,
     MatExpansionModule,

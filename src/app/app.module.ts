@@ -32,6 +32,9 @@ import { ChangeBatsmanComponent } from './scorer-view/change-batsman/change-bats
 import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler.component';
 import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
 import { TeamsComponent } from './scorer-view/pre-game/teams/teams.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,16 @@ import { TeamsComponent } from './scorer-view/pre-game/teams/teams.component';
     MaterialExampleModule,
     FlexLayoutModule,
     NgxSliderModule,
+
+    HttpClientModule,
+    MatNativeDateModule,
+
+    MatInputModule,
+    MatFormFieldModule,
+
+    MatButtonModule,
+
+    MatRippleModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

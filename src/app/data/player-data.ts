@@ -5,8 +5,8 @@ export const TEAMS: Team[] = [
     teamName: 'Sri Lanka',
     players: [
       { id: 1, first_name: 'Petr', last_name: 'Blose' },
-      { id: 2, first_name: 'Dorolice', last_name: 'Dossetter' },
       { id: 3, first_name: 'Jonis', last_name: 'Baughn' },
+      { id: 2, first_name: 'Dorolice', last_name: 'Dos' },
       { id: 4, first_name: 'Alissa', last_name: 'Peyzer' },
       { id: 5, first_name: 'Lanna', last_name: 'Smead' },
       { id: 6, first_name: 'Chev', last_name: 'Chark' },
@@ -29,7 +29,11 @@ export const TEAMS: Team[] = [
       { id: 56, first_name: 'Fey', last_name: 'Golagley' },
       { id: 57, first_name: 'Alyda', last_name: 'Wilcockes' },
       { id: 58, first_name: 'Maridel', last_name: 'Skittrall' },
-      { id: 59, first_name: 'Clarabelle', last_name: 'Coneron' },
+      {
+        id: 59,
+        first_name: 'Clarabelle',
+        last_name: 'Coneron',
+      },
       { id: 60, first_name: 'Elvira', last_name: 'Glasson' },
       { id: 61, first_name: 'Reine', last_name: 'Lesley' },
     ],

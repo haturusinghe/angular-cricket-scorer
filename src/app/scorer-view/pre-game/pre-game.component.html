@@ -1,1 +1,112 @@
-<p>pre-game works!</p>
+<div class="steper">
+  <mat-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup" label="Select Teams ">
+      <div class="steper">
+        <h4>Select Teams</h4>
+        <mat-form-field appearance="fill">
+          <mat-label>team1</mat-label>
+          <mat-select
+            [(ngModel)]="selectedValue1"
+            (selectionChange)="onChange(selectedValue1, 0)"
+          >
+            <mat-option *ngFor="let team of teams" [value]="team.teamName">
+              {{ team.teamName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <h4>V.S</h4>
+        <mat-form-field appearance="fill">
+          <mat-label>team2</mat-label>
+          <mat-select
+            [(ngModel)]="selectedValue2"
+            (selectionChange)="onChange(selectedValue2, 1)"
+          >
+            <mat-option *ngFor="let team of teams" [value]="team.teamName">
+              {{ team.teamName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button
+            *ngIf="selectedValue2"
+            mat-button
+            matStepperNext
+            (onclick)="getPlayingTeams()"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </mat-step>
+
+    <mat-step [stepControl]="secondFormGroup" label="Select players for Team">
+      <div class="steper">
+        <div class="teams">
+          <div *ngIf="selectedValue1" class="team">
+            <h3>{{ selectedValue1 }}</h3>
+            <section class="example-section">
+              <span class="example-list-section">
+                <ul>
+                  <li *ngFor="let player of playingTeams[0].players">
+                    <mat-checkbox [(ngModel)]="player.checked">
+                      {{ player.first_name }} {{ player.last_name }}
+                    </mat-checkbox>
+                  </li>
+                </ul>
+              </span>
+            </section>
+          </div>
+
+          <div *ngIf="selectedValue2" class="team">
+            <h3>{{ selectedValue2 }}</h3>
+            <section class="example-section">
+              <span class="example-list-section">
+                <ul>
+                  <li *ngFor="let player of playingTeams[1].players">
+                    <mat-checkbox [(ngModel)]="player.checked">
+                      {{ player.first_name }} {{ player.last_name }}
+                    </mat-checkbox>
+                  </li>
+                </ul>
+              </span>
+            </section>
+          </div>
+        </div>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </div>
+    </mat-step>
+    <mat-step label="Start Game">
+      <div class="steper">
+        <h4>TOSS :</h4>
+        <mat-form-field appearance="fill">
+          <mat-label>TOSS:</mat-label>
+          <mat-select [(ngModel)]="toss" (selectionChange)="setToss()">
+            <mat-option [value]="selectedValue1">
+              {{ selectedValue1 }}
+            </mat-option>
+            <mat-option [value]="selectedValue2">
+              {{ selectedValue2 }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <h4>Choose to:</h4>
+        <mat-form-field appearance="fill">
+          <mat-select [(ngModel)]="role" (selectionChange)="setRole()">
+            <mat-label>ChooseTo:</mat-label>
+            <mat-option value="Batting"> Batting </mat-option>
+            <mat-option value="Bowling"> Bowling </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="onSubmit()">New Game</button>
+        </div>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</div>

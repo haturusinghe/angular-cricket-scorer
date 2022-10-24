@@ -10,8 +10,17 @@ import { MatchDataServiceService } from './match-data-service.service';
   providedIn: 'root',
 })
 export class PlayerChangeService {
-  selectedBowler: Player = { id: -1, first_name: '', last_name: '' };
-  selectedBatsman: Player = { id: -1, first_name: '', last_name: '' };
+  selectedBowler: Player = {
+    id: -1,
+    first_name: '',
+    last_name: '',
+    checked: false,
+  };
+  selectedBatsman: Player = {
+    id: -1,
+    first_name: '',
+    last_name: '',
+  };
 
   constructor(public dialog: MatDialog) {}
 
