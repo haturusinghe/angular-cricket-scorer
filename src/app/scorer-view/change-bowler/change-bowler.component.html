@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Select Next Bowler</h1>
+<h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content>
   <form class="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
@@ -9,7 +9,11 @@
         [formControl]="myControl"
         [matAutocomplete]="auto"
       />
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-autocomplete
+        autoActiveFirstOption
+        #auto="matAutocomplete"
+        [displayWith]="displayFn"
+      >
         <mat-option
           *ngFor="let option of filteredPlayers | async"
           [value]="option"
