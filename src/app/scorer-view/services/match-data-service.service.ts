@@ -16,6 +16,7 @@ import {
   LocalStorage,
   SessionStorage,
 } from 'angular-web-storage';
+import { PostScore } from '../i/post-scores';
 
 @Injectable({
   providedIn: 'root',
@@ -35,12 +36,29 @@ export class MatchDataServiceService {
 
   battingTeamScore: TeamScore = {
     teamName: this.teams[this.battingTeamIndex].teamName,
+    bowlingTeam: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName,
     inning: '1st',
     totalScore: 0,
     wickets: 0,
   };
 
   currentOver: OverData = { currentOver: 1, ballsLeft: 6 };
+
+  firstTeamBattingScores = new Array<BatterScore>();
+  secondTeamBattingScores = new Array<BatterScore>();
+  scoreTeamIndex = true;
+  teamPlayerScores: PostScore[] = [
+    {
+      teamName: this.teams[this.battingTeamIndex].teamName,
+      batting: this.firstTeamBattingScores,
+      bowling: [],
+    },
+    {
+      teamName: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName,
+      batting: this.secondTeamBattingScores,
+      bowling: [],
+    },
+  ];
 
   // Batters
   striker: BatterScore = {
@@ -93,6 +111,13 @@ export class MatchDataServiceService {
     if (d.allOvers) {
       this.allOvers = d.allOvers;
     } */
+  }
+
+  getTeamNames() {
+    return {
+      batters: this.teams[this.battingTeamIndex].teamName,
+      bowlers: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName,
+    };
   }
 
   changeLastShotType(shot: string) {
@@ -160,6 +185,7 @@ export class MatchDataServiceService {
 
   //Swap Batting Teams when Overs/Wickets are over
   swapBattingTeam() {
+    this.scoreTeamIndex = false;
     let temp = this.battingTeamIndex;
     this.battingTeamIndex = this.bowlerTeamIndex;
     this.bowlerTeamIndex = temp;
@@ -203,6 +229,16 @@ export class MatchDataServiceService {
   getStrikerDetails(): Observable<BatterScore> {
     const striker = of(this.striker);
     return striker;
+  }
+
+  getPlayerTeamScores(): Observable<BatterScore[]> {
+    const playerScores = of(this.firstTeamBattingScores);
+    return playerScores;
+  }
+
+  getAllPlayerTeamScores(): Observable<PostScore[]> {
+    const playerScores = of(this.teamPlayerScores);
+    return playerScores;
   }
 
   getNonStrikerDetails(): Observable<BatterScore> {
@@ -313,7 +349,6 @@ export class MatchDataServiceService {
 
     if (this.ballLeftForOver < 1) {
       //For handling when balls in an over ends
-
       this.ballLeftForOver = 6; //Update Number of balls for new Over
       this.currentOverNumber++; //Update current over number to next over
       this.ballsForThisOver = new Array<Ball>(); //Replace Balls Array with Empty array
@@ -359,6 +394,8 @@ export class MatchDataServiceService {
 
     if (this.currentOver.currentOver <= this.totalOvers) {
       if (ball.Out.isOut) {
+        this.addToTeamScores(structuredClone(this.striker));
+
         this.playerChangeService
           .changeStriker('Select Next Striker')
           .subscribe((p) => {
@@ -379,22 +416,19 @@ export class MatchDataServiceService {
 
     // Swap Batting Team when Overs over
     if (this.currentOver.currentOver > this.totalOvers) {
+      this.addToTeamScores(structuredClone(this.striker));
+      this.addToTeamScores(structuredClone(this.nonStriker));
+
       this.swapBattingTeam();
     }
     // this.saveAllOversLocally();
   }
 
-  /* changeCurrentBowler() {
-    this.playerChangeService.getBowlerDetails().subscribe((p) => {
-      console.log(p);
-      this.changeBowler(p);
-      this.myDataSetter(p);
-    });
+  addToTeamScores(b: BatterScore) {
+    if (this.scoreTeamIndex) {
+      this.teamPlayerScores[0].batting.push(b);
+    } else {
+      this.teamPlayerScores[1].batting.push(b);
+    }
   }
-
-  changeCurrentStriker() {
-    this.playerChangeService
-      .getStrikerDetails()
-      .subscribe((p) => this.changeStriker(p));
-  } */
 }
