@@ -1,21 +1,30 @@
 <section *ngIf="currentOver">
   <mat-card>
-    <mat-card-title
-      >Current Over : {{ currentOver.currentOver }}</mat-card-title
-    >
-    <mat-card-subtitle
-      >Balls Left in Over: {{ currentOver.ballsLeft }}</mat-card-subtitle
-    >
+    <div class="header-section">
+      <mat-card-title
+        >Current Over : {{ currentOver.currentOver }}</mat-card-title
+      >
+      <mat-card-subtitle
+        >Balls Left in Over: {{ currentOver.ballsLeft }}</mat-card-subtitle
+      >
+    </div>
     <mat-card-content *ngIf="currentOver.balls">
       <mat-list>
         <div mat-subheader>Balls</div>
         <mat-list-item *ngFor="let b of currentOver.balls">
           <!-- Runs Chip -->
+
           <mat-chip
             mat-list-icon
+            disableRipple
+            selectable="false"
             [ngStyle]="{
               'background-color':
-                b.is4 == true ? 'yellow' : b.is6 == true ? 'green' : 'wheat'
+                b.is4 == true
+                  ? '#FFF176'
+                  : b.is6 == true
+                  ? '#81C784'
+                  : '#EDF0F2'
             }"
           >
             <span class="run-chip">{{ b.runs }}</span></mat-chip
@@ -23,66 +32,83 @@
 
           <div
             fxLayout="row"
-            fxLayoutAlign="center center"
-            fxLayoutGap="20"
+            fxLayoutAlign="start start"
+            fxLayoutGap="5"
             matLine
+            class="info-container"
           >
-            <div
-              class="striker-info"
+            <!-- STRIKER -->
+            <mat-card
+              class=""
               div
               fxLayout="column"
-              fxLayoutAlign="center start"
+              fxLayoutAlign="start start"
             >
-              <h5>
+              <p>
                 Striker Name: {{ b.striker?.first_name }}
                 {{ b.striker?.last_name }}
-              </h5>
-              <h6 *ngIf="b.shotType">Shot Type: {{ b.shotType }}</h6>
-              <h6>Shot Angle: {{ b.shotAngle }}</h6>
-            </div>
+              </p>
+              <p class="mat-caption" *ngIf="b.shotType">
+                Shot Type: {{ b.shotType }}
+              </p>
+              <p class="mat-caption">Shot Angle: {{ b.shotAngle }}</p>
+            </mat-card>
 
-            <div
-              class="bowler-info"
+            <!-- BOWLER -->
+            <mat-card
+              class=""
               div
               fxLayout="column"
-              fxLayoutAlign="center start"
+              fxLayoutAlign="start start"
             >
-              <h5>
+              <p>
                 Bowler: {{ b.bowler?.first_name }} {{ b.bowler?.last_name }}
-              </h5>
-              <h6 *ngIf="b.bowlType">Ball Type: {{ b.bowlType }}</h6>
-              <h6 *ngIf="b.bowlSpeed">Ball Speed: {{ b.bowlSpeed }}</h6>
-            </div>
+              </p>
+              <p class="mat-caption" *ngIf="b.bowlType">
+                Ball Type: {{ b.bowlType }}
+              </p>
+              <p class="mat-caption" *ngIf="b.bowlSpeed">
+                Ball Speed: {{ b.bowlSpeed }} km/h
+              </p>
+            </mat-card>
 
-            <div
-              class="non-striker-info"
-              div
-              fxLayout="row"
-              fxLayoutAlign="center center"
-            >
-              <h5>
+            <!-- Non-STRIKER -->
+            <!-- <div class="" div fxLayout="row">
+              <p>
                 Non-Striker Name: {{ b.nonStriker?.first_name }}
                 {{ b.nonStriker?.last_name }}
-              </h5>
-            </div>
+              </p>
+            </div> -->
 
-            <div
-              class="extras-info"
+            <!-- Extras -->
+            <mat-card
               *ngIf="b.extras.length > 0"
               div
-              fxLayout="row"
-              fxLayoutAlign="center center"
-              fxLayoutGap="20"
+              fxLayout="column"
+              fxLayoutAlign="start start"
             >
-              <h5>Extras:</h5>
-              <div *ngFor="let e of b.extras">
-                <h6>{{ e }}</h6>
-              </div>
-            </div>
+              <p>Extras:</p>
+              <mat-chip-list>
+                <mat-chip *ngFor="let e of b.extras" selected>
+                  {{ e }}
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card>
 
-            <div class="extras-info" *ngIf="b.Out.isOut">
-              <h2>Out! : {{ b.Out.type }}</h2>
-            </div>
+            <!-- Wicket -->
+            <mat-card
+              *ngIf="b.Out.isOut"
+              fxLayout="column"
+              fxLayoutAlign="start start"
+            >
+              <p>Out:</p>
+
+              <mat-chip-list>
+                <mat-chip selected color="warn">
+                  {{ b.Out.type }}
+                </mat-chip>
+              </mat-chip-list>
+            </mat-card>
           </div>
 
           <!-- <button mat-icon-button>
