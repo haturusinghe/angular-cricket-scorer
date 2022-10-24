@@ -122,95 +122,20 @@
 
 <section *ngIf="over.overNumber != 0">
   <mat-card>
-    <mat-card-title>Over {{ over.overNumber }}</mat-card-title>
     <mat-card-content *ngIf="over.balls.length > 0">
+      <div>
+        <mat-card-title>Over {{ over.overNumber }}</mat-card-title>
+        <mat-card-title>Runs {{ getTotalRuns(over.balls) }}</mat-card-title>
+      </div>
       <mat-divider></mat-divider>
-      <mat-list>
-        <div mat-subheader>Balls</div>
-        <mat-list-item *ngFor="let b of over.balls">
-          <!-- Runs Chip -->
-          <mat-chip
-            mat-list-icon
-            [ngStyle]="{
-              'background-color':
-                b.is4 == true ? 'yellow' : b.is6 == true ? 'green' : 'wheat'
-            }"
-          >
-            <span class="run-chip">{{ b.runs }}</span></mat-chip
-          >
 
-          <div
-            fxLayout="row"
-            fxLayoutAlign="center center"
-            fxLayoutGap="20"
-            matLine
-          >
-            <div
-              class="striker-info"
-              div
-              fxLayout="column"
-              fxLayoutAlign="center start"
-            >
-              <h5>
-                Striker Name: {{ b.striker?.first_name }}
-                {{ b.striker?.last_name }}
-              </h5>
-              <h6 *ngIf="b.shotType">Shot Type: {{ b.shotType }}</h6>
-              <h6>Shot Angle: {{ b.shotAngle }}</h6>
-            </div>
-
-            <div
-              class="bowler-info"
-              div
-              fxLayout="column"
-              fxLayoutAlign="center start"
-            >
-              <h5>
-                Bowler: {{ b.bowler?.first_name }} {{ b.bowler?.last_name }}
-              </h5>
-              <h6 *ngIf="b.bowlType">Ball Type: {{ b.bowlType }}</h6>
-              <h6 *ngIf="b.bowlSpeed">Ball Speed: {{ b.bowlSpeed }}</h6>
-            </div>
-
-            <div
-              class="non-striker-info"
-              div
-              fxLayout="row"
-              fxLayoutAlign="center center"
-            >
-              <h5>
-                Non-Striker Name: {{ b.nonStriker?.first_name }}
-                {{ b.nonStriker?.last_name }}
-              </h5>
-            </div>
-
-            <div
-              class="extras-info"
-              *ngIf="b.extras.length > 0"
-              div
-              fxLayout="row"
-              fxLayoutAlign="center center"
-              fxLayoutGap="20"
-            >
-              <h5>Extras:</h5>
-              <div *ngFor="let e of b.extras">
-                <h6>{{ e }}</h6>
-              </div>
-            </div>
-
-            <div class="extras-info" *ngIf="b.Out.isOut">
-              <h2>Out! : {{ b.Out.type }}</h2>
-            </div>
-          </div>
-
-          <!-- <button mat-icon-button>
-            <mat-icon class="mat-12">edit</mat-icon>
-          </button> -->
-        </mat-list-item>
-      </mat-list>
-      <!-- <div *ngFor="let b of over.balls">
-        {{ b.runs }}
-      </div> -->
+      <div>
+        <mat-chip-list>
+          <mat-chip *ngFor="let b of over.balls" selected>
+            {{ b.runs }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
     </mat-card-content>
   </mat-card>
 </section>

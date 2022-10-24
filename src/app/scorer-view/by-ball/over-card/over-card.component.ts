@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Ball } from '../../i/ball';
 import { Over } from '../../i/over';
 import { OverData } from '../../i/over-data';
 
@@ -55,5 +56,23 @@ export class OverCardComponent implements OnInit {
     });
 
     return match;
+  }
+
+  getTotalRuns(balls: Ball[]) {
+    let totalRuns = 0;
+    balls.forEach((b) => {
+      totalRuns += b.runs;
+    });
+    return totalRuns;
+  }
+
+  getExtraScore(balls: Ball[]) {
+    let extraScore: number = 0;
+    balls.forEach((b) => {
+      if (b.extras.includes('WD') || b.extras.includes('NB')) {
+        extraScore++;
+      }
+    });
+    return extraScore;
   }
 }
