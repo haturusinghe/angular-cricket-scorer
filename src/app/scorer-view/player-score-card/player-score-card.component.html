@@ -1,0 +1,30 @@
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab label="Team A">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Batsman</th>
+          <th scope="col">R</th>
+          <th scope="col">B</th>
+          <th scope="col">6s</th>
+          <th scope="col">4s</th>
+          <th scope="col">SR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of scores; index as i">
+          <td>
+            {{ s.player.first_name }}
+            {{ s.player.last_name }}
+          </td>
+          <td>{{ s.runs | number }}</td>
+          <td>{{ s.ballsFaced | number }}</td>
+          <td>{{ s.sixes | number }}</td>
+          <td>{{ s.fours | number }}</td>
+          <td>{{ s.strikeRate | number }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </mat-tab>
+  <mat-tab label="Team B"> Content 1 </mat-tab>
+</mat-tab-group>

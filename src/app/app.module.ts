@@ -25,6 +25,7 @@ import { ByBallComponent } from './scorer-view/by-ball/by-ball.component';
 import { OverCardComponent } from './scorer-view/by-ball/over-card/over-card.component';
 import { ChangeBatsmanComponent } from './scorer-view/change-batsman/change-batsman.component';
 import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler.component';
+import { PlayerScoreCardComponent } from './scorer-view/player-score-card/player-score-card.component';
 
 //
 
@@ -43,6 +44,7 @@ import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler
     OverCardComponent,
     ChangeBatsmanComponent,
     ChangeBowlerComponent,
+    PlayerScoreCardComponent,
   ],
   imports: [
     ReactiveFormsModule,
