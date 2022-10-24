@@ -4,6 +4,6 @@ import { BatterScore } from './player-score';
 
 export interface PostScore {
   teamName: string;
-  batters: BatterScore[];
-  bowlers: BowlerScore[];
+  batting: BatterScore[];
+  bowling: BowlerScore[];
 }

@@ -13,6 +13,6 @@ export class ScorerViewComponent implements OnInit {
   constructor(private matchDataService: MatchDataServiceService) {}
 
   ngOnInit(): void {
-    this.matchDataService.selectOpeningPlayers();
+    // this.matchDataService.selectOpeningPlayers();
   }
 }
