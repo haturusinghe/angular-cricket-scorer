@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialExampleModule } from '../material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { AngularWebStorageModule } from 'angular-web-storage';
 
 //Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -30,6 +31,8 @@ import { ByBallComponent } from './scorer-view/by-ball/by-ball.component';
 import { OverCardComponent } from './scorer-view/by-ball/over-card/over-card.component';
 import { ChangeBatsmanComponent } from './scorer-view/change-batsman/change-batsman.component';
 import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler.component';
+
+//
 
 @NgModule({
   declarations: [
@@ -56,6 +59,7 @@ import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler
     MaterialExampleModule,
     FlexLayoutModule,
     NgxSliderModule,
+    AngularWebStorageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
