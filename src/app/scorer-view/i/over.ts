@@ -8,4 +8,6 @@ export interface Over {
   striker?: BatterScore;
   nonStriker?: BatterScore;
   bowler?: BowlerScore;
+  wickets?: number;
+  score?: number;
 }
