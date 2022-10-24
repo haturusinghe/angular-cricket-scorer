@@ -10,7 +10,7 @@ import { PreGameDataService } from './services/pre-game-data.service';
 export class ScorerViewComponent implements OnInit {
   currentStrikerControl = new FormControl('');
   player?: string;
-  stepperClosed = { isOn: false };
+  stepperClosed = { isOn: true };
 
   constructor(
     private matchDataService: MatchDataServiceService,
