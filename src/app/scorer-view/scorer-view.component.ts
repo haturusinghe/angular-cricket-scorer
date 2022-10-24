@@ -18,10 +18,14 @@ export class ScorerViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.matchDataService.selectOpeningPlayers();
     this.setStepperClosed();
   }
+
   setStepperClosed() {
     this.preGameService.start().subscribe((s) => (this.stepperClosed = s));
+  }
+
+  testPreGameDataService() {
+    this.matchDataService.testingPreGameDataService();
   }
 }
