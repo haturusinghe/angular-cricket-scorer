@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+// import { MatGridListModule } from '@angular/material/grid-list';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -29,6 +30,7 @@ import { DialogModule } from '@angular/cdk/dialog';
 @NgModule({
   exports: [
     MatDialogModule,
+    // MatGridListModule,
     MatDividerModule,
     MatChipsModule,
     MatAutocompleteModule,
