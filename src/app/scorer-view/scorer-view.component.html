@@ -1,7 +1,6 @@
-<crx-toolbar></crx-toolbar>
-<crx-pre-game (newGame)="newGame()"></crx-pre-game>
+<crx-pre-game></crx-pre-game>
 
-<div *ngIf="startGame">
+<div *ngIf="startGame.isOn">
   <mat-tab-group mat-align-tabs="end">
     <mat-tab label="Scorer"
       ><div class="bgx" fxLayout="row" fxLayoutAlign="space-between start">

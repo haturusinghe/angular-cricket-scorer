@@ -9,7 +9,7 @@ import { PlayerDataService } from './player-data.service';
   providedIn: 'root',
 })
 export class PreGameDataService {
-  startGame: boolean = false;
+  startGame = { isOn: false };
   teams: Team[] = this.playerDataService.getTeams();
   playingTeams: Team[] = [
     {
@@ -38,13 +38,13 @@ export class PreGameDataService {
     const teams = of(this.teams);
     return teams;
   }
-  start(): Observable<boolean> {
+  start(): Observable<any> {
     const start = of(this.startGame);
     return start;
   }
 
   setStart(b: boolean) {
-    this.startGame = b;
+    this.startGame.isOn = true;
   }
 
   getPlayingTeams(): Observable<Team[]> {

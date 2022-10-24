@@ -30,7 +30,7 @@ export class PreGameComponent implements OnInit {
   toss!: string;
   role!: string;
 
-  startGame: boolean = false;
+  startGame = false;
 
   playingTeams: Team[] = [
     {
@@ -51,11 +51,6 @@ export class PreGameComponent implements OnInit {
     this.getPlayingTeamXi();
     this.setToss();
     this.setRole();
-    this.gameStart();
-  }
-
-  gameStart(): void {
-    this.preGameDataService.start().subscribe((s) => (this.startGame = s));
   }
 
   getAllTeams(): void {

@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 export class ScorerViewComponent implements OnInit {
   currentStrikerControl = new FormControl('');
   player?: string;
-  startGame: boolean = false;
+  startGame = { isOn: false };
   constructor(private preGameDataService: PreGameDataService) {}
 
   ngOnInit(): void {
@@ -21,5 +21,9 @@ export class ScorerViewComponent implements OnInit {
   }
   newGame() {
     this.preGameDataService.setStart(true);
+  }
+
+  testOne() {
+    console.log(this.startGame);
   }
 }
