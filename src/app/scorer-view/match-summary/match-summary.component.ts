@@ -42,4 +42,11 @@ export class MatchSummaryComponent implements OnInit {
       .getBattingTeamScore()
       .subscribe((bts) => (this.battingTeamScore = bts));
   }
+  getBattingTeam() {
+    if (this.battingTeamScore) {
+      return this.battingTeamScore.teamName;
+    } else {
+      return 'Hello';
+    }
+  }
 }
