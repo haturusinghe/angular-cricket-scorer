@@ -59,6 +59,7 @@ export class BatterPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.updatePlayers();
+    this.updateLastShot();
   }
 
   getStriker(): void {

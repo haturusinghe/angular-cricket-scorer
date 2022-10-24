@@ -44,7 +44,7 @@ export class BowlerPanelComponent implements OnInit {
     'Slower Ball',
   ];
   selectedBowl = this.bowlVals[0];
-  bowlSpeed: number = 0;
+  bowlSpeed: number = 10;
 
   constructor(
     private matchDataService: MatchDataServiceService,
@@ -53,6 +53,7 @@ export class BowlerPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBowler();
+    this.updateBowlInfo();
   }
 
   getBowler(): void {
