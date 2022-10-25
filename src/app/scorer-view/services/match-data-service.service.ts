@@ -35,7 +35,7 @@ export class MatchDataServiceService {
 
   battingTeamIndex: number = 1;
   bowlerTeamIndex: number = 0;
-  totalOvers: number = 3;
+  totalOvers: number = 5;
 
   battingTeamScore: TeamScore = {
     teamName: this.teams[this.battingTeamIndex].teamName,
@@ -49,17 +49,19 @@ export class MatchDataServiceService {
 
   firstTeamBattingScores = new Array<BatterScore>();
   secondTeamBattingScores = new Array<BatterScore>();
+  firstTeamBowlingScores = new Array<BowlerScore>();
+  secondTeamBowlingScores = new Array<BowlerScore>();
   scoreTeamIndex = true;
   teamPlayerScores: PostScore[] = [
     {
       teamName: this.teams[this.battingTeamIndex].teamName,
       batting: this.firstTeamBattingScores,
-      bowling: [],
+      bowling: this.firstTeamBowlingScores,
     },
     {
       teamName: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName,
       batting: this.secondTeamBattingScores,
-      bowling: [],
+      bowling: this.secondTeamBowlingScores,
     },
   ];
 
@@ -324,6 +326,7 @@ export class MatchDataServiceService {
     this.battingTeamScore.totalScore += ball.runs + extraScore;
     if (ball.Out.isOut) {
       this.battingTeamScore.wickets++;
+      this.bowler.wickets++;
     }
 
     //Update Bowler Score
@@ -393,6 +396,9 @@ export class MatchDataServiceService {
       this.currentOver.balls = [];
 
       this.bowler.overs++;
+      this.bowler.economyRate =
+        Math.round((this.bowler.runs / this.bowler.overs) * 100) / 100;
+
       let sum = 0;
       this.ballsForThisOver.forEach((ball) => {
         sum += ball.runs;
@@ -416,6 +422,8 @@ export class MatchDataServiceService {
 
     if (this.ballLeftForOver == 0) {
       if (this.currentOver.currentOver <= this.totalOvers) {
+        this.addToTeamScoresBowler(structuredClone(this.bowler));
+
         this.playerChangeService
           .changeBowler('Select Next Bowler')
           .subscribe((p) => {
@@ -439,6 +447,14 @@ export class MatchDataServiceService {
       this.teamPlayerScores[0].batting.push(b);
     } else {
       this.teamPlayerScores[1].batting.push(b);
+    }
+  }
+
+  addToTeamScoresBowler(b: BowlerScore) {
+    if (this.scoreTeamIndex) {
+      this.teamPlayerScores[1].bowling.push(b);
+    } else {
+      this.teamPlayerScores[0].bowling.push(b);
     }
   }
 }
