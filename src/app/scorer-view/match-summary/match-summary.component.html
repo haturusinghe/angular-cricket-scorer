@@ -1,0 +1,76 @@
+<section>
+  <mat-card>
+    <mat-card-title
+      >{{ battingTeamScore?.teamName }} vs
+      {{ battingTeamScore?.bowlingTeam }}</mat-card-title
+    >
+    <mat-card-subtitle>Match Summary</mat-card-subtitle>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <div *ngIf="battingTeamScore">
+        <mat-card-subtitle class="batting-team-title"
+          >{{ battingTeamScore.teamName }},
+          {{ battingTeamScore.inning }} Inning</mat-card-subtitle
+        >
+        <div>
+          <h1>
+            {{ battingTeamScore.totalScore }} - {{ battingTeamScore.wickets }}
+          </h1>
+        </div>
+        <!-- Team Score -->
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <!-- Right Side -->
+        <div
+          class="sec-2"
+          fxFlex="50"
+          fxLayout="column"
+          fxLayoutAlign="space-evenly center"
+        >
+          <div
+            fxLayout="row"
+            fxFlex="50"
+            fxLayoutAlign="start center"
+            fxLayoutGap="20"
+          >
+            <div>
+              <!-- Tournament Name -->
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Tournament Name</mat-label>
+                <input matInput readonly="" [value]="tournamentName" />
+              </mat-form-field>
+            </div>
+            <div fxFlex>
+              <!-- Tournament Name -->
+              <mat-form-field fxFlex appearance="outline">
+                <mat-label>Batting Team</mat-label>
+                <input matInput readonly="" [value]="getBattingTeam()" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxLayout="row" fxFlex="50" fxLayoutAlign="space-between center">
+            <!-- Tournament Name -->
+            <mat-form-field class="sec-3" appearance="outline">
+              <mat-label>Balls Left</mat-label>
+              <input matInput readonly="" [value]="currentOver.ballsLeft" />
+            </mat-form-field>
+            <!-- Tournament Name -->
+            <mat-form-field class="sec-3" appearance="outline">
+              <mat-label>Current Over</mat-label>
+              <input matInput readonly="" [value]="currentOver.currentOver" />
+            </mat-form-field>
+
+            <!-- Tournament Name -->
+            <mat-form-field class="sec-3" appearance="outline">
+              <mat-label>Total Overs</mat-label>
+              <input matInput readonly="" [value]="totalOvers" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

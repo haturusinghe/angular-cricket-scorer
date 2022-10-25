@@ -1,0 +1,22 @@
+section {
+  padding: 10px;
+  height: 100%;
+}
+
+table {
+  width: 100%;
+  box-shadow: none;
+}
+
+.mat-column-name {
+  width: 70%;
+}
+
+.mat-header-cell,
+.mat-cell {
+  padding: 10px;
+}
+
+mat-card {
+  height: 40vh;
+}
