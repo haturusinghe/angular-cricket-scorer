@@ -19,6 +19,7 @@ export class ScorerViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.setStepperClosed();
+    this.matchDataService.selectOpeningPlayers();
   }
 
   setStepperClosed() {
