@@ -26,10 +26,12 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { OverlayModule } from '@angular/cdk/overlay';
 // import { CdkMenuModule } from '@angular/cdk/menu';
 import { DialogModule } from '@angular/cdk/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   exports: [
     MatDialogModule,
+    MatSnackBarModule,
     // MatGridListModule,
     MatDividerModule,
     MatChipsModule,

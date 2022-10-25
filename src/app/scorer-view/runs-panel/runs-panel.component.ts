@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatchDataServiceService } from '../services/match-data-service.service';
 @Component({
   selector: 'crx-runs-panel',
@@ -34,7 +35,10 @@ export class RunsPanelComponent implements OnInit {
 
   wicketControl = new FormControl(this.wicketVals[0].value);
 
-  constructor(private matchDataService: MatchDataServiceService) {}
+  constructor(
+    private matchDataService: MatchDataServiceService,
+    private _snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {}
 
@@ -54,6 +58,12 @@ export class RunsPanelComponent implements OnInit {
       },
     });
     this.resetPanel();
+
+    this._snackBar.open('Ball Recorded', '', {
+      horizontalPosition: 'start',
+      verticalPosition: 'bottom',
+      duration: 1 * 1000,
+    });
   }
 
   resetPanel() {
