@@ -1,7 +1,10 @@
 <section>
   <mat-card>
-    <mat-card-title>Match Summary</mat-card-title>
-    <mat-card-subtitle>Infromation on the Match</mat-card-subtitle>
+    <mat-card-title
+      >{{ battingTeamScore?.teamName }} vs
+      {{ battingTeamScore?.bowlingTeam }}</mat-card-title
+    >
+    <mat-card-subtitle>Match Summary</mat-card-subtitle>
     <mat-card-content>
       <mat-divider></mat-divider>
       <div *ngIf="battingTeamScore">
