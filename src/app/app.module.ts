@@ -27,6 +27,7 @@ import { ChangeBatsmanComponent } from './scorer-view/change-batsman/change-bats
 import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler.component';
 import { PlayerScoreCardComponent } from './scorer-view/player-score-card/player-score-card.component';
 import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
+import { AuthComponent } from './auth/auth.component';
 //
 
 @NgModule({
@@ -46,6 +47,7 @@ import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
     ChangeBatsmanComponent,
     ChangeBowlerComponent,
     PlayerScoreCardComponent,
+    AuthComponent,
   ],
   imports: [
     ReactiveFormsModule,
