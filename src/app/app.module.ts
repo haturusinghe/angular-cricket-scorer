@@ -12,7 +12,7 @@ import { MaterialExampleModule } from '../material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AngularWebStorageModule } from 'angular-web-storage';
-
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Components
 import { ToolbarComponent } from './scorer-view/toolbar/toolbar.component';
 import { RunsPanelComponent } from './scorer-view/runs-panel/runs-panel.component';
