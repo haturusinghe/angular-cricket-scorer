@@ -30,4 +30,26 @@ export class AuthServiceService {
   getToken() {
     return localStorage.getItem('access_token');
   }
+
+  getTeams(): Observable<any> {
+    let api = `${this.endpoint}/account/list-all-teams`;
+    return this.http.get(api, { headers: this.headers }).pipe(
+      map((res) => {
+        return res || {};
+      }),
+      catchError(this.handleError)
+    );
+  }
+  // Error
+  handleError(error: HttpErrorResponse) {
+    let msg = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      msg = error.error.message;
+    } else {
+      // server-side error
+      msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(msg);
+  }
 }

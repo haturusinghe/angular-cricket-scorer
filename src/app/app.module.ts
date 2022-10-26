@@ -28,6 +28,8 @@ import { ChangeBowlerComponent } from './scorer-view/change-bowler/change-bowler
 import { PlayerScoreCardComponent } from './scorer-view/player-score-card/player-score-card.component';
 import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
 import { AuthComponent } from './auth/auth.component';
+import { AuthInterceptor } from './auth/service/authconfig.interceptor';
+
 //
 
 @NgModule({
@@ -60,7 +62,13 @@ import { AuthComponent } from './auth/auth.component';
     NgxSliderModule,
     AngularWebStorageModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
