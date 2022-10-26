@@ -1,4 +1,9 @@
-<div class="login" fxLayout="column" fxLayoutAlign="center center">
+<div
+  class="login"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  *ngIf="!loginStatus.isLoggedIn"
+>
   <form
     fxLayout="column"
     fxLayoutAlign="space-around center"
@@ -27,7 +32,7 @@
       <button
         mat-raised-button
         color="accent"
-        (click)="login()"
+        (click)="onSubmit()"
         class="submit-button"
         aria-label="LOG IN"
         [disabled]="loginForm.invalid"
@@ -36,5 +41,9 @@
       </button>
     </div>
   </form>
-  <button (click)="getTeams()">TEST</button>
+  <!-- <button (click)="onSubmit()">TEST</button> -->
+</div>
+
+<div *ngIf="loginStatus.isLoggedIn">
+  <crx-scorer-view></crx-scorer-view>
 </div>

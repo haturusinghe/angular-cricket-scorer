@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from './user';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import {
   HttpClient,
@@ -8,6 +8,7 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,22 @@ export class AuthServiceService {
   endpoint: string = 'https://cricketchampx.com/v1/api';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
   currentUser = {};
-  constructor(private http: HttpClient, public router: Router) {}
+  loginStatus = { isLoggedIn: false };
+
+  constructor(
+    private http: HttpClient,
+    public router: Router,
+    private _snackBar: MatSnackBar
+  ) {}
+
+  getLoginStatus(): Observable<any> {
+    const s = of(this.loginStatus);
+    return s;
+  }
+
+  setUserLoggedInStatus(status: boolean) {
+    this.loginStatus.isLoggedIn = status;
+  }
 
   // Sign-in
   signIn(user: User) {
@@ -24,6 +40,14 @@ export class AuthServiceService {
       .post<any>(`${this.endpoint}/auth/login`, user)
       .subscribe((res: any) => {
         console.log(res);
+        if (res.success) {
+          this.loginStatus.isLoggedIn = true;
+          this._snackBar.open('Sucessfully Logged In', '', {
+            horizontalPosition: 'start',
+            verticalPosition: 'bottom',
+            duration: 1 * 1000,
+          });
+        }
         localStorage.setItem('access_token', res.success.access_token);
       });
   }

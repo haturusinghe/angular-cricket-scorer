@@ -9,7 +9,7 @@ import { PlayerDataService } from './player-data.service';
   providedIn: 'root',
 })
 export class PreGameDataService {
-  startGame = { isOn: true };
+  startGame = { isOn: false };
   teams: Team[] = this.playerDataService.getTeams();
   playingTeams: Team[] = [
     {

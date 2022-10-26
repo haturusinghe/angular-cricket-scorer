@@ -40,7 +40,9 @@ export class RunsPanelComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.matchDataService.selectOpeningPlayers();
+  }
 
   changeRun(run: string) {
     this.run = parseInt(run);
