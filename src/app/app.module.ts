@@ -35,6 +35,7 @@ import { AuthInterceptor } from './auth/service/authconfig.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
+
     ScorerViewComponent,
     ToolbarComponent,
     RunsPanelComponent,
@@ -53,6 +54,7 @@ import { AuthInterceptor } from './auth/service/authconfig.interceptor';
   ],
   imports: [
     ReactiveFormsModule,
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,

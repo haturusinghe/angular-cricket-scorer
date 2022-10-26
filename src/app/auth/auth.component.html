@@ -1,1 +1,40 @@
-<p>auth works!</p>
+<div class="login" fxLayout="column" fxLayoutAlign="center center">
+  <form
+    fxLayout="column"
+    fxLayoutAlign="space-around center"
+    name="loginForm"
+    [formGroup]="loginForm"
+    novalidate
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-icon matSuffix class="secondary-text">user</mat-icon>
+      <!-- <mat-error *ngIf="loginForm.get('username').hasError('required')">
+              Username is required
+            </mat-error> -->
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+      <mat-error *ngIf="!invalidPassword"> Password is required </mat-error>
+      <mat-error *ngIf="invalidPassword">Invalid email or password</mat-error>
+    </mat-form-field>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="login()"
+        class="submit-button"
+        aria-label="LOG IN"
+        [disabled]="loginForm.invalid"
+      >
+        LOGIN
+      </button>
+    </div>
+  </form>
+  <button (click)="getTeams()">TEST</button>
+</div>
