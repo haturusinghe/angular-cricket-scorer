@@ -58,7 +58,7 @@ export class ChangeBowlerComponent implements OnInit {
   }
 
   displayFn(player: Player): string {
-    return player && player.first_name && player.last_name
+    return player && (player.first_name || player.last_name)
       ? player.first_name + ' ' + player.last_name
       : '';
   }
