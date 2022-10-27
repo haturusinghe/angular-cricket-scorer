@@ -20,6 +20,7 @@ import { PostScore } from '../i/post-scores';
 import { PreGameDataService } from './pre-game-data.service';
 import { PostGameService } from './post-game.service';
 import { ScoreCard } from './score-card';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -108,7 +109,8 @@ export class MatchDataServiceService {
     private playerChangeService: PlayerChangeService,
     private local: LocalStorageService,
     private session: SessionStorageService,
-    private postGameService: PostGameService
+    private postGameService: PostGameService,
+    private _snackBar: MatSnackBar
   ) {
     /* let d = this.local.get('CURRENT_OVER');
     console.log(d.currentOver);
@@ -464,17 +466,19 @@ export class MatchDataServiceService {
 
     if (this.currentOver.currentOver <= this.totalOvers) {
       if (ball.Out.isOut) {
-        this.addToTeamScores(structuredClone(this.striker));
+        if (this.battingTeamScore.wickets < 10) {
+          this.addToTeamScores(structuredClone(this.striker));
 
-        this.playerChangeService
-          .changeStriker('Select Next Striker')
-          .subscribe((p) => {
-            this.changeStriker(p);
-          });
+          this.playerChangeService
+            .changeStriker('Select Next Striker')
+            .subscribe((p) => {
+              this.changeStriker(p);
+            });
+        }
       }
     }
 
-    if (this.ballLeftForOver == 0) {
+    if (this.ballLeftForOver == 0 && this.battingTeamScore.wickets < 10) {
       if (this.currentOver.currentOver <= this.totalOvers) {
         this.addToTeamScoresBowler(structuredClone(this.bowler));
 
@@ -487,7 +491,16 @@ export class MatchDataServiceService {
     }
 
     // Swap Batting Team when Overs over
-    if (this.currentOver.currentOver > this.totalOvers) {
+    if (
+      this.currentOver.currentOver > this.totalOvers ||
+      this.battingTeamScore.wickets >= 10
+    ) {
+      this._snackBar.open('Switching Batting Team', '', {
+        horizontalPosition: 'start',
+        verticalPosition: 'bottom',
+        duration: 1 * 1000,
+      });
+
       this.addToTeamScoresBowler(structuredClone(this.bowler));
       this.addToTeamScores(structuredClone(this.striker));
       this.addToTeamScores(structuredClone(this.nonStriker));
