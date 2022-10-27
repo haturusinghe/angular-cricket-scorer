@@ -48,6 +48,8 @@ export class MatchDataServiceService {
     wickets: 0,
   };
 
+  preGameData = { tournamentName: '', totalOvers: 69 };
+
   currentOver: OverData = { currentOver: 1, ballsLeft: 6 };
 
   firstTeamBattingScores = new Array<BatterScore>();
@@ -122,6 +124,23 @@ export class MatchDataServiceService {
     if (d.allOvers) {
       this.allOvers = d.allOvers;
     } */
+  }
+
+  loadPreGameDataFromService() {
+    let data = this.preGameDataService.getPreGameData();
+    this.tournamentName = data.tournamentName;
+    this.totalOvers = data.totalOvers;
+    this.battingTeamIndex = data.battingTeamIndex;
+    this.bowlerTeamIndex = data.bowlerTeamIndex;
+    this.teams = data.teams;
+
+    this.battingTeamScore.teamName = this.teams[this.battingTeamIndex].teamName;
+    this.battingTeamScore.bowlingTeam =
+      this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName;
+
+    /* battingTeamScore: TeamScore = {
+      teamName: this.teams[this.battingTeamIndex].teamName,
+      bowlingTeam: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName */
   }
 
   testingPreGameDataService() {

@@ -19,6 +19,7 @@ export class MatchSummaryComponent implements OnInit {
   constructor(private matchDataService: MatchDataServiceService) {}
 
   ngOnInit(): void {
+    this.matchDataService.loadPreGameDataFromService();
     this.getMatchMeta();
     this.getCurrentOver();
     this.getBattingTeamScore();
