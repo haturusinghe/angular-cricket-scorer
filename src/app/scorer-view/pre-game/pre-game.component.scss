@@ -13,3 +13,72 @@
 h4 {
   text-align: center;
 }
+
+.checked {
+  background-color: #5f5fc4;
+  color: white;
+  width: 150px;
+  border-radius: 5px;
+  border-color: #5f5fc4;
+  margin: 2px;
+  padding: 1px;
+}
+
+.unchecked {
+  color: black;
+  background-color: #b7b7ca;
+  width: 120px;
+  border-radius: 5px;
+  border-color: #fff;
+
+  padding: 1px;
+}
+mat-list-option[aria-selected="true"] {
+  background: rgba(20, 117, 237, 0.7);
+  color: white;
+}
+mat-list-option {
+  margin: 10px;
+}
+.mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.mat-stepper-horizontal .mat-horizontal-stepper-header {
+  padding: 5px;
+
+  margin: 10px;
+}
+::ng-deep .mat-horizontal-stepper-header {
+  pointer-events: none !important;
+  padding: 5px;
+  height: auto;
+  margin: 10px;
+}
+
+.mat-stepper-horizontal .mat-horizontal-stepper-header {
+  padding: 5px;
+  height: auto;
+  margin: 10px;
+}
+// .mat-stepper-horizontal .mat-stepper-horizontal-line {
+//   margin: 0 -4px;
+// }
+mat-card {
+  height: 70vh;
+  margin: 20px;
+}
+
+.mat-card.scrollable-content {
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-card.scrollable-content > .mat-card-title-group {
+  display: block;
+}
+
+.mat-card.scrollable-content > .mat-card-content {
+  overflow-y: scroll;
+}

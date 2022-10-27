@@ -4,23 +4,16 @@ import { Player } from '../i/player';
 import { BatterScore } from '../i/player-score';
 import { Team } from '../i/team';
 import { PlayerDataService } from './player-data.service';
+import { TeamDataService } from './team-data.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PreGameDataService {
-  startGame = { isOn: true };
+  startGame = { isOn: false };
   teams: Team[] = this.playerDataService.getTeams();
-  playingTeams: Team[] = [
-    {
-      teamName: 'SL',
-      players: [{ id: 5, first_name: 'Lanna', last_name: 'Smead' }],
-    },
-    {
-      teamName: 'ind',
-      players: [{ id: 5, first_name: 'Lanna', last_name: 'Smead' }],
-    },
-  ];
+  playingTeams: Team[] = [];
+
   playingTeamsXi: Team[] = [
     {
       teamName: 'SL',
@@ -28,11 +21,32 @@ export class PreGameDataService {
     },
     {
       teamName: 'ind',
-      players: [{ id: 5, first_name: 'Lanna', last_name: 'Smead' }],
+      players: [{ id: 5, first_name: 'abc', last_name: 'Smead' }],
     },
   ];
   toss: string = 'SL';
   choose: string = 'batting';
+  tournaments!: string[];
+  tournament!: string;
+  overs!: number;
+
+  selectOvers(overs: number) {
+    this.overs = overs;
+  }
+
+  getOvers(): Observable<number> {
+    const overs = of(this.overs);
+    return overs;
+  }
+
+  getTournamentName(): Observable<string> {
+    const tournament = of(this.tournament);
+    return tournament;
+  }
+
+  selectTournament(tournamentName: string) {
+    this.tournament = tournamentName;
+  }
 
   getAllTeams(): Observable<Team[]> {
     const teams = of(this.teams);
@@ -73,16 +87,28 @@ export class PreGameDataService {
     this.playingTeamsXi[n].teamName = '';
     this.playingTeamsXi[n].players = [];
   }
-  addPlayingXi(playingTeams: Team, n: number) {
-    this.playingTeamsXi[n].players = playingTeams.players.filter(
-      (x: Player) => x.checked == true
-    );
+  // addPlayingXi(playingTeams: Team, n: number) {
+  //   this.playingTeamsXi[n].players = playingTeams.players.filter(
+  //     (x: Player) => x.checked == true
+  //   );
 
-    this.playingTeamsXi[n].teamName = playingTeams.teamName;
-  }
+  //   this.playingTeamsXi[n].teamName = playingTeams.teamName;
+  // }
 
   selectToss(teamName: string) {
     this.toss = teamName;
+  }
+
+  setTeamXi(playingXi: Team[]) {
+    this.clearPlayingTeamsXi(0);
+    this.clearPlayingTeamsXi(1);
+    this.playingTeamsXi[0].teamName = playingXi[0].teamName;
+    this.playingTeamsXi[1].teamName = playingXi[1].teamName;
+    this.playingTeamsXi[0].players = playingXi[0].players;
+    this.playingTeamsXi[1].players = playingXi[1].players;
+  }
+  getToss(): string {
+    return this.toss;
   }
 
   TossSelect(role: string) {
@@ -91,14 +117,36 @@ export class PreGameDataService {
 
   //# TODO :
   getPreGameData() {
+    let roleIndex = this.findBattingTeam();
+
     return {
-      tournamentName: 'England Tour of Sri Lanka',
-      teams: [],
-      battingTeamIndex: -1,
-      bowlerTeamIndex: -1,
-      totalOvers: -1,
+      tournamentName: this.tournament,
+      teams: this.playingTeamsXi,
+      battingTeamIndex: roleIndex.batting,
+      bowlerTeamIndex: roleIndex.bowling,
+      totalOvers: this.overs,
     };
   }
 
-  constructor(private playerDataService: PlayerDataService) {}
+  findBattingTeam() {
+    let i = 0;
+
+    for (let team of this.playingTeamsXi) {
+      if ((team.teamName = this.toss)) {
+        if (this.choose == 'Batting') {
+          return { batting: i, bowling: Math.abs(i - 1) };
+        } else {
+          return { batting: Math.abs(i - 1), bowling: i };
+        }
+      }
+
+      i++;
+    }
+    return { batting: -1, bowling: -1 };
+  }
+
+  constructor(
+    private playerDataService: PlayerDataService,
+    private teamDataService: TeamDataService
+  ) {}
 }

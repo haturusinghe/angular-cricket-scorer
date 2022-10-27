@@ -14,7 +14,6 @@ export class PlayerChangeService {
     id: -1,
     first_name: '',
     last_name: '',
-    checked: false,
   };
   selectedBatsman: Player = {
     id: -1,
