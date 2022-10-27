@@ -1,8 +1,16 @@
 <section>
   <mat-card>
-    <mat-card-title
+    <mat-card-title></mat-card-title>
+
+    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center"
       >{{ battingTeamScore?.teamName }} vs
-      {{ battingTeamScore?.bowlingTeam }}</mat-card-title
+      {{ battingTeamScore?.bowlingTeam }}
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+        <!-- <button mat-raised-button color color="primary">End Match</button> -->
+        <button mat-raised-button color color="primary" (click)="testPost()">
+          Submit Scores
+        </button>
+      </div></mat-card-title
     >
     <mat-card-subtitle>Match Summary</mat-card-subtitle>
     <mat-card-content>

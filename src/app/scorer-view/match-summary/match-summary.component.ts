@@ -49,4 +49,8 @@ export class MatchSummaryComponent implements OnInit {
       return 'Hello';
     }
   }
+
+  testPost() {
+    // this.matchDataService.sendScores();
+  }
 }
