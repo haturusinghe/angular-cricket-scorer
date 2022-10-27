@@ -1,11 +1,16 @@
-<div class="steper" *ngIf="!stepperClosed.isOn">
+<div
+  class="steper"
+  *ngIf="!stepperClosed.isOn"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+>
   <mat-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup" label="Select Teams ">
       <div class="steper" fxLayout="column" fxLayoutAlign="space-evenly center">
         <h4>Select Tournament</h4>
 
         <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Tournament</mat-label>
+          <mat-label>Tournament Name</mat-label>
           <input
             matInput
             #tour
@@ -54,7 +59,7 @@
       <div class="steper" fxLayout="column" fxLayoutAlign="space-evenly center">
         <h4>Select Teams</h4>
         <mat-form-field appearance="fill">
-          <mat-label>team1</mat-label>
+          <mat-label>Team A</mat-label>
           <mat-select
             [(ngModel)]="selectedValue1"
             (selectionChange)="onChange(selectedValue1, 0)"
@@ -70,7 +75,7 @@
 
         <h4>V.S</h4>
         <mat-form-field appearance="fill">
-          <mat-label>team2</mat-label>
+          <mat-label>Team B</mat-label>
           <mat-select
             [(ngModel)]="selectedValue2"
             (selectionChange)="onChange(selectedValue2, 1)"
