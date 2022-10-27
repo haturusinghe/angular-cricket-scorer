@@ -18,6 +18,8 @@ import {
 } from 'angular-web-storage';
 import { PostScore } from '../i/post-scores';
 import { PreGameDataService } from './pre-game-data.service';
+import { PostGameService } from './post-game.service';
+import { ScoreCard } from './score-card';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +37,7 @@ export class MatchDataServiceService {
 
   battingTeamIndex: number = 1;
   bowlerTeamIndex: number = 0;
-  totalOvers: number = 5;
+  totalOvers: number = 3;
 
   battingTeamScore: TeamScore = {
     teamName: this.teams[this.battingTeamIndex].teamName,
@@ -105,7 +107,8 @@ export class MatchDataServiceService {
     private playerDataService: PlayerDataService,
     private playerChangeService: PlayerChangeService,
     private local: LocalStorageService,
-    private session: SessionStorageService
+    private session: SessionStorageService,
+    private postGameService: PostGameService
   ) {
     /* let d = this.local.get('CURRENT_OVER');
     console.log(d.currentOver);
@@ -123,6 +126,12 @@ export class MatchDataServiceService {
     this.preGameDataService.getAllTeams().subscribe((s) => console.log(s));
     this.preGameDataService.getPlayingTeamXi().subscribe((s) => console.log(s));
     this.preGameDataService.getPlayingTeams().subscribe((s) => console.log(s));
+  }
+
+  sendScores(scoreCard: ScoreCard) {
+    this.postGameService.postScorecardToApi(scoreCard).subscribe((s) => {
+      console.log(s);
+    });
   }
 
   getTeamNames() {
@@ -197,6 +206,9 @@ export class MatchDataServiceService {
 
   //Swap Batting Teams when Overs/Wickets are over
   swapBattingTeam() {
+    if (this.scoreTeamIndex == false) {
+    }
+
     this.scoreTeamIndex = false;
     let temp = this.battingTeamIndex;
     this.battingTeamIndex = this.bowlerTeamIndex;
@@ -206,6 +218,8 @@ export class MatchDataServiceService {
     this.currentOver.ballsLeft = 6;
 
     this.battingTeamScore.teamName = this.teams[this.battingTeamIndex].teamName;
+    this.battingTeamScore.bowlingTeam =
+      this.teams[this.bowlerTeamIndex].teamName;
     this.battingTeamScore.totalScore = 0;
     this.battingTeamScore.wickets = 0;
     this.battingTeamScore.inning = '2nd';
@@ -216,6 +230,46 @@ export class MatchDataServiceService {
     console.log(this.allOvers);
 
     this.selectOpeningPlayers();
+  }
+
+  createScoreCard(): ScoreCard {
+    let today = new Date().toLocaleDateString('en-GB');
+    let bowlers = [];
+    if (this.scoreTeamIndex) {
+      bowlers = this.teamPlayerScores[1].bowling;
+    } else {
+      bowlers = this.teamPlayerScores[0].bowling;
+    }
+
+    let scoreCard = new ScoreCard(
+      'test_1999',
+      today,
+      'ONGOING',
+      this.teams[this.battingTeamIndex].teamName,
+      this.teams[this.bowlerTeamIndex].teamName,
+      {}
+    );
+
+    let inningsRecord = {
+      overs: this.currentOver.currentOver - 1,
+      batting: {
+        runs: this.battingTeamScore.totalScore,
+        wickets: this.battingTeamScore.wickets,
+      },
+      bowling: {
+        bowlers: bowlers,
+      },
+      ball_by_ball: {},
+    };
+
+    scoreCard.scoreCard['innings'] = {
+      batting: this.battingTeamScore.teamName,
+      bowling: this.battingTeamScore.bowlingTeam,
+      score: inningsRecord,
+    };
+
+    console.log(scoreCard);
+    return scoreCard;
   }
 
   selectOpeningPlayers() {
@@ -434,9 +488,10 @@ export class MatchDataServiceService {
 
     // Swap Batting Team when Overs over
     if (this.currentOver.currentOver > this.totalOvers) {
+      this.addToTeamScoresBowler(structuredClone(this.bowler));
       this.addToTeamScores(structuredClone(this.striker));
       this.addToTeamScores(structuredClone(this.nonStriker));
-
+      this.sendScores(this.createScoreCard());
       this.swapBattingTeam();
     }
     // this.saveAllOversLocally();
