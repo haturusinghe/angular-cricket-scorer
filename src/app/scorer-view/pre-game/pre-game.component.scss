@@ -9,7 +9,6 @@
 .steper {
   width: fit-content;
   margin: 0 auto;
-  height: 100%;
 }
 h4 {
   text-align: center;
@@ -69,17 +68,26 @@ mat-card {
   height: 70vh;
   margin: 20px;
 }
-
-.mat-card.scrollable-content {
-  overflow: scroll;
-  display: flex;
-  flex-direction: column;
-}
-
-.mat-card.scrollable-content > .mat-card-title-group {
-  display: block;
-}
-
-.mat-card.scrollable-content > .mat-card-content {
+mat-selection-list {
+  max-height: 60vh;
   overflow-y: scroll;
+  overflow-x: hidden;
+  padding-right: 10px !important;
+}
+
+mat-list-option {
+  padding-right: 10px !important;
+}
+::-webkit-scrollbar {
+  width: 4px;
+  overflow-y: scroll;
+  background: grey;
+  box-shadow: inset 0 0 4px #707070;
+  margin: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+  margin: 5px;
 }
