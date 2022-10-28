@@ -257,9 +257,19 @@ export class MatchDataServiceService {
     let today = new Date().toLocaleDateString('en-GB');
     let bowlers = [];
     if (this.scoreTeamIndex) {
-      bowlers = this.teamPlayerScores[1].bowling;
+      bowlers = this.teamPlayerScores[1].bowling.map((b) => ({
+        name: b.player.first_name + ' ' + b.player.last_name,
+        overs: b.overs,
+        runs: b.runs,
+        fours: 0,
+      }));
     } else {
-      bowlers = this.teamPlayerScores[0].bowling;
+      bowlers = this.teamPlayerScores[0].bowling.map((b) => ({
+        name: b.player.first_name + ' ' + b.player.last_name,
+        overs: b.overs,
+        runs: b.runs,
+        fours: 0,
+      }));
     }
 
     let scoreCard = new ScoreCard(
@@ -283,7 +293,7 @@ export class MatchDataServiceService {
       ball_by_ball: {},
     };
 
-    scoreCard.scoreCard['innings'] = {
+    scoreCard.score_card['innings'] = {
       batting: this.battingTeamScore.teamName,
       bowling: this.battingTeamScore.bowlingTeam,
       score: inningsRecord,
