@@ -45,7 +45,7 @@ export class TeamDataService {
   }
 
   getPlayingTeamById(id: number): Observable<any> {
-    let api = `${this.endpoint}/get-players-by-team/${id}`;
+    let api = `${this.endpoint}/account/get-players-by-team/${id}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res) => {
         return res || 'Error';
