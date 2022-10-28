@@ -1,10 +1,10 @@
 export class ScoreCard {
   constructor(
-    public matchId: string,
-    public createdTime: string,
-    public status: string,
-    public teamAName: string,
-    public teamBName: string,
-    public scoreCard: any
+    public match_id: string,
+    public date: string,
+    public description: string,
+    public team_one: string,
+    public team_two: string,
+    public score_card: any
   ) {}
 }
