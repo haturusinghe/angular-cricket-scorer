@@ -38,7 +38,7 @@ export class PreGameComponent implements OnInit {
   selectedValue1!: string;
   selectedValue2!: string;
 
-  overs: number[] = [10, 20, 50];
+  overs: number[] = [3, 10, 20, 50];
   overSelect!: number;
 
   teamx!: Player[];
@@ -423,14 +423,16 @@ export class PreGameComponent implements OnInit {
   }
 
   onChange(selectedName: string, n: number): void {
-    // this.teamDetails.teams.forEach((team) => {
-    //   if (team.name.trim() == selectedName.trim()) {
-    //     this.teamDataService
-    //       .getPlayingTeamById(team.id)
-    //       .subscribe((s) => (this.playingTeams[n] = s));
-    //   }
-    //   console.log(this.playingTeams[n]);
-    // });
+    // console.log(selectedName, n);
+    this.teamDetails.teams.forEach((team) => {
+      if (team.name.trim() == selectedName.trim()) {
+        this.teamDataService.getPlayingTeamById(team.id).subscribe((s) => {
+          this.playingTeams[n] = s;
+          console.log(s);
+        });
+      }
+      // console.log(this.playingTeams[n]);
+    });
   }
 
   selectPlayingXi(n: number): void {
