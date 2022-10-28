@@ -35,13 +35,16 @@ export class PostGameService {
   }
 
   postScorecardToApi(scoreCard = {}): Observable<any> {
-    let api = `${this.endpoint}/save-score-card`;
-    return this.http.post(api, scoreCard, { headers: this.headers }).pipe(
-      map((res) => {
-        return res || {};
-      }),
-      catchError(this.handleError)
-    );
+    let api = `${this.endpoint}/account/save-score-card`;
+    console.log(JSON.stringify(scoreCard));
+    return this.http
+      .post(api, JSON.stringify(scoreCard), { headers: this.headers })
+      .pipe(
+        map((res) => {
+          return res || {};
+        }),
+        catchError(this.handleError)
+      );
   }
 
   // Error
