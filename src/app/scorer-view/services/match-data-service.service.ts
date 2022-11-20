@@ -141,6 +141,11 @@ export class MatchDataServiceService {
     /* battingTeamScore: TeamScore = {
       teamName: this.teams[this.battingTeamIndex].teamName,
       bowlingTeam: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName */
+
+    this.teamPlayerScores[0].teamName =
+      this.teams[this.battingTeamIndex].teamName;
+    this.teamPlayerScores[1].teamName =
+      this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName;
   }
 
   testingPreGameDataService() {
