@@ -353,9 +353,18 @@ export class MatchDataServiceService {
     return bowler;
   }
 
+
+
+
   getOverDetails(): Observable<Over[]> {
     const overs = of(this.allOvers);
     return overs;
+  }
+
+  setBowlerOvers(id:number){
+
+      this.bowler.overs++;
+
   }
 
   getBattingTeamScore(): Observable<TeamScore> {
@@ -409,32 +418,41 @@ export class MatchDataServiceService {
     ball.bowlType = this.lastBowlType;
     ball.bowlSpeed = this.lastBowlSpeed;
     let extraScore: number = 0;
-    if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
-      extraScore++;
+    if (ball.extras.includes('LBy') || ball.extras.includes('By')) {
+      this.striker.ballsFaced++;
+      extraScore += ball.runs;
+    } else if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
+      extraScore += ball.runs + 1;
     }
+
     //Update Batting Team Score & Wickets
-    this.battingTeamScore.totalScore += ball.runs + extraScore;
+    this.battingTeamScore.totalScore +=
+      extraScore <= 0 ? ball.runs : extraScore;
     if (ball.Out.isOut) {
       this.battingTeamScore.wickets++;
       this.bowler.wickets++;
     }
 
     //Update Bowler Score
-    this.bowler.runs += ball.runs + extraScore;
+    this.bowler.runs += extraScore <= 0 ? ball.runs : extraScore;
 
     ball.striker = this.striker.player;
     ball.shotType = this.lastShotPlayed;
     ball.shotAngle = this.lastShotAngle;
 
     //Updating Striker Score
-    this.striker.ballsFaced++;
-    this.striker.runs += ball.runs;
-    if (ball.is4) {
-      this.striker.fours++;
+    if (extraScore <= 0) {
+      this.striker.ballsFaced++;
+      this.striker.runs += ball.runs;
+
+      if (ball.is4) {
+        this.striker.fours++;
+      }
+      if (ball.is6) {
+        this.striker.sixes++;
+      }
     }
-    if (ball.is6) {
-      this.striker.sixes++;
-    }
+
     this.striker.strikeRate =
       Math.round((this.striker.runs / this.striker.ballsFaced) * 100 * 100) /
       100;
