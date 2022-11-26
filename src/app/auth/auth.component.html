@@ -1,4 +1,4 @@
-<!-- <div
+<div
   class="login"
   fxLayout="column"
   fxLayoutAlign="center center"
@@ -17,7 +17,9 @@
       <mat-label>Email</mat-label>
       <input matInput formControlName="email" />
       <mat-icon matSuffix class="secondary-text">user</mat-icon>
-
+      <!-- <mat-error *ngIf="loginForm.get('username').hasError('required')">
+              Username is required
+            </mat-error> -->
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -40,8 +42,10 @@
         LOGIN
       </button>
     </div>
-  </form></div> -->
+  </form>
+  <!-- <button (click)="onSubmit()">TEST</button> -->
+</div>
 
-<div >
+<div *ngIf="loginStatus.isLoggedIn">
   <crx-scorer-view></crx-scorer-view>
 </div>
