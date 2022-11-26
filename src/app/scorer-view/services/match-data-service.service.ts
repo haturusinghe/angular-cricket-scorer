@@ -191,12 +191,35 @@ export class MatchDataServiceService {
   }
 
   changeBowler(player: Player) {
-    this.bowler.player = player;
-    this.bowler.economyRate = 0;
-    this.bowler.maidenOvers = 0;
-    this.bowler.overs = 0;
-    this.bowler.runs = 0;
-    this.bowler.wickets = 0;
+    let bowler1 = this.teamPlayerScores[0].bowling.find(
+      (element) => element.player.first_name == player.first_name
+    );
+    let bowler2 = this.teamPlayerScores[1].bowling.find(
+      (element) => element.player.id == player.id
+    );
+
+    if (bowler1) {
+      this.bowler.player = player;
+      this.bowler.economyRate = bowler1.economyRate;
+      this.bowler.maidenOvers = bowler1.maidenOvers;
+      this.bowler.overs = bowler1.overs;
+      this.bowler.runs = bowler1.runs;
+      this.bowler.wickets = bowler1.wickets;
+    } else if (bowler2) {
+      this.bowler.player = player;
+      this.bowler.economyRate = bowler2.economyRate;
+      this.bowler.maidenOvers = bowler2.maidenOvers;
+      this.bowler.overs = bowler2.overs;
+      this.bowler.runs = bowler2.runs;
+      this.bowler.wickets = bowler2.wickets;
+    } else {
+      this.bowler.player = player;
+      this.bowler.economyRate = 0;
+      this.bowler.maidenOvers = 0;
+      this.bowler.overs = 0;
+      this.bowler.runs = 0;
+      this.bowler.wickets = 0;
+    }
   }
 
   changeStriker(player: Player) {
@@ -353,18 +376,13 @@ export class MatchDataServiceService {
     return bowler;
   }
 
-
-
-
   getOverDetails(): Observable<Over[]> {
     const overs = of(this.allOvers);
     return overs;
   }
 
-  setBowlerOvers(id:number){
-
-      this.bowler.overs++;
-
+  setBowlerOvers(id: number) {
+    this.bowler.overs++;
   }
 
   getBattingTeamScore(): Observable<TeamScore> {
@@ -516,6 +534,24 @@ export class MatchDataServiceService {
       }
     }
 
+    // Swap Batting Team when Overs over
+    if (
+      this.currentOver.currentOver > this.totalOvers ||
+      this.battingTeamScore.wickets >= 10
+    ) {
+      this._snackBar.open('Switching Batting Team', '', {
+        horizontalPosition: 'start',
+        verticalPosition: 'bottom',
+        duration: 1 * 1000,
+      });
+
+      this.addToTeamScoresBowler(structuredClone(this.bowler));
+      this.addToTeamScores(structuredClone(this.striker));
+      this.addToTeamScores(structuredClone(this.nonStriker));
+      this.sendScores(this.createScoreCard());
+      this.swapBattingTeam();
+    }
+
     if (this.currentOver.currentOver <= this.totalOvers) {
       if (ball.Out.isOut) {
         if (this.battingTeamScore.wickets < 10) {
@@ -541,24 +577,6 @@ export class MatchDataServiceService {
           });
       }
     }
-
-    // Swap Batting Team when Overs over
-    if (
-      this.currentOver.currentOver > this.totalOvers ||
-      this.battingTeamScore.wickets >= 10
-    ) {
-      this._snackBar.open('Switching Batting Team', '', {
-        horizontalPosition: 'start',
-        verticalPosition: 'bottom',
-        duration: 1 * 1000,
-      });
-
-      this.addToTeamScoresBowler(structuredClone(this.bowler));
-      this.addToTeamScores(structuredClone(this.striker));
-      this.addToTeamScores(structuredClone(this.nonStriker));
-      this.sendScores(this.createScoreCard());
-      this.swapBattingTeam();
-    }
     // this.saveAllOversLocally();
   }
 
@@ -572,9 +590,48 @@ export class MatchDataServiceService {
 
   addToTeamScoresBowler(b: BowlerScore) {
     if (this.scoreTeamIndex) {
-      this.teamPlayerScores[1].bowling.push(b);
+      let bowler2 = this.secondTeamBowlingScores.find(
+        (element) => element.player.first_name == b.player.first_name
+      );
+
+      if (bowler2) {
+        this.secondTeamBowlingScores.map((element) => {
+          if (element.player.id == b.player.id) {
+            element.player = b.player;
+            element.economyRate = b.economyRate;
+            element.maidenOvers = b.maidenOvers;
+            element.overs = b.overs;
+            element.runs = b.runs;
+            element.wickets = b.wickets;
+          }
+        });
+      } else {
+        this.secondTeamBowlingScores.push(b);
+      }
+      console.log(bowler2);
     } else {
-      this.teamPlayerScores[0].bowling.push(b);
+      let bowler2 = this.firstTeamBowlingScores.find(
+        (element) => element.player.first_name == b.player.first_name
+      );
+
+      if (bowler2) {
+        this.firstTeamBowlingScores.map((element) => {
+          if (element.player.id == b.player.id) {
+            element.player = b.player;
+            element.economyRate = b.economyRate;
+            element.maidenOvers = b.maidenOvers;
+            element.overs = b.overs;
+            element.runs = b.runs;
+            element.wickets = b.wickets;
+          }
+        });
+      } else {
+        this.firstTeamBowlingScores.push(b);
+      }
+      console.log(bowler2);
     }
+
+    console.log(this.teamPlayerScores[0].bowling);
+    console.log(this.teamPlayerScores[1].bowling);
   }
 }
