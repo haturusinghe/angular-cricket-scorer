@@ -30,7 +30,7 @@
       <mat-error *ngIf="invalidPassword">Invalid email or password</mat-error>
     </mat-form-field>
 
-    <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="center center" class="btns">
       <button
         mat-raised-button
         color="accent"
@@ -39,11 +39,10 @@
         aria-label="LOG IN"
         [disabled]="loginForm.invalid"
       >
-        LOGIN
+        Login
       </button>
     </div>
   </form>
-  <!-- <button (click)="onSubmit()">TEST</button> -->
 </div>
 
 <div *ngIf="loginStatus.isLoggedIn">
