@@ -47,6 +47,12 @@ export class AuthServiceService {
             verticalPosition: 'bottom',
             duration: 1 * 1000,
           });
+        } else {
+          this._snackBar.open('Cannot Login', 'Invalid Credentials', {
+            horizontalPosition: 'start',
+            verticalPosition: 'bottom',
+            duration: 1 * 1000,
+          });
         }
         localStorage.setItem('access_token', res.success.access_token);
       });
