@@ -41,7 +41,7 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  loginFormSubmit() {
     console.log('OK');
     this.invalidPassword = false;
     this.isloading = true;
