@@ -119,11 +119,21 @@ export class MatchDataServiceService {
   ) {}
 
   //Loads Data from Pre-Game Component
+  /*
+    # Used By:
+      #
+  */
   loadPreGameDataFromService() {
     this.preGameDataService
       .getTournamentName()
       .subscribe((tN) => (this.tournamentName = tN));
     this.preGameDataService.getOvers().subscribe((o) => (this.totalOvers = o));
+
+    let index = this.preGameDataService.getTeamIndexes();
+
+    this.battingTeamIndex = index.batting;
+    this.bowlerTeamIndex = index.bowling;
+
     this.preGameDataService.getFirstBattingTeam().subscribe((bat) => {
       this.battingTeamScore.teamName = bat.teamName;
       this.teamPlayerScores[0].teamName = bat.teamName;

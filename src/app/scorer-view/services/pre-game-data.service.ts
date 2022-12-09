@@ -107,4 +107,21 @@ export class PreGameDataService {
     const teams = of([this.data.meta.teamA, this.data.meta.teamB]);
     return teams;
   }
+
+  getTeamIndexes() {
+    let index = {
+      batting: 0,
+      bowling: 0,
+    };
+
+    if (this.data.meta.teamA.tossChoice == 'Batting') {
+      index.batting = 0;
+      index.bowling = 1;
+    } else if (this.data.meta.teamB.tossChoice == 'Batting') {
+      index.batting = 1;
+      index.bowling = 0;
+    }
+
+    return index;
+  }
 }
