@@ -104,6 +104,7 @@ export class MatchDataServiceService {
   };
   lastBowlSpeed: number = 0;
   lastBowlType: string = '';
+  meta: any;
 
   constructor(
     private preGameDataService: PreGameDataService,
@@ -127,7 +128,9 @@ export class MatchDataServiceService {
   }
 
   loadPreGameDataFromService() {
+    let meta = this.preGameDataService.getMetaData();
     let data = this.preGameDataService.getPreGameData();
+
     this.tournamentName = data.tournamentName;
     this.totalOvers = data.totalOvers;
     this.battingTeamIndex = data.battingTeamIndex;
@@ -146,12 +149,6 @@ export class MatchDataServiceService {
       this.teams[this.battingTeamIndex].teamName;
     this.teamPlayerScores[1].teamName =
       this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName;
-  }
-
-  testingPreGameDataService() {
-    this.preGameDataService.getAllTeams().subscribe((s) => console.log(s));
-    this.preGameDataService.getPlayingTeamXi().subscribe((s) => console.log(s));
-    this.preGameDataService.getPlayingTeams().subscribe((s) => console.log(s));
   }
 
   sendScores(scoreCard: ScoreCard) {

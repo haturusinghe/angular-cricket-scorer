@@ -10,6 +10,13 @@ import { TeamDataService } from './team-data.service';
   providedIn: 'root',
 })
 export class PreGameDataService {
+  constructor(
+    private playerDataService: PlayerDataService,
+    private teamDataService: TeamDataService
+  ) {}
+
+  metaData = {};
+
   startGame = { isOn: false };
   teams: Team[] = this.playerDataService.getTeams();
   playingTeams: Team[] = [];
@@ -29,6 +36,14 @@ export class PreGameDataService {
   tournaments!: string[];
   tournament!: string;
   overs!: number;
+
+  setMetaData(setMetaData: any) {
+    this.metaData = setMetaData;
+  }
+
+  getMetaData(): any {
+    return this.metaData;
+  }
 
   selectOvers(overs: number) {
     this.overs = overs;
@@ -87,13 +102,6 @@ export class PreGameDataService {
     this.playingTeamsXi[n].teamName = '';
     this.playingTeamsXi[n].players = [];
   }
-  // addPlayingXi(playingTeams: Team, n: number) {
-  //   this.playingTeamsXi[n].players = playingTeams.players.filter(
-  //     (x: Player) => x.checked == true
-  //   );
-
-  //   this.playingTeamsXi[n].teamName = playingTeams.teamName;
-  // }
 
   selectToss(teamName: string) {
     this.toss = teamName;
@@ -144,9 +152,4 @@ export class PreGameDataService {
     }
     return { batting: -1, bowling: -1 };
   }
-
-  constructor(
-    private playerDataService: PlayerDataService,
-    private teamDataService: TeamDataService
-  ) {}
 }

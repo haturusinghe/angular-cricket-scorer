@@ -49,7 +49,6 @@ export class PreGameComponent implements OnInit {
     },
   };
 
-  // tournaments = [{ name: 'Ashes' }, { name: 'Nidahas Trophy' }];
   tournamentName: string = '';
 
   teams!: Team[];
@@ -65,8 +64,6 @@ export class PreGameComponent implements OnInit {
   overs: number[] = [3, 10, 20, 50];
   overSelect!: number;
 
-  teamx!: Player[];
-  teamy!: Player[];
   next: boolean = true;
   tossWonBy!: string;
   tossWinnerDecision!: string;
@@ -408,7 +405,25 @@ export class PreGameComponent implements OnInit {
     this.preGameDataService.setTeamXi(this.playingTeamsXi);
   }
   setToss() {
-    this.preGameDataService.selectToss(this.tossWonBy);
+    if (this.tossWonBy == 'teamA') {
+      this.matchMetaData.teamA.tossWon = true;
+      this.matchMetaData.teamA.tossChoice = this.tossWinnerDecision;
+
+      this.matchMetaData.teamB.tossWon = false;
+      this.matchMetaData.teamB.tossChoice =
+        this.tossWinnerDecision == 'Batting' ? 'Bowling' : 'Batting';
+
+      this.preGameDataService.selectToss(this.matchMetaData.teamA.teamName);
+    } else if (this.tossWonBy == 'teamB') {
+      this.matchMetaData.teamB.tossWon = true;
+      this.matchMetaData.teamB.tossChoice = this.tossWinnerDecision;
+
+      this.matchMetaData.teamA.tossWon = false;
+      this.matchMetaData.teamA.tossChoice =
+        this.tossWinnerDecision == 'Batting' ? 'Bowling' : 'Batting';
+
+      this.preGameDataService.selectToss(this.matchMetaData.teamB.teamName);
+    }
   }
   setRole() {
     this.preGameDataService.TossSelect(this.tossWinnerDecision);
@@ -482,8 +497,9 @@ export class PreGameComponent implements OnInit {
     this.preGameDataService.setStart(true);
     this.preGameDataService.setMetaData(this.setMetaData);
 
+    this.getTeamsXi();
+    /* 
     // Uncomment this later
-    /* this.getTeamsXi();
     this.teamDataService
       .getPlayingTeamById(12)
       .subscribe((s) => (this.playingTeams[0] = s));
