@@ -25,8 +25,4 @@ export class ScorerViewComponent implements OnInit {
   setStepperClosed() {
     this.preGameService.start().subscribe((s) => (this.stepperClosed = s));
   }
-
-  testPreGameDataService() {
-    this.matchDataService.testingPreGameDataService();
-  }
 }
