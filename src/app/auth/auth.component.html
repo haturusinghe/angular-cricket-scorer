@@ -34,6 +34,7 @@
       <button
         mat-raised-button
         color="accent"
+        routerLink="/score"
         (click)="loginFormSubmit()"
         class="submit-button"
         aria-label="LOG IN"
@@ -46,5 +47,5 @@
 </div>
 
 <div *ngIf="loginStatus.isLoggedIn">
-  <crx-scorer-view></crx-scorer-view>
+  <router-outlet></router-outlet>
 </div>
