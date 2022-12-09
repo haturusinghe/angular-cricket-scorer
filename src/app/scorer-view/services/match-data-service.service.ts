@@ -150,6 +150,105 @@ export class MatchDataServiceService {
       .subscribe((arr) => (this.teams = arr));
   }
 
+  //match-summary
+  getBattingTeamScore(): Observable<TeamScore> {
+    const bts = of(this.battingTeamScore);
+    return bts;
+  }
+
+  //match-summary
+  getMatchMetaDetails() {
+    return {
+      tName: this.tournamentName,
+      totalOvers: this.totalOvers,
+      batting: this.teams[this.battingTeamIndex].teamName,
+    };
+  }
+
+  //match-summary
+  getCurrentOver(): Observable<OverData> {
+    const c = of(this.currentOver);
+    return c;
+  }
+
+  //batter-panel
+  getStrikerDetails(): Observable<BatterScore> {
+    const striker = of(this.striker);
+    return striker;
+  }
+
+  //batter-panel
+  getNonStrikerDetails(): Observable<BatterScore> {
+    const nonStriker = of(this.nonStriker);
+    return nonStriker;
+  }
+
+  //batter-panel
+  swapBatsman() {
+    let temp = this.striker;
+    this.striker = this.nonStriker;
+    this.nonStriker = temp;
+
+    //
+    this.striker.isStrikingNow = true;
+    this.nonStriker.isStrikingNow = false;
+  }
+
+  //batter-panel
+  changeStriker(player: Player) {
+    this.striker.player = player;
+    this.striker.ballsFaced = 0;
+    this.striker.fours = 0;
+    this.striker.runs = 0;
+    this.striker.sixes = 0;
+    this.striker.strikeRate = 0;
+    this.striker.isStrikingNow = true;
+  }
+
+  //batter-panel
+  changeLastShotType(shot: string) {
+    this.lastShotPlayed = shot;
+  }
+
+  //change-batsman
+  getBattingTeamPlayers(): Observable<Player[]> {
+    const batters = of(this.teams[this.battingTeamIndex].selectedPlayers);
+    return batters;
+  }
+
+  //bowler-panel
+  getBowlerDetails(): Observable<BowlerScore> {
+    const bowler = of(this.bowler);
+    return bowler;
+  }
+
+  //bowler-panel
+  changeBowler(player: Player) {
+    this.bowler.player = player;
+    this.bowler.economyRate = 0;
+    this.bowler.maidenOvers = 0;
+    this.bowler.overs = 0;
+    this.bowler.runs = 0;
+    this.bowler.wickets = 0;
+  }
+
+  //bowler-panel
+  changeLastBowlInfo(type: string, speed: number) {
+    this.lastBowlType = type;
+    this.lastBowlSpeed = speed;
+  }
+
+  //change-bowler
+  getBowlingTeamPlayers(): Observable<Player[]> {
+    const bowlers = of(this.teams[this.bowlerTeamIndex].selectedPlayers);
+    return bowlers;
+  }
+
+  //wagon-wheel-selector
+  changeLastShotAngle(angle: number) {
+    this.lastShotAngle = angle;
+  }
+
   sendScores(scoreCard: ScoreCard) {
     this.postGameService.postScorecardToApi(scoreCard).subscribe((s) => {
       console.log(s);
@@ -163,48 +262,6 @@ export class MatchDataServiceService {
     };
   }
 
-  changeLastShotType(shot: string) {
-    this.lastShotPlayed = shot;
-  }
-
-  changeLastShotAngle(angle: number) {
-    this.lastShotAngle = angle;
-  }
-
-  changeLastBowlInfo(type: string, speed: number) {
-    this.lastBowlType = type;
-    this.lastBowlSpeed = speed;
-  }
-
-  getBattingTeamPlayers(): Observable<Player[]> {
-    const batters = of(this.teams[this.battingTeamIndex].selectedPlayers);
-    return batters;
-  }
-
-  getBowlingTeamPlayers(): Observable<Player[]> {
-    const bowlers = of(this.teams[this.bowlerTeamIndex].selectedPlayers);
-    return bowlers;
-  }
-
-  changeBowler(player: Player) {
-    this.bowler.player = player;
-    this.bowler.economyRate = 0;
-    this.bowler.maidenOvers = 0;
-    this.bowler.overs = 0;
-    this.bowler.runs = 0;
-    this.bowler.wickets = 0;
-  }
-
-  changeStriker(player: Player) {
-    this.striker.player = player;
-    this.striker.ballsFaced = 0;
-    this.striker.fours = 0;
-    this.striker.runs = 0;
-    this.striker.sixes = 0;
-    this.striker.strikeRate = 0;
-    this.striker.isStrikingNow = true;
-  }
-
   //Change Non Striker
   changeNonStriker(player: Player) {
     this.nonStriker.player = player;
@@ -213,16 +270,6 @@ export class MatchDataServiceService {
     this.nonStriker.runs = 0;
     this.nonStriker.sixes = 0;
     this.nonStriker.strikeRate = 0;
-    this.nonStriker.isStrikingNow = false;
-  }
-
-  swapBatsman() {
-    let temp = this.striker;
-    this.striker = this.nonStriker;
-    this.nonStriker = temp;
-
-    //
-    this.striker.isStrikingNow = true;
     this.nonStriker.isStrikingNow = false;
   }
 
@@ -304,31 +351,6 @@ export class MatchDataServiceService {
     return scoreCard;
   }
 
-  selectOpeningPlayers() {
-    this.playerChangeService
-      .changeStriker('Select Starting Striker')
-      .subscribe((p) => {
-        this.changeStriker(p);
-
-        this.playerChangeService
-          .changeStriker('Select Starting Non-Striker')
-          .subscribe((p) => {
-            this.changeNonStriker(p);
-
-            this.playerChangeService
-              .changeBowler('Select Starting Bowler')
-              .subscribe((p) => {
-                this.changeBowler(p);
-              });
-          });
-      });
-  }
-
-  getStrikerDetails(): Observable<BatterScore> {
-    const striker = of(this.striker);
-    return striker;
-  }
-
   getPlayerTeamScores(): Observable<BatterScore[]> {
     const playerScores = of(this.firstTeamBattingScores);
     return playerScores;
@@ -339,37 +361,9 @@ export class MatchDataServiceService {
     return playerScores;
   }
 
-  getNonStrikerDetails(): Observable<BatterScore> {
-    const nonStriker = of(this.nonStriker);
-    return nonStriker;
-  }
-
-  getBowlerDetails(): Observable<BowlerScore> {
-    const bowler = of(this.bowler);
-    return bowler;
-  }
-
   getOverDetails(): Observable<Over[]> {
     const overs = of(this.allOvers);
     return overs;
-  }
-
-  getBattingTeamScore(): Observable<TeamScore> {
-    const bts = of(this.battingTeamScore);
-    return bts;
-  }
-
-  getMatchMetaDetails() {
-    return {
-      tName: this.tournamentName,
-      totalOvers: this.totalOvers,
-      batting: this.teams[this.battingTeamIndex].teamName,
-    };
-  }
-
-  getCurrentOver(): Observable<OverData> {
-    const c = of(this.currentOver);
-    return c;
   }
 
   //Saving Data Locally
@@ -438,6 +432,7 @@ export class MatchDataServiceService {
     ball.nonStriker = this.nonStriker.player;
   }
 
+  //runs-panel
   recordBall(ball: Ball) {
     //Update the Striker and Bowler for this
     this.updatePlayerInfoForBall(ball);
@@ -538,6 +533,27 @@ export class MatchDataServiceService {
       this.swapBattingTeam();
     }
     // this.saveAllOversLocally();
+  }
+
+  //runs-panel
+  selectOpeningPlayers() {
+    this.playerChangeService
+      .changeStriker('Select Starting Striker')
+      .subscribe((p) => {
+        this.changeStriker(p);
+
+        this.playerChangeService
+          .changeStriker('Select Starting Non-Striker')
+          .subscribe((p) => {
+            this.changeNonStriker(p);
+
+            this.playerChangeService
+              .changeBowler('Select Starting Bowler')
+              .subscribe((p) => {
+                this.changeBowler(p);
+              });
+          });
+      });
   }
 
   addToTeamScores(b: BatterScore) {
