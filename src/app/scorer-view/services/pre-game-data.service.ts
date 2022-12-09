@@ -22,7 +22,7 @@ export class PreGameDataService {
         allPlayers: new Array<Player>(),
         selectedPlayers: new Array<Player>(),
         tossWon: false,
-        tossChoice: 'Batting',
+        tossChoice: '',
       },
       teamB: {
         teamId: 0,
@@ -30,7 +30,7 @@ export class PreGameDataService {
         allPlayers: new Array<Player>(),
         selectedPlayers: new Array<Player>(),
         tossWon: false,
-        tossChoice: 'Batting',
+        tossChoice: '',
       },
     },
   };
@@ -78,12 +78,28 @@ export class PreGameDataService {
   }
 
   getFirstBattingTeam(): Observable<any> {
-    if ((this.data.meta.teamA.tossChoice = 'Batting')) {
-      const fbTeam = of(this.data.meta.teamA.selectedPlayers);
+    if (this.data.meta.teamA.tossChoice == 'Batting') {
+      const fbTeam = of(this.data.meta.teamA);
       return fbTeam;
-    } else {
-      const fbTeam = of(this.data.meta.teamB.selectedPlayers);
+    } else if (this.data.meta.teamB.tossChoice == 'Batting') {
+      const fbTeam = of(this.data.meta.teamB);
       return fbTeam;
     }
+
+    const fbTeam = of(this.data.meta.teamA);
+    return fbTeam;
+  }
+
+  getFirstBowlingTeam(): Observable<any> {
+    if (this.data.meta.teamA.tossChoice == 'Bowling') {
+      const fbTeam = of(this.data.meta.teamA);
+      return fbTeam;
+    } else if (this.data.meta.teamB.tossChoice == 'Bowling') {
+      const fbTeam = of(this.data.meta.teamB);
+      return fbTeam;
+    }
+
+    const fbTeam = of(this.data.meta.teamB);
+    return fbTeam;
   }
 }

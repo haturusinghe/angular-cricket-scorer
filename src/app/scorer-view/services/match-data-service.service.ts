@@ -104,6 +104,7 @@ export class MatchDataServiceService {
   };
   lastBowlSpeed: number = 0;
   lastBowlType: string = '';
+
   meta: any;
 
   constructor(
@@ -114,44 +115,23 @@ export class MatchDataServiceService {
     private session: SessionStorageService,
     private postGameService: PostGameService,
     private _snackBar: MatSnackBar
-  ) {
-    /* let d = this.local.get('CURRENT_OVER');
-    console.log(d.currentOver);
-    if (d.currentOver) {
-      this.currentOver = d.currentOver;
-    } */
-    /* let d = this.local.get('CURRENT_MATCH');
-    console.log(d.allOvers);
-    if (d.allOvers) {
-      this.allOvers = d.allOvers;
-    } */
-  }
+  ) {}
 
   loadPreGameDataFromService() {
     this.preGameDataService
       .getTournamentName()
       .subscribe((tN) => (this.tournamentName = tN));
-
     this.preGameDataService.getOvers().subscribe((o) => (this.totalOvers = o));
-
-    /* this.battingTeamIndex = data.battingTeamIndex;
-    this.bowlerTeamIndex = data.bowlerTeamIndex;
-    this.teams = data.teams; */
-
-    this.battingTeamScore.teamName = this.teams[this.battingTeamIndex].teamName;
-    this.battingTeamScore.bowlingTeam =
-      this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName;
-
-    /* battingTeamScore: TeamScore = {
-      teamName: this.teams[this.battingTeamIndex].teamName,
-      bowlingTeam: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName */
-
-    this.teamPlayerScores[0].teamName =
-      this.teams[this.battingTeamIndex].teamName;
-    this.teamPlayerScores[1].teamName =
-      this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName;
-
-    console.log(this.teams);
+    this.preGameDataService.getFirstBattingTeam().subscribe((bat) => {
+      this.battingTeamScore.teamName = bat.teamName;
+      this.teamPlayerScores[0].teamName = bat.teamName;
+      console.log(bat);
+    });
+    this.preGameDataService.getFirstBowlingTeam().subscribe((bowl) => {
+      this.battingTeamScore.bowlingTeam = bowl.teamName;
+      this.teamPlayerScores[1].teamName = bowl.teamName;
+      console.log(bowl);
+    });
   }
 
   sendScores(scoreCard: ScoreCard) {

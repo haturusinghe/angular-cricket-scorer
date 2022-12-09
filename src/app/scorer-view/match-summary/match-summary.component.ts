@@ -60,5 +60,13 @@ export class MatchSummaryComponent implements OnInit {
     this.preGameDataService
       .getMatchMetaData()
       .subscribe((s) => console.log(s.meta));
+
+    this.preGameDataService
+      .getFirstBattingTeam()
+      .subscribe((s) => console.log(s));
+
+    this.preGameDataService
+      .getFirstBowlingTeam()
+      .subscribe((s) => console.log(s));
   }
 }
