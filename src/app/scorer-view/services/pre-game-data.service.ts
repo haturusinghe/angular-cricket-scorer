@@ -102,4 +102,9 @@ export class PreGameDataService {
     const fbTeam = of(this.data.meta.teamB);
     return fbTeam;
   }
+
+  getTeamsArray(): Observable<any> {
+    const teams = of([this.data.meta.teamA, this.data.meta.teamB]);
+    return teams;
+  }
 }

@@ -26,6 +26,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root',
 })
 export class MatchDataServiceService {
+  // Properties
   ballLeftForOver: number = 6;
   currentOverNumber: number = 1;
   ballsForThisOver = new Array<Ball>();
@@ -117,6 +118,7 @@ export class MatchDataServiceService {
     private _snackBar: MatSnackBar
   ) {}
 
+  //Loads Data from Pre-Game Component
   loadPreGameDataFromService() {
     this.preGameDataService
       .getTournamentName()
@@ -132,6 +134,10 @@ export class MatchDataServiceService {
       this.teamPlayerScores[1].teamName = bowl.teamName;
       console.log(bowl);
     });
+
+    this.preGameDataService
+      .getTeamsArray()
+      .subscribe((arr) => (this.teams = arr));
   }
 
   sendScores(scoreCard: ScoreCard) {
