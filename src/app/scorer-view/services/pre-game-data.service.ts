@@ -4,16 +4,12 @@ import { Player } from '../i/player';
 import { BatterScore } from '../i/player-score';
 import { Team } from '../i/team';
 import { PlayerDataService } from './player-data.service';
-import { TeamDataService } from './team-data.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PreGameDataService {
-  constructor(
-    private playerDataService: PlayerDataService,
-    private teamDataService: TeamDataService
-  ) {}
+  constructor(private playerDataService: PlayerDataService) {}
 
   metaData = {};
 
