@@ -30,6 +30,7 @@ import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptor } from './auth/service/authconfig.interceptor';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { LiveScoresComponent } from './live-scores/live-scores/live-scores.component';
 
 //
 
@@ -53,6 +54,7 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
     PlayerScoreCardComponent,
     AuthComponent,
     DashboardComponent,
+    LiveScoresComponent,
   ],
   imports: [
     ReactiveFormsModule,
