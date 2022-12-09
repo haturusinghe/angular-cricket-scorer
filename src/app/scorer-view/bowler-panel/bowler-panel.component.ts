@@ -24,7 +24,7 @@ export class BowlerPanelComponent implements OnInit {
   ];
 
   bowler: BowlerScore = {
-    player: { id: 99, first_name: 'Axl', last_name: 'Rose' },
+    player: { id: 99, name: 'Axl Rose' },
     runs: -1,
     maidenOvers: -1,
     overs: -1,

@@ -11,18 +11,13 @@
 
         <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Tournament Name</mat-label>
-          <input
-            matInput
-            #tour
-            [(ngModel)]="tournamentName"
-            (ngModelChange)="setTournamentName()"
-          />
+          <input matInput #tour [(ngModel)]="tournamentName" />
         </mat-form-field>
 
         <h4>Select Overs</h4>
         <mat-form-field appearance="outline">
           <mat-label>Overs:</mat-label>
-          <mat-select [(ngModel)]="overSelect" (selectionChange)="setOvers()">
+          <mat-select [(ngModel)]="overSelect">
             <mat-option *ngFor="let oversSelect of overs" [value]="oversSelect">
               {{ oversSelect }}
             </mat-option>
@@ -171,7 +166,7 @@
         <h4>Toss Won by :</h4>
         <mat-form-field appearance="outline">
           <mat-label>Select Team</mat-label>
-          <mat-select [(value)]="tossWonBy" (selectionChange)="setToss()">
+          <mat-select [(value)]="tossWonBy">
             <mat-option value="teamA">
               {{ matchMetaData.teamA.teamName }}
             </mat-option>
@@ -184,10 +179,7 @@
         <h4>Decision to:</h4>
         <mat-form-field appearance="outline">
           <mat-label>Select Decision</mat-label>
-          <mat-select
-            [(value)]="tossWinnerDecision"
-            (selectionChange)="setRole()"
-          >
+          <mat-select [(value)]="tossWinnerDecision">
             <mat-option value="Batting"> Batting </mat-option>
             <mat-option value="Bowling"> Bowling </mat-option>
           </mat-select>

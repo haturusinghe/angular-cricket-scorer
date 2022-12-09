@@ -3,6 +3,7 @@ import { OverData } from '../i/over-data';
 import { BatterScore } from '../i/player-score';
 import { TeamScore } from '../i/team-score';
 import { MatchDataServiceService } from '../services/match-data-service.service';
+import { PreGameDataService } from '../services/pre-game-data.service';
 
 @Component({
   selector: 'crx-match-summary',
@@ -16,7 +17,10 @@ export class MatchSummaryComponent implements OnInit {
   totalOvers: number = -1;
   battingTeamScore?: TeamScore;
 
-  constructor(private matchDataService: MatchDataServiceService) {}
+  constructor(
+    private matchDataService: MatchDataServiceService,
+    private preGameDataService: PreGameDataService
+  ) {}
 
   ngOnInit(): void {
     this.matchDataService.loadPreGameDataFromService();
@@ -43,15 +47,18 @@ export class MatchSummaryComponent implements OnInit {
       .getBattingTeamScore()
       .subscribe((bts) => (this.battingTeamScore = bts));
   }
+
   getBattingTeam() {
     if (this.battingTeamScore) {
       return this.battingTeamScore.teamName;
     } else {
-      return 'Hello';
+      return 'Invalid';
     }
   }
 
-  testPost() {
-    // this.matchDataService.sendScores();
+  testMetaPreGame() {
+    this.preGameDataService
+      .getMatchMetaData()
+      .subscribe((s) => console.log(s.meta));
   }
 }

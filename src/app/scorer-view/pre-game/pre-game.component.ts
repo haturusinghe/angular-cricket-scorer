@@ -288,41 +288,10 @@ export class PreGameComponent implements OnInit {
   ];
 
   playingTeamsXi: Team[] = [];
-  player: Player = { first_name: '', last_name: '', id: 1 };
-  team1: Team = { teamName: '', players: [this.player, this.player] };
-  team2: Team = { teamName: '', players: [this.player, this.player] };
+  player: Player = { name: '', id: 1 };
+  /*  team1: Team = { teamName: '', players: [this.player, this.player] };
+  team2: Team = { teamName: '', players: [this.player, this.player] }; */
 
-  clearTeam(team: Team) {
-    team.players = [];
-  }
-  getTeamsXi() {
-    this.team1.teamName = this.selectedElevenOfTeams[0].team.name;
-    this.clearTeam(this.team1);
-    this.selectedElevenOfTeams[0].players.forEach((player) => {
-      this.team1.players.push({
-        first_name: player.name,
-        id: player.id,
-        last_name: '',
-      });
-    });
-
-    this.playingTeamsXi.push(this.team1);
-    this.clearTeam(this.team2);
-    this.team2.teamName = this.selectedElevenOfTeams[1].team.name;
-
-    this.selectedElevenOfTeams[1].players.forEach((player) => {
-      this.team2.players.push({
-        first_name: player.name,
-        id: player.id,
-        last_name: '',
-      });
-    });
-
-    this.playingTeamsXi.push(this.team2);
-
-    console.log(this.selectedElevenOfTeams);
-    this.setPlayingXi();
-  }
   selectedElevenOfTeams: PlayingTeam[] = [
     {
       success: '',
@@ -387,10 +356,6 @@ export class PreGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllTeams();
-    this.setToss();
-    this.setRole();
-    this.setOvers();
-    this.setTournamentName();
   }
 
   getAllTeams(): void {
@@ -399,37 +364,6 @@ export class PreGameComponent implements OnInit {
 
   getTeamDetails() {
     return this.teamDetails.teams;
-  }
-
-  setPlayingXi() {
-    this.preGameDataService.setTeamXi(this.playingTeamsXi);
-  }
-  setToss() {
-    if (this.tossWonBy == 'teamA') {
-      this.matchMetaData.teamA.tossWon = true;
-      this.matchMetaData.teamA.tossChoice = this.tossWinnerDecision;
-
-      this.matchMetaData.teamB.tossWon = false;
-      this.matchMetaData.teamB.tossChoice =
-        this.tossWinnerDecision == 'Batting' ? 'Bowling' : 'Batting';
-
-      this.preGameDataService.selectToss(this.matchMetaData.teamA.teamName);
-    } else if (this.tossWonBy == 'teamB') {
-      this.matchMetaData.teamB.tossWon = true;
-      this.matchMetaData.teamB.tossChoice = this.tossWinnerDecision;
-
-      this.matchMetaData.teamA.tossWon = false;
-      this.matchMetaData.teamA.tossChoice =
-        this.tossWinnerDecision == 'Batting' ? 'Bowling' : 'Batting';
-
-      this.preGameDataService.selectToss(this.matchMetaData.teamB.teamName);
-    }
-  }
-  setRole() {
-    this.preGameDataService.TossSelect(this.tossWinnerDecision);
-  }
-  setOvers() {
-    this.preGameDataService.selectOvers(this.overSelect);
   }
 
   setMetaData() {
@@ -447,15 +381,6 @@ export class PreGameComponent implements OnInit {
     this.matchMetaData.teamB.allPlayers = this.playingTeams[1].players;
     this.matchMetaData.teamB.selectedPlayers =
       this.selectedElevenOfTeams[1].players;
-
-    console.log(this.matchMetaData);
-  }
-
-  addTossDataToMeta() {}
-
-  setTournamentName() {
-    this.preGameDataService.selectTournament(this.tournamentName);
-    console.log(this.teamDetails);
   }
 
   onTeamSelectedChange(selectedName: string, n: number): void {
@@ -463,7 +388,7 @@ export class PreGameComponent implements OnInit {
       if (team.name.trim() == selectedName.trim()) {
         this.teamDataService.getPlayingTeamById(team.id).subscribe((s) => {
           this.playingTeams[n] = s; // playingTeams is an array of size 2 , containing players of TeamA and TeamB which is selected
-          console.log(s);
+          // console.log(s);
         });
       }
     });
@@ -492,18 +417,11 @@ export class PreGameComponent implements OnInit {
         this.tossWinnerDecision == 'Batting' ? 'Bowling' : 'Batting';
     }
 
-    console.log(this.matchMetaData);
+    // console.log(this.matchMetaData);
 
     this.preGameDataService.setStart(true);
-    this.preGameDataService.setMetaData(this.setMetaData);
+    this.preGameDataService.setMatchMetaData(this.matchMetaData);
 
-    this.getTeamsXi();
-    /* 
-    // Uncomment this later
-    this.teamDataService
-      .getPlayingTeamById(12)
-      .subscribe((s) => (this.playingTeams[0] = s));
-    console.log(this.preGameDataService.getPreGameData()); */
     this.stepperClosed.isOn = true;
   }
 

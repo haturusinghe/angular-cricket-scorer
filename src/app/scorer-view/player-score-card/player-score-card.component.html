@@ -18,8 +18,7 @@
           <tbody>
             <tr *ngFor="let s of allScores[0].batting; index as i">
               <td>
-                {{ s.player.first_name }}
-                {{ s.player.last_name }}
+                {{ s.player.name }}
               </td>
               <td>{{ s.runs | number }}</td>
               <td>{{ s.ballsFaced | number }}</td>
@@ -50,8 +49,7 @@
           <tbody>
             <tr *ngFor="let s of allScores[0].bowling; index as i">
               <td>
-                {{ s.player.first_name }}
-                {{ s.player.last_name }}
+                {{ s.player.name }}
               </td>
               <td>{{ s.runs | number }}</td>
               <td>{{ s.maidenOvers | number }}</td>
@@ -83,8 +81,7 @@
           <tbody>
             <tr *ngFor="let s of allScores[1].batting; index as i">
               <td>
-                {{ s.player.first_name }}
-                {{ s.player.last_name }}
+                {{ s.player.name }}
               </td>
               <td>{{ s.runs | number }}</td>
               <td>{{ s.ballsFaced | number }}</td>
@@ -115,8 +112,7 @@
           <tbody>
             <tr *ngFor="let s of allScores[1].bowling; index as i">
               <td>
-                {{ s.player.first_name }}
-                {{ s.player.last_name }}
+                {{ s.player.name }}
               </td>
               <td>{{ s.runs | number }}</td>
               <td>{{ s.maidenOvers | number }}</td>

@@ -72,7 +72,7 @@ export class MatchDataServiceService {
 
   // Batters
   striker: BatterScore = {
-    player: this.teams[this.battingTeamIndex].players[2],
+    player: this.teams[this.battingTeamIndex].selectedPlayers[2],
     runs: 0,
     ballsFaced: 0,
     fours: 0,
@@ -84,7 +84,7 @@ export class MatchDataServiceService {
   lastShotAngle: number = 0;
 
   nonStriker: BatterScore = {
-    player: this.teams[this.battingTeamIndex].players[3],
+    player: this.teams[this.battingTeamIndex].selectedPlayers[3],
     runs: 0,
     ballsFaced: 0,
     fours: 0,
@@ -95,7 +95,7 @@ export class MatchDataServiceService {
 
   //Bowler
   bowler: BowlerScore = {
-    player: this.teams[this.bowlerTeamIndex].players[3],
+    player: this.teams[this.bowlerTeamIndex].selectedPlayers[3],
     runs: 0,
     maidenOvers: 0,
     overs: 0,
@@ -128,14 +128,15 @@ export class MatchDataServiceService {
   }
 
   loadPreGameDataFromService() {
-    let meta = this.preGameDataService.getMetaData();
-    let data = this.preGameDataService.getPreGameData();
+    this.preGameDataService
+      .getTournamentName()
+      .subscribe((tN) => (this.tournamentName = tN));
 
-    this.tournamentName = data.tournamentName;
-    this.totalOvers = data.totalOvers;
-    this.battingTeamIndex = data.battingTeamIndex;
+    this.preGameDataService.getOvers().subscribe((o) => (this.totalOvers = o));
+
+    /* this.battingTeamIndex = data.battingTeamIndex;
     this.bowlerTeamIndex = data.bowlerTeamIndex;
-    this.teams = data.teams;
+    this.teams = data.teams; */
 
     this.battingTeamScore.teamName = this.teams[this.battingTeamIndex].teamName;
     this.battingTeamScore.bowlingTeam =
@@ -149,6 +150,8 @@ export class MatchDataServiceService {
       this.teams[this.battingTeamIndex].teamName;
     this.teamPlayerScores[1].teamName =
       this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName;
+
+    console.log(this.teams);
   }
 
   sendScores(scoreCard: ScoreCard) {
@@ -178,12 +181,12 @@ export class MatchDataServiceService {
   }
 
   getBattingTeamPlayers(): Observable<Player[]> {
-    const batters = of(this.teams[this.battingTeamIndex].players);
+    const batters = of(this.teams[this.battingTeamIndex].selectedPlayers);
     return batters;
   }
 
   getBowlingTeamPlayers(): Observable<Player[]> {
-    const bowlers = of(this.teams[this.bowlerTeamIndex].players);
+    const bowlers = of(this.teams[this.bowlerTeamIndex].selectedPlayers);
     return bowlers;
   }
 
@@ -260,14 +263,14 @@ export class MatchDataServiceService {
     let bowlers = [];
     if (this.scoreTeamIndex) {
       bowlers = this.teamPlayerScores[1].bowling.map((b) => ({
-        name: b.player.first_name + ' ' + b.player.last_name,
+        name: b.player.name,
         overs: b.overs,
         runs: b.runs,
         fours: 0,
       }));
     } else {
       bowlers = this.teamPlayerScores[0].bowling.map((b) => ({
-        name: b.player.first_name + ' ' + b.player.last_name,
+        name: b.player.name,
         overs: b.overs,
         runs: b.runs,
         fours: 0,

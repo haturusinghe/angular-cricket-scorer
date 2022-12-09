@@ -22,7 +22,7 @@ export class BatterPanelComponent implements OnInit {
   ];
 
   striker: BatterScore = {
-    player: { id: 99, first_name: 'Axl', last_name: 'Rose' },
+    player: { id: 99, name: 'Axl Rose' },
     ballsFaced: -1,
     runs: -1,
     sixes: -1,
@@ -30,7 +30,7 @@ export class BatterPanelComponent implements OnInit {
     strikeRate: -1,
   };
   nonStriker: BatterScore = {
-    player: { id: 69, first_name: 'Bon', last_name: 'Jovi' },
+    player: { id: 69, name: 'Bon Jovi' },
     ballsFaced: -1,
     runs: -1,
     sixes: -1,

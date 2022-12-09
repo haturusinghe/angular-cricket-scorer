@@ -2,5 +2,9 @@ import { Player } from './player';
 
 export interface Team {
   teamName: string;
-  players: Player[];
+  teamId?: number;
+  allPlayers?: Player[];
+  selectedPlayers: Player[];
+  tossWon?: boolean;
+  tossChoice?: string;
 }

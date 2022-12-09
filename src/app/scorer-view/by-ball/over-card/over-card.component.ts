@@ -70,7 +70,7 @@ export class OverCardComponent implements OnInit {
   getPlayerName(p: any) {
     let name = 'N/A';
     if (p) {
-      name = p.player.first_name + ' ' + p.player.last_name;
+      name = p.player.name ;
     }
     return name;
   }

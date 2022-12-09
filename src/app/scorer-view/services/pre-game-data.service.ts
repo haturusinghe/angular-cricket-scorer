@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Cricketer } from '../i/cricketer';
 import { Player } from '../i/player';
 import { BatterScore } from '../i/player-score';
 import { Team } from '../i/team';
@@ -11,141 +12,78 @@ import { PlayerDataService } from './player-data.service';
 export class PreGameDataService {
   constructor(private playerDataService: PlayerDataService) {}
 
-  metaData = {};
+  data = {
+    meta: {
+      tournamentName: '',
+      overs: 0,
+      teamA: {
+        teamId: 0,
+        teamName: '',
+        allPlayers: new Array<Player>(),
+        selectedPlayers: new Array<Player>(),
+        tossWon: false,
+        tossChoice: 'Batting',
+      },
+      teamB: {
+        teamId: 0,
+        teamName: '',
+        allPlayers: new Array<Player>(),
+        selectedPlayers: new Array<Player>(),
+        tossWon: false,
+        tossChoice: 'Batting',
+      },
+    },
+  };
 
   startGame = { isOn: false };
-  teams: Team[] = this.playerDataService.getTeams();
-  playingTeams: Team[] = [];
-
-  playingTeamsXi: Team[] = [
-    {
-      teamName: 'SL',
-      players: [{ id: 5, first_name: 'Lanna', last_name: 'Smead' }],
-    },
-    {
-      teamName: 'ind',
-      players: [{ id: 5, first_name: 'abc', last_name: 'Smead' }],
-    },
-  ];
-  toss: string = 'SL';
-  choose: string = 'batting';
-  tournaments!: string[];
-  tournament!: string;
-  overs!: number;
-
-  setMetaData(setMetaData: any) {
-    this.metaData = setMetaData;
-  }
-
-  getMetaData(): any {
-    return this.metaData;
-  }
-
-  selectOvers(overs: number) {
-    this.overs = overs;
-  }
-
-  getOvers(): Observable<number> {
-    const overs = of(this.overs);
-    return overs;
-  }
-
-  getTournamentName(): Observable<string> {
-    const tournament = of(this.tournament);
-    return tournament;
-  }
-
-  selectTournament(tournamentName: string) {
-    this.tournament = tournamentName;
-  }
-
-  getAllTeams(): Observable<Team[]> {
-    const teams = of(this.teams);
-    return teams;
-  }
-
-  start(): Observable<any> {
-    const start = of(this.startGame);
-    return start;
-  }
 
   setStart(b: boolean) {
     this.startGame.isOn = true;
   }
 
-  getPlayingTeams(): Observable<Team[]> {
-    const playingteams = of(this.playingTeams);
-    return playingteams;
+  isPreGameComponentClosed(): Observable<any> {
+    const start = of(this.startGame);
+    return start;
   }
 
-  getPlayingTeamXi(): Observable<Team[]> {
-    const playingteams = of(this.playingTeamsXi);
-    return playingteams;
+  // REVAMP
+
+  getMatchMetaData(): Observable<any> {
+    const data = of(this.data);
+    return data;
   }
 
-  addPlayingTeams(playingTeams: Team, n: number) {
-    this.playingTeams[n].teamName = playingTeams.teamName;
-
-    playingTeams.players.forEach((player) => {
-      this.playingTeams[n].players.push(player);
-    });
-  }
-  clearPlayingTeams(n: number) {
-    this.playingTeams[n].teamName = '';
-    this.playingTeams[n].players = [];
-  }
-  clearPlayingTeamsXi(n: number) {
-    this.playingTeamsXi[n].teamName = '';
-    this.playingTeamsXi[n].players = [];
+  setMatchMetaData(meta: any) {
+    this.data.meta = meta;
   }
 
-  selectToss(teamName: string) {
-    this.toss = teamName;
+  getOvers(): Observable<number> {
+    const overs = of(this.data.meta.overs);
+    return overs;
   }
 
-  setTeamXi(playingXi: Team[]) {
-    this.clearPlayingTeamsXi(0);
-    this.clearPlayingTeamsXi(1);
-    this.playingTeamsXi[0].teamName = playingXi[0].teamName;
-    this.playingTeamsXi[1].teamName = playingXi[1].teamName;
-    this.playingTeamsXi[0].players = playingXi[0].players;
-    this.playingTeamsXi[1].players = playingXi[1].players;
-  }
-  getToss(): string {
-    return this.toss;
+  getTournamentName(): Observable<string> {
+    const tournament = of(this.data.meta.tournamentName);
+    return tournament;
   }
 
-  TossSelect(role: string) {
-    this.choose = role;
+  getTeamA(): Observable<any> {
+    const teamA = of(this.data.meta.teamA);
+    return teamA;
   }
 
-  //# TODO :
-  getPreGameData() {
-    let roleIndex = this.findBattingTeam();
-
-    return {
-      tournamentName: this.tournament,
-      teams: this.playingTeamsXi,
-      battingTeamIndex: roleIndex.batting,
-      bowlerTeamIndex: roleIndex.bowling,
-      totalOvers: this.overs,
-    };
+  getTeamB(): Observable<any> {
+    const teamB = of(this.data.meta.teamB);
+    return teamB;
   }
 
-  findBattingTeam() {
-    let i = 0;
-
-    for (let team of this.playingTeamsXi) {
-      if ((team.teamName = this.toss)) {
-        if (this.choose == 'Batting') {
-          return { batting: i, bowling: Math.abs(i - 1) };
-        } else {
-          return { batting: Math.abs(i - 1), bowling: i };
-        }
-      }
-
-      i++;
+  getFirstBattingTeam(): Observable<any> {
+    if ((this.data.meta.teamA.tossChoice = 'Batting')) {
+      const fbTeam = of(this.data.meta.teamA.selectedPlayers);
+      return fbTeam;
+    } else {
+      const fbTeam = of(this.data.meta.teamB.selectedPlayers);
+      return fbTeam;
     }
-    return { batting: -1, bowling: -1 };
   }
 }

@@ -50,17 +50,13 @@ export class ChangeBowlerComponent implements OnInit {
   private _filterPlayers(value: string): Player[] {
     const filterValue = value.toLowerCase();
 
-    return this.players.filter(
-      (player) =>
-        player.first_name.toLowerCase().includes(filterValue) ||
-        player.last_name.toLowerCase().includes(filterValue)
+    return this.players.filter((player) =>
+      player.name.toLowerCase().includes(filterValue)
     );
   }
 
   displayFn(player: Player): string {
-    return player && (player.first_name || player.last_name)
-      ? player.first_name + ' ' + player.last_name
-      : '';
+    return player && player.name ? player.name : '';
   }
 
   getBowlers(): void {
