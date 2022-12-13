@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
-import { LiveScoresComponent } from './live-scores/live-scores/live-scores.component';
+
 import { ScorerViewComponent } from './scorer-view/scorer-view.component';
 import { AuthGuard } from './shared/auth.guard';
 
@@ -18,13 +18,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'live-scores',
+    loadChildren: () =>
+      import('./modules/live-scores/live-scores.module').then(
+        (m) => m.LiveScoresModule
+      ),
+  },
+  {
     path: 'score-match',
     component: ScorerViewComponent,
     canActivate: [AuthGuard],
-  },
-  {
-    path: 'live-score',
-    component: LiveScoresComponent,
   },
 ];
 

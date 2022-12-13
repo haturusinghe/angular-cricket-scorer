@@ -15,9 +15,13 @@
 <mat-drawer-container class="example-container" autosize>
   <mat-drawer #drawer class="example-sidenav" mode="side">
     <mat-nav-list>
-      <mat-list-item *ngFor="let link of links">
-        <a matListItemTitle>{{ link.name }}</a>
-        <button mat-icon-button matListItemMeta>
+      <mat-list-item
+        *ngFor="let link of links"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <a matListItemTitle class="l-item">{{ link.name }}</a>
+        <button mat-icon-button matListItemMeta routerLink="getLink()">
           <mat-icon>{{ link.icon }}</mat-icon>
         </button>
       </mat-list-item>

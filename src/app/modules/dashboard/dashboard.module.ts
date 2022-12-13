@@ -5,8 +5,6 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashHomeComponent } from './components/dash-home/dash-home.component';
 
 import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
 
 import { MaterialExampleModule } from '../../../material.module';
 
