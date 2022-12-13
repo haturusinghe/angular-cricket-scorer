@@ -27,7 +27,11 @@ export class AuthComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.authenticationService.isUserLoggedIn()) {
+      this.router.navigate(['dashboard']);
+    }
+  }
 
   getLoginStatus() {
     this.authenticationService
