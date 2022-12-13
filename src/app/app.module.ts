@@ -29,6 +29,7 @@ import { PlayerScoreCardComponent } from './scorer-view/player-score-card/player
 import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptor } from './auth/service/authconfig.interceptor';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 //
 
@@ -51,6 +52,7 @@ import { AuthInterceptor } from './auth/service/authconfig.interceptor';
     ChangeBowlerComponent,
     PlayerScoreCardComponent,
     AuthComponent,
+    NotFoundComponent,
   ],
   imports: [
     ReactiveFormsModule,

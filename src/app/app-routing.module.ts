@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 import { ScorerViewComponent } from './scorer-view/scorer-view.component';
 import { AuthGuard } from './shared/auth.guard';
@@ -9,6 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard/scorer', pathMatch: 'full' },
 
   { path: 'login', component: AuthComponent },
+
   {
     path: 'dashboard',
     loadChildren: () =>
@@ -29,6 +31,7 @@ const routes: Routes = [
     component: ScorerViewComponent,
     canActivate: [AuthGuard],
   },
+  { path: '**', pathMatch: 'full', component: NotFoundComponent },
 ];
 
 @NgModule({
