@@ -30,6 +30,10 @@ export class AuthServiceService {
     return s;
   }
 
+  isUserLoggedIn() {
+    return !!localStorage.getItem('access_token');
+  }
+
   setUserLoggedInStatus(status: boolean) {
     this.loginStatus.isLoggedIn = status;
   }
@@ -47,6 +51,7 @@ export class AuthServiceService {
             verticalPosition: 'bottom',
             duration: 1 * 1000,
           });
+          this.router.navigate(['dashboard']);
         } else {
           this._snackBar.open('Cannot Login', 'Invalid Credentials', {
             horizontalPosition: 'start',
@@ -59,6 +64,11 @@ export class AuthServiceService {
   }
   getToken() {
     return localStorage.getItem('access_token');
+  }
+
+  signOut() {
+    localStorage.removeItem('access_token');
+    this.router.navigate(['login']);
   }
 
   getTeams(): Observable<any> {

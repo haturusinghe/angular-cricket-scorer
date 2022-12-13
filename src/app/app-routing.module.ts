@@ -6,13 +6,25 @@ import { ScorerViewComponent } from './scorer-view/scorer-view.component';
 import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+
   { path: 'login', component: AuthComponent },
-  { path: 'score', component: ScorerViewComponent, canActivate: [AuthGuard] },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./modules/dashboard/dashboard.module').then(
+        (m) => m.DashboardModule
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'score-match',
+    component: ScorerViewComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'live-score',
     component: LiveScoresComponent,
-    canActivate: [AuthGuard],
   },
 ];
 

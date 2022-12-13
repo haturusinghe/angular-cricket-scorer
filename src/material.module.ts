@@ -28,8 +28,11 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { DialogModule } from '@angular/cdk/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 @NgModule({
   exports: [
+    MatSidenavModule,
     MatDialogModule,
     MatSnackBarModule,
     // MatGridListModule,
