@@ -9,7 +9,7 @@ const routes: Routes = [
     component: DashHomeComponent,
     children: [
       { path: 'scorer', component: ScorerViewComponent },
-      { path: '', redirectTo: 'dashboard/scorer', pathMatch: 'full' },
+      { path: '', redirectTo: 'scorer', pathMatch: 'full' },
     ],
   },
 ];
