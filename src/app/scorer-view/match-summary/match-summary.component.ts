@@ -69,4 +69,8 @@ export class MatchSummaryComponent implements OnInit {
       .getFirstBowlingTeam()
       .subscribe((s) => console.log(s));
   }
+
+  endInning() {
+    console.log('Hello From End Inning');
+  }
 }
