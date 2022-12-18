@@ -61,7 +61,7 @@ export class PreGameComponent implements OnInit {
 
   teamWonToss!: string;
 
-  overs: number[] = [3, 10, 20, 50];
+  overs: number[] = [3, 5, 10, 20, 50];
   overSelect!: number;
 
   next: boolean = true;
