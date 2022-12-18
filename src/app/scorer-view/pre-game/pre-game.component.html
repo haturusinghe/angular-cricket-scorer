@@ -14,15 +14,41 @@
           <input matInput #tour [(ngModel)]="tournamentName" />
         </mat-form-field>
 
+        <h4>Select Format</h4>
+        <mat-slide-toggle [(ngModel)]="isTest">Test Match ?</mat-slide-toggle>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+        >
+          <mat-radio-button
+            class="example-radio-button"
+            *ngFor="let f of formats"
+            [value]="f"
+          >
+            {{ f }}
+          </mat-radio-button>
+        </mat-radio-group>
+
         <h4>Select Overs</h4>
-        <mat-form-field appearance="outline">
+        <!-- <mat-form-field appearance="outline">
           <mat-label>Overs:</mat-label>
           <mat-select [(ngModel)]="overSelect">
             <mat-option *ngFor="let oversSelect of overs" [value]="oversSelect">
               {{ oversSelect }}
             </mat-option>
           </mat-select>
+        </mat-form-field> -->
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Overs</mat-label>
+          <input
+            matInput
+            #tour
+            [(ngModel)]="totalOvers"
+            (ngModelChange)="changeOvers()"
+          />
         </mat-form-field>
+
         <div>
           <button
             *ngIf="tournamentName && overSelect"

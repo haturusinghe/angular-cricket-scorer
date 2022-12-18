@@ -49,7 +49,18 @@ export class PreGameComponent implements OnInit {
     },
   };
 
+  isTest = false;
+
+  selectedFormat: string = '';
+  formats: string[] = ['ODI', 'Test Match'];
+
   tournamentName: string = '';
+  totalOvers: string = '';
+
+  changeOvers() {
+    this.overSelect = parseInt(this.totalOvers);
+    console.log(this.overSelect);
+  }
 
   teams!: Team[];
   teamDetails: TeamResponse = {
