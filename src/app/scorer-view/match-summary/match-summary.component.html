@@ -78,8 +78,7 @@
               <input matInput readonly="" [value]="currentOver.currentOver" />
             </mat-form-field>
 
-            <!-- Tournament Name -->
-            <mat-form-field class="sec-3" appearance="outline">
+            <mat-form-field *ngIf="!isTest" class="sec-3" appearance="outline">
               <mat-label>Total Overs</mat-label>
               <input matInput readonly="" [value]="totalOvers" />
             </mat-form-field>
