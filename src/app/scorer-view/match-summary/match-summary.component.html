@@ -29,7 +29,11 @@
         >
         <div>
           <h1>
-            {{ battingTeamScore.totalScore }} - {{ battingTeamScore.wickets }}
+            {{ battingTeamScore.totalScore }} /
+            {{ battingTeamScore.wickets }} ({{ currentOver.currentOver - 1 }}.{{
+              6 - currentOver.ballsLeft
+            }}
+            Ov)
           </h1>
         </div>
         <!-- Team Score -->
