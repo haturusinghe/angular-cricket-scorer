@@ -15,8 +15,10 @@
         </mat-form-field>
 
         <h4>Select Format</h4>
-        <mat-slide-toggle [(ngModel)]="isTest">Test Match ?</mat-slide-toggle>
-        <mat-radio-group
+        <mat-slide-toggle [(ngModel)]="isTest" (ngModelChange)="onToggle()"
+          >Test Match ?</mat-slide-toggle
+        >
+        <!-- <mat-radio-group
           aria-labelledby="example-radio-group-label"
           class="example-radio-group"
         >
@@ -27,9 +29,9 @@
           >
             {{ f }}
           </mat-radio-button>
-        </mat-radio-group>
+        </mat-radio-group> -->
 
-        <h4>Select Overs</h4>
+        <h4 *ngIf="!isTest">Select Overs</h4>
         <!-- <mat-form-field appearance="outline">
           <mat-label>Overs:</mat-label>
           <mat-select [(ngModel)]="overSelect">
@@ -39,7 +41,11 @@
           </mat-select>
         </mat-form-field> -->
 
-        <mat-form-field class="example-full-width" appearance="outline">
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          *ngIf="!isTest"
+        >
           <mat-label>Overs</mat-label>
           <input
             matInput
@@ -51,7 +57,7 @@
 
         <div>
           <button
-            *ngIf="tournamentName && overSelect"
+            *ngIf="tournamentName && overSelect != -1"
             mat-raised-button
             matStepperNext
             color="primary"

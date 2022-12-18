@@ -57,6 +57,14 @@ export class PreGameComponent implements OnInit {
   tournamentName: string = '';
   totalOvers: string = '';
 
+  onToggle() {
+    if (this.isTest) {
+      this.overSelect = 0;
+    } else {
+      this.overSelect = -1;
+    }
+  }
+
   changeOvers() {
     this.overSelect = parseInt(this.totalOvers);
     console.log(this.overSelect);
@@ -444,4 +452,19 @@ export class PreGameComponent implements OnInit {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
+
+  /* HELPER FUNCTIONS FOR SCORECARD GENERATOR */
+  generateKey(teamName: string): string {
+    return teamName
+      .split('')
+      .map((char) => char.charCodeAt(0))
+      .reduce((acc, charCode) => acc + charCode, 0)
+      .toString(36)
+      .substring(0, 3);
+  }
+  /*   generateDateHash(input: string = new Date().toLocaleString()): string {
+      const hash = crypto.createHash('sha256');
+      hash.update(input);
+      return hash.digest('hex').substring(0, 6);
+    } */
 }
