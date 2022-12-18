@@ -4,6 +4,7 @@ import { BatterScore } from '../i/player-score';
 import { TeamScore } from '../i/team-score';
 import { MatchDataServiceService } from '../services/match-data-service.service';
 import { PreGameDataService } from '../services/pre-game-data.service';
+import { TestMatchScorerService } from '../services/updated-scorer-service.service';
 
 @Component({
   selector: 'crx-match-summary',
@@ -16,10 +17,12 @@ export class MatchSummaryComponent implements OnInit {
   currentOver: OverData = { currentOver: -1, ballsLeft: -1 };
   totalOvers: number = -1;
   battingTeamScore?: TeamScore;
+  isTest = false;
 
   constructor(
     private matchDataService: MatchDataServiceService,
-    private preGameDataService: PreGameDataService
+    private preGameDataService: PreGameDataService,
+    private testMatchService: TestMatchScorerService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +37,9 @@ export class MatchSummaryComponent implements OnInit {
     this.tournamentName = meta.tName;
     this.batting = meta.batting;
     this.totalOvers = meta.totalOvers;
+    if (meta.format == 'test') {
+      this.isTest = true;
+    }
   }
 
   getCurrentOver(): void {
@@ -71,6 +77,6 @@ export class MatchSummaryComponent implements OnInit {
   }
 
   endInning() {
-    console.log('Hello From End Inning');
+    this.testMatchService.getInnings().subscribe((s) => console.log(s));
   }
 }
