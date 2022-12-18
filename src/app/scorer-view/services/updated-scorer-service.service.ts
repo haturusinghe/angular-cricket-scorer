@@ -30,7 +30,7 @@ export class TestMatchScorerService {
     }
     scorecard.score_card['innings'] = this.innings;
     console.log(scorecard);
-    this.sendScores(scorecard);
+    // this.sendScores(scorecard);
   }
 
   getInnings(): Observable<any> {
