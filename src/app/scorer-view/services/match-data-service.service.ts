@@ -21,15 +21,19 @@ import { PreGameDataService } from './pre-game-data.service';
 import { PostGameService } from './post-game.service';
 import { ScoreCard } from './score-card';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TestMatchScorerService } from './updated-scorer-service.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MatchDataServiceService {
+  format = 'test';
   // Properties
   ballLeftForOver: number = 6;
   currentOverNumber: number = 1;
   ballsForThisOver = new Array<Ball>();
+
+  inningThreshold: number = 0;
 
   allOvers = new Array<Over>();
 
@@ -108,6 +112,8 @@ export class MatchDataServiceService {
 
   meta: any;
 
+  currentInning: number = 1;
+
   constructor(
     private preGameDataService: PreGameDataService,
     private playerDataService: PlayerDataService,
@@ -115,6 +121,7 @@ export class MatchDataServiceService {
     private local: LocalStorageService,
     private session: SessionStorageService,
     private postGameService: PostGameService,
+    private testMatchService: TestMatchScorerService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -127,7 +134,9 @@ export class MatchDataServiceService {
     this.preGameDataService
       .getTournamentName()
       .subscribe((tN) => (this.tournamentName = tN));
-    this.preGameDataService.getOvers().subscribe((o) => (this.totalOvers = o));
+    this.preGameDataService
+      .getOvers()
+      .subscribe((ov) => (this.totalOvers = ov));
 
     let index = this.preGameDataService.getTeamIndexes();
 
@@ -162,6 +171,7 @@ export class MatchDataServiceService {
       tName: this.tournamentName,
       totalOvers: this.totalOvers,
       batting: this.teams[this.battingTeamIndex].teamName,
+      format: this.format,
     };
   }
 
@@ -296,10 +306,23 @@ export class MatchDataServiceService {
     while (this.allOvers.length > 0) {
       this.allOvers.pop();
     }
-    console.log(this.allOvers);
-
     this.selectOpeningPlayers();
   }
+
+  /* HELPER FUNCTIONS FOR SCORECARD GENERATOR */
+  generateKey(teamName: string): string {
+    return teamName
+      .split('')
+      .map((char) => char.charCodeAt(0))
+      .reduce((acc, charCode) => acc + charCode, 0)
+      .toString(36)
+      .substring(0, 3);
+  }
+  /*   generateDateHash(input: string = new Date().toLocaleString()): string {
+    const hash = crypto.createHash('sha256');
+    hash.update(input);
+    return hash.digest('hex').substring(0, 6);
+  } */
 
   createScoreCard(): ScoreCard {
     let today = new Date().toLocaleDateString('en-GB');
@@ -456,7 +479,7 @@ export class MatchDataServiceService {
 
     this.ballsForThisOver.push(ball);
     this.currentOver.balls = this.ballsForThisOver;
-    console.log(this.currentOver);
+    // console.log(this.currentOver);
 
     if (this.ballLeftForOver == 0) {
       //Update Current Over Data to Next over when balls are finished for this over
@@ -470,7 +493,7 @@ export class MatchDataServiceService {
         nonStriker: structuredClone(this.nonStriker),
         bowler: structuredClone(this.bowler),
       });
-      console.log(this.allOvers);
+      // console.log(this.allOvers);
 
       // this.saveCurrentOver();
 
@@ -557,10 +580,32 @@ export class MatchDataServiceService {
       this.addToTeamScoresBowler(structuredClone(this.bowler));
       this.addToTeamScores(structuredClone(this.striker));
       this.addToTeamScores(structuredClone(this.nonStriker));
+
       // this.sendScores(this.createScoreCard()); //Uncomment Later After fixing
+      // console.log(this.teamPlayerScores);
+
+      this.inningThreshold++;
+      if (this.inningThreshold == 2) {
+        this.testMatchService.updateInningData(
+          this.teamPlayerScores,
+          this.currentInning
+        );
+        this.inningThreshold = 0;
+        if (this.currentInning == 1) {
+          this.currentInning = 2;
+        }
+      }
+
       this.swapBattingTeam();
     }
     // this.saveAllOversLocally();
+  }
+
+  endInnings(inning: number) {
+    this.addToTeamScoresBowler(structuredClone(this.bowler));
+    this.addToTeamScores(structuredClone(this.striker));
+    this.addToTeamScores(structuredClone(this.nonStriker));
+    this.testMatchService.updateInningData(this.teamPlayerScores, inning);
   }
 
   //runs-panel
