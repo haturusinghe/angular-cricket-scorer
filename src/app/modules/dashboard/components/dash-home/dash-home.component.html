@@ -20,10 +20,12 @@
         fxLayout="row"
         fxLayoutAlign="space-between center"
       >
-        <a matListItemTitle class="l-item">{{ link.name }}</a>
-        <button mat-icon-button matListItemMeta routerLink="getLink()">
+        <a matListItemTitle class="l-item" (click)="getLink(link)">{{
+          link.name
+        }}</a>
+        <span mat-icon-button matListItemMeta>
           <mat-icon>{{ link.icon }}</mat-icon>
-        </button>
+        </span>
       </mat-list-item>
     </mat-nav-list>
   </mat-drawer>
