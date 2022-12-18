@@ -33,7 +33,7 @@ export class PostGameService {
       catchError(this.handleError)
     );
   }
-
+  
   postScorecardToApi(scoreCard = {}): Observable<any> {
     let api = `${this.endpoint}/account/save-score-card`;
     console.log(JSON.stringify(scoreCard));

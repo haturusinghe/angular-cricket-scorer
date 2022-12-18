@@ -1,0 +1,55 @@
+<section>
+  <mat-card>
+    <mat-card-title></mat-card-title>
+
+    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center"
+      >{{ summary.teamName }} vs
+      {{ summary.bowlingTeam }}
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+        <!-- <button mat-raised-button color color="primary">End Match</button> -->
+        <!--  <button
+            mat-raised-button
+            color
+            color="primary"
+            (click)="testMetaPreGame()"
+          >
+            Test Meta
+          </button> -->
+      </div></mat-card-title
+    >
+    <mat-card-subtitle>Match Summary</mat-card-subtitle>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <div *ngIf="summary.teamName">
+        <mat-grid-list cols="2" rowHeight="4:1">
+          <mat-grid-tile>
+            <mat-card-title class="batting-team-title"
+              >{{ summary.teamName }}, {{ summary.inning }} Inning
+              <h1>
+                {{ summary.totalScore }} - {{ summary.wickets }}
+                <h5>
+                  {{ summary.currentOver }}.{{ summary.overBallsBowled }}/{{
+                    summary.totalOvers
+                  }}
+                  Overs
+                </h5>
+              </h1>
+            </mat-card-title></mat-grid-tile
+          >
+          <mat-divider [vertical]="true"></mat-divider>
+          <mat-grid-tile>
+            <!-- <crx-batting-view></crx-batting-view> -->
+          </mat-grid-tile>
+        </mat-grid-list>
+
+        <!-- Team Score -->
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <!-- Right Side -->
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

@@ -1,0 +1,24 @@
+<mat-card>
+  <mat-card-subtitle>Batting Info</mat-card-subtitle>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+
+    <h3>
+      {{ batsmen[0].player.name }} {{ batsmen[0].runs }} ({{
+        batsmen[0].ballsFaced
+      }})
+    </h3>
+    <h3>
+      {{ batsmen[1].player.name }} {{ batsmen[1].runs }} ({{
+        batsmen[1].ballsFaced
+      }})
+    </h3>
+
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      style="padding: 15px"
+      fxLayoutGap="10"
+    ></div>
+  </mat-card-content>
+</mat-card>
