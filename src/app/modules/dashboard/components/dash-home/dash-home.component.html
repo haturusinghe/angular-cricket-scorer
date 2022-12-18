@@ -5,8 +5,20 @@
   <img src="../../assets/logo.png" class="logo" />
   <span class="example-spacer"></span>
   <button mat-icon-button class="example-icon favorite-icon">
-    <mat-icon>home</mat-icon>
+    <mat-icon>today</mat-icon>
   </button>
+  <div>
+    <h1>{{ time.toLocaleDateString("en-GB") }}</h1>
+  </div>
+  <button mat-icon-button class="example-icon favorite-icon">
+    <mat-icon>schedule</mat-icon>
+  </button>
+  <div>
+    <h1>{{ rxTime | date : "hh:mm:ss a" }}</h1>
+  </div>
+
+  <span class="spacer-2"></span>
+
   <button mat-icon-button class="example-icon" (click)="logout()">
     <mat-icon>logout</mat-icon>
   </button>
