@@ -14,6 +14,7 @@ export class PreGameDataService {
 
   data = {
     meta: {
+      match_id: '',
       tournamentName: '',
       overs: 0,
       teamA: {
