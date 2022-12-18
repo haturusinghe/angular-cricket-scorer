@@ -29,9 +29,12 @@ import { DialogModule } from '@angular/cdk/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
-
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @NgModule({
   exports: [
+    MatSlideToggleModule,
+    MatRadioModule,
     MatSidenavModule,
     MatDialogModule,
     MatSnackBarModule,
