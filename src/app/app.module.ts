@@ -14,7 +14,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AngularWebStorageModule } from 'angular-web-storage';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Components
-import { ToolbarComponent } from './scorer-view/toolbar/toolbar.component';
+
 import { RunsPanelComponent } from './scorer-view/runs-panel/runs-panel.component';
 import { BatterPanelComponent } from './scorer-view/batter-panel/batter-panel.component';
 import { WagonWheelSelectorComponent } from './scorer-view/wagon-wheel-selector/wagon-wheel-selector.component';
@@ -38,7 +38,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AppComponent,
 
     ScorerViewComponent,
-    ToolbarComponent,
+
     RunsPanelComponent,
     BatterPanelComponent,
     WagonWheelSelectorComponent,
