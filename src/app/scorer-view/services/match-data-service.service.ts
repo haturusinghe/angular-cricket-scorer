@@ -114,6 +114,8 @@ export class MatchDataServiceService {
 
   currentInning: number = 1;
 
+  isTestMatch = true;
+
   constructor(
     private preGameDataService: PreGameDataService,
     private playerDataService: PlayerDataService,
@@ -309,21 +311,6 @@ export class MatchDataServiceService {
     this.selectOpeningPlayers();
   }
 
-  /* HELPER FUNCTIONS FOR SCORECARD GENERATOR */
-  generateKey(teamName: string): string {
-    return teamName
-      .split('')
-      .map((char) => char.charCodeAt(0))
-      .reduce((acc, charCode) => acc + charCode, 0)
-      .toString(36)
-      .substring(0, 3);
-  }
-  /*   generateDateHash(input: string = new Date().toLocaleString()): string {
-    const hash = crypto.createHash('sha256');
-    hash.update(input);
-    return hash.digest('hex').substring(0, 6);
-  } */
-
   createScoreCard(): ScoreCard {
     let today = new Date().toLocaleDateString('en-GB');
     let bowlers = [];
@@ -344,9 +331,9 @@ export class MatchDataServiceService {
     }
 
     let scoreCard = new ScoreCard(
-      'test_1999',
+      'test_match_1',
       today,
-      'ONGOING',
+      'Over',
       this.teams[this.battingTeamIndex].teamName,
       this.teams[this.bowlerTeamIndex].teamName,
       {}
@@ -368,6 +355,35 @@ export class MatchDataServiceService {
       batting: this.battingTeamScore.teamName,
       bowling: this.battingTeamScore.bowlingTeam,
       score: inningsRecord,
+    };
+
+    console.log(scoreCard);
+    return scoreCard;
+  }
+
+  generateScoreCard(): ScoreCard {
+    let today = new Date().toLocaleDateString('en-GB');
+
+    let scoreCard = new ScoreCard(
+      'test_match_1',
+      today,
+      'Over',
+      this.teams[this.battingTeamIndex].teamName,
+      this.teams[this.bowlerTeamIndex].teamName,
+      {}
+    );
+    scoreCard.score_card['meta'] = {
+      tName: this.tournamentName,
+      totalOvers: this.totalOvers,
+      batting: this.teams[this.battingTeamIndex].teamName,
+      format: this.format,
+    };
+    scoreCard.score_card['summary'] = this.battingTeamScore;
+    scoreCard.score_card['current_over'] = this.currentOver;
+    scoreCard.score_card['current_players'] = {
+      striker: this.striker,
+      non_striker: this.nonStriker,
+      bowler: this.bowler,
     };
 
     console.log(scoreCard);
@@ -516,7 +532,91 @@ export class MatchDataServiceService {
       }
     }
 
-    if (this.currentOver.currentOver <= this.totalOvers) {
+    if (!this.isTestMatch) {
+      if (this.currentOver.currentOver <= this.totalOvers) {
+        if (ball.Out.isOut && ball.Out.type == 'RON') {
+          if (this.battingTeamScore.wickets < 10) {
+            if (ball.runs % 2 == 1) {
+              this.addToTeamScores(structuredClone(this.striker)); // Add this strikers personal score to object containing batter scores
+              //If all batters are not out then prompt to pick the next batsman
+              this.playerChangeService
+                .changeStriker('Select Next Striker')
+                .subscribe((p) => {
+                  this.changeStriker(p);
+                });
+            } else {
+              this.addToTeamScores(structuredClone(this.nonStriker)); // Add this strikers personal score to object containing batter scores
+              //If all batters are not out then prompt to pick the next batsman
+              this.playerChangeService
+                .changeStriker('Select Next Non-Striker')
+                .subscribe((p) => {
+                  this.changeNonStriker(p);
+                });
+            }
+          }
+        } else if (ball.Out.isOut) {
+          if (this.battingTeamScore.wickets < 10) {
+            //If the current striker is bowled out
+            this.addToTeamScores(structuredClone(this.striker)); // Add this strikers personal score to object containing batter scores
+            //If all batters are not out then prompt to pick the next batsman
+            this.playerChangeService
+              .changeStriker('Select Next Striker')
+              .subscribe((p) => {
+                this.changeStriker(p);
+              });
+          }
+        }
+      }
+
+      if (this.ballLeftForOver == 0 && this.battingTeamScore.wickets < 10) {
+        //When all balls for this over are bowled and not all batters are out
+        if (this.currentOver.currentOver <= this.totalOvers) {
+          // And not all overs are finished
+
+          this.addToTeamScoresBowler(structuredClone(this.bowler)); // Add this bowlers score to object containing bowler scores
+          //Prompt to pick next Bowler
+          this.playerChangeService
+            .changeBowler('Select Next Bowler')
+            .subscribe((p) => {
+              this.changeBowler(p);
+            });
+        }
+      }
+
+      // Swap Batting Team when Overs over
+      if (
+        this.currentOver.currentOver > this.totalOvers ||
+        this.battingTeamScore.wickets >= 10
+      ) {
+        this._snackBar.open('Switching Batting Team', '', {
+          horizontalPosition: 'start',
+          verticalPosition: 'bottom',
+          duration: 2 * 1000,
+        });
+
+        this.addToTeamScoresBowler(structuredClone(this.bowler));
+        this.addToTeamScores(structuredClone(this.striker));
+        this.addToTeamScores(structuredClone(this.nonStriker));
+
+        this.sendScores(this.generateScoreCard()); //Uncomment Later After fixing
+        // console.log(this.teamPlayerScores);
+
+        this.inningThreshold++;
+        if (this.inningThreshold == 2) {
+          this.testMatchService.updateInningData(
+            this.teamPlayerScores,
+            this.currentInning,
+            this.generateScoreCard()
+          );
+          this.inningThreshold = 0;
+          if (this.currentInning == 1) {
+            this.currentInning = 2;
+          }
+        }
+
+        this.swapBattingTeam();
+      }
+    } else {
       if (ball.Out.isOut && ball.Out.type == 'RON') {
         if (this.battingTeamScore.wickets < 10) {
           if (ball.runs % 2 == 1) {
@@ -549,12 +649,9 @@ export class MatchDataServiceService {
             });
         }
       }
-    }
 
-    if (this.ballLeftForOver == 0 && this.battingTeamScore.wickets < 10) {
-      //When all balls for this over are bowled and not all batters are out
-      if (this.currentOver.currentOver <= this.totalOvers) {
-        // And not all overs are finished
+      if (this.ballLeftForOver == 0 && this.battingTeamScore.wickets < 10) {
+        //When all balls for this over are bowled and not all batters are out
 
         this.addToTeamScoresBowler(structuredClone(this.bowler)); // Add this bowlers score to object containing bowler scores
         //Prompt to pick next Bowler
@@ -564,48 +661,74 @@ export class MatchDataServiceService {
             this.changeBowler(p);
           });
       }
-    }
 
-    // Swap Batting Team when Overs over
-    if (
-      this.currentOver.currentOver > this.totalOvers ||
-      this.battingTeamScore.wickets >= 10
-    ) {
-      this._snackBar.open('Switching Batting Team', '', {
-        horizontalPosition: 'start',
-        verticalPosition: 'bottom',
-        duration: 2 * 1000,
-      });
+      // Swap Batting Team when Overs over
+      if (this.battingTeamScore.wickets >= 10) {
+        this._snackBar.open('Switching Batting Team', '', {
+          horizontalPosition: 'start',
+          verticalPosition: 'bottom',
+          duration: 2 * 1000,
+        });
 
-      this.addToTeamScoresBowler(structuredClone(this.bowler));
-      this.addToTeamScores(structuredClone(this.striker));
-      this.addToTeamScores(structuredClone(this.nonStriker));
+        this.addToTeamScoresBowler(structuredClone(this.bowler));
+        this.addToTeamScores(structuredClone(this.striker));
+        this.addToTeamScores(structuredClone(this.nonStriker));
 
-      // this.sendScores(this.createScoreCard()); //Uncomment Later After fixing
-      // console.log(this.teamPlayerScores);
+        // this.createScoreCard(); //Uncomment Later After fixing
 
-      this.inningThreshold++;
-      if (this.inningThreshold == 2) {
-        this.testMatchService.updateInningData(
-          this.teamPlayerScores,
-          this.currentInning
-        );
-        this.inningThreshold = 0;
-        if (this.currentInning == 1) {
-          this.currentInning = 2;
+        this.inningThreshold++;
+        if (this.inningThreshold == 2) {
+          this.testMatchService.updateInningData(
+            this.teamPlayerScores,
+            this.currentInning,
+            this.generateScoreCard()
+          );
+          this.inningThreshold = 0;
+          if (this.currentInning == 1) {
+            this.currentInning = 2;
+          }
         }
-      }
 
-      this.swapBattingTeam();
+        this.swapBattingTeam();
+      }
     }
+
     // this.saveAllOversLocally();
   }
 
-  endInnings(inning: number) {
+  endInnings() {
+    /* this.addToTeamScoresBowler(structuredClone(this.bowler));
+    this.addToTeamScores(structuredClone(this.striker));
+    this.addToTeamScores(structuredClone(this.nonStriker));
+    this.testMatchService.updateInningData(this.teamPlayerScores, inning); */
+
+    this._snackBar.open('Declared - Switching Batting Team', '', {
+      horizontalPosition: 'start',
+      verticalPosition: 'bottom',
+      duration: 2 * 1000,
+    });
+
     this.addToTeamScoresBowler(structuredClone(this.bowler));
     this.addToTeamScores(structuredClone(this.striker));
     this.addToTeamScores(structuredClone(this.nonStriker));
-    this.testMatchService.updateInningData(this.teamPlayerScores, inning);
+
+    // this.sendScores(this.createScoreCard()); //Uncomment Later After fixing
+    // console.log(this.teamPlayerScores);
+
+    this.inningThreshold++;
+    if (this.inningThreshold == 2) {
+      this.testMatchService.updateInningData(
+        this.teamPlayerScores,
+        this.currentInning,
+        this.generateScoreCard()
+      );
+      this.inningThreshold = 0;
+      if (this.currentInning == 1) {
+        this.currentInning = 2;
+      }
+    }
+
+    this.swapBattingTeam();
   }
 
   //runs-panel
