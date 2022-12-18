@@ -402,6 +402,12 @@ export class MatchDataServiceService {
     if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
       extraScore++;
     }
+    ball.striker = this.striker.player;
+    ball.shotType = this.lastShotPlayed;
+    ball.shotAngle = this.lastShotAngle;
+    ball.nonStriker = this.nonStriker.player;
+    // console.log(ball);
+
     //Update Batting Team Score & Wickets
     this.battingTeamScore.totalScore += ball.runs + extraScore;
     if (ball.Out.isOut) {
@@ -411,10 +417,6 @@ export class MatchDataServiceService {
 
     //Update Bowler Score
     this.bowler.runs += ball.runs + extraScore;
-
-    ball.striker = this.striker.player;
-    ball.shotType = this.lastShotPlayed;
-    ball.shotAngle = this.lastShotAngle;
 
     //Updating Striker Score
     this.striker.ballsFaced++;
@@ -428,8 +430,6 @@ export class MatchDataServiceService {
     this.striker.strikeRate =
       Math.round((this.striker.runs / this.striker.ballsFaced) * 100 * 100) /
       100;
-
-    ball.nonStriker = this.nonStriker.player;
   }
 
   //runs-panel
@@ -456,6 +456,7 @@ export class MatchDataServiceService {
 
     this.ballsForThisOver.push(ball);
     this.currentOver.balls = this.ballsForThisOver;
+    console.log(this.currentOver);
 
     if (this.ballLeftForOver == 0) {
       //Update Current Over Data to Next over when balls are finished for this over
@@ -469,13 +470,16 @@ export class MatchDataServiceService {
         nonStriker: structuredClone(this.nonStriker),
         bowler: structuredClone(this.bowler),
       });
+      console.log(this.allOvers);
 
       // this.saveCurrentOver();
 
+      //Resets the current over data to beginning of new over
       this.currentOver.currentOver++;
       this.currentOver.ballsLeft = 6;
       this.currentOver.balls = [];
 
+      //Since its the end of the over, update the bowler stats of overs bowled and eco-rate
       this.bowler.overs++;
       this.bowler.economyRate =
         Math.round((this.bowler.runs / this.bowler.overs) * 100) / 100;
@@ -490,10 +494,31 @@ export class MatchDataServiceService {
     }
 
     if (this.currentOver.currentOver <= this.totalOvers) {
-      if (ball.Out.isOut) {
+      if (ball.Out.isOut && ball.Out.type == 'RON') {
         if (this.battingTeamScore.wickets < 10) {
-          this.addToTeamScores(structuredClone(this.striker));
-
+          if (ball.runs % 2 == 1) {
+            this.addToTeamScores(structuredClone(this.striker)); // Add this strikers personal score to object containing batter scores
+            //If all batters are not out then prompt to pick the next batsman
+            this.playerChangeService
+              .changeStriker('Select Next Striker')
+              .subscribe((p) => {
+                this.changeStriker(p);
+              });
+          } else {
+            this.addToTeamScores(structuredClone(this.nonStriker)); // Add this strikers personal score to object containing batter scores
+            //If all batters are not out then prompt to pick the next batsman
+            this.playerChangeService
+              .changeStriker('Select Next Non-Striker')
+              .subscribe((p) => {
+                this.changeNonStriker(p);
+              });
+          }
+        }
+      } else if (ball.Out.isOut) {
+        if (this.battingTeamScore.wickets < 10) {
+          //If the current striker is bowled out
+          this.addToTeamScores(structuredClone(this.striker)); // Add this strikers personal score to object containing batter scores
+          //If all batters are not out then prompt to pick the next batsman
           this.playerChangeService
             .changeStriker('Select Next Striker')
             .subscribe((p) => {
@@ -504,9 +529,12 @@ export class MatchDataServiceService {
     }
 
     if (this.ballLeftForOver == 0 && this.battingTeamScore.wickets < 10) {
+      //When all balls for this over are bowled and not all batters are out
       if (this.currentOver.currentOver <= this.totalOvers) {
-        this.addToTeamScoresBowler(structuredClone(this.bowler));
+        // And not all overs are finished
 
+        this.addToTeamScoresBowler(structuredClone(this.bowler)); // Add this bowlers score to object containing bowler scores
+        //Prompt to pick next Bowler
         this.playerChangeService
           .changeBowler('Select Next Bowler')
           .subscribe((p) => {
@@ -523,13 +551,13 @@ export class MatchDataServiceService {
       this._snackBar.open('Switching Batting Team', '', {
         horizontalPosition: 'start',
         verticalPosition: 'bottom',
-        duration: 1 * 1000,
+        duration: 2 * 1000,
       });
 
       this.addToTeamScoresBowler(structuredClone(this.bowler));
       this.addToTeamScores(structuredClone(this.striker));
       this.addToTeamScores(structuredClone(this.nonStriker));
-      this.sendScores(this.createScoreCard());
+      // this.sendScores(this.createScoreCard()); //Uncomment Later After fixing
       this.swapBattingTeam();
     }
     // this.saveAllOversLocally();
