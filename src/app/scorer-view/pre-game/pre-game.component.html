@@ -1,9 +1,4 @@
-<div
-  class="steper"
-  *ngIf="!stepperClosed.isOn"
-  fxLayout="row"
-  fxLayoutAlign="center center"
->
+<div class="steper" fxLayout="row" fxLayoutAlign="center center">
   <mat-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup" label="Select Teams ">
       <div class="steper" fxLayout="column" fxLayoutAlign="space-evenly center">
