@@ -118,6 +118,7 @@ export class MatchDataServiceService {
   isTestMatch = true;
   matchId: any;
   isResuming: boolean = false;
+  notSwapped = false; // true/false if after the end of the inning teams are swapped ?
 
   constructor(
     private preGameDataService: PreGameDataService,
@@ -836,7 +837,8 @@ export class MatchDataServiceService {
     this.testMatchService.updateInningData(
       this.teamPlayerScores,
       this.currentInning,
-      this.generateScoreCard()
+      this.generateScoreCard(),
+      this.notSwapped
     );
 
     this.sendResumeCard(this.generateResumeCard());
@@ -878,6 +880,7 @@ export class MatchDataServiceService {
     }
     // this.sendResumeCard(this.generateResumeCard());
     this.playerChangeService.askForTeamChange().subscribe((ans) => {
+      this.notSwapped = ans.switch;
       console.log(ans);
       if (ans.switch) {
         this.swapBattingTeam(true);
@@ -980,9 +983,10 @@ export class MatchDataServiceService {
 
   updateBackEnd() {
     this.testMatchService.updateInningData(
-      this.teamPlayerScores,
+      structuredClone(this.teamPlayerScores),
       this.currentInning,
-      this.generateScoreCard()
+      this.generateScoreCard(),
+      this.notSwapped
     );
     this.sendResumeCard(this.generateResumeCard());
   }
