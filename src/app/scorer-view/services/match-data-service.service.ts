@@ -116,6 +116,7 @@ export class MatchDataServiceService {
   currentInning: number = 1;
 
   isTestMatch = true;
+  matchId: any;
 
   constructor(
     private preGameDataService: PreGameDataService,
@@ -135,9 +136,12 @@ export class MatchDataServiceService {
       #
   */
   loadPreGameDataFromService() {
+    this.preGameDataService.getMatchId().subscribe((id) => (this.matchId = id));
+
     this.preGameDataService
       .getTournamentName()
       .subscribe((tN) => (this.tournamentName = tN));
+
     this.preGameDataService
       .getOvers()
       .subscribe((ov) => (this.totalOvers = ov));

@@ -63,6 +63,11 @@ export class PreGameDataService {
     return overs;
   }
 
+  getMatchId(): Observable<string> {
+    const matchId = of(this.data.meta.match_id);
+    return matchId;
+  }
+
   getTournamentName(): Observable<string> {
     const tournament = of(this.data.meta.tournamentName);
     return tournament;

@@ -30,6 +30,7 @@ export class PreGameComponent implements OnInit {
     new EventEmitter();
 
   matchMetaData = {
+    match_id: '',
     tournamentName: '',
     overs: 0,
     teamA: {
@@ -431,6 +432,11 @@ export class PreGameComponent implements OnInit {
   ) {}
 
   startScoring() {
+    this.matchMetaData.match_id = this.generateMatchId(
+      this.matchMetaData.teamA.teamName,
+      this.matchMetaData.teamB.teamName
+    );
+
     if (this.tossWonBy == 'teamA') {
       this.matchMetaData.teamA.tossWon = true;
       this.matchMetaData.teamA.tossChoice = this.tossWinnerDecision;
@@ -479,4 +485,11 @@ export class PreGameComponent implements OnInit {
       hash.update(input);
       return hash.digest('hex').substring(0, 6);
     } */
+
+  generateMatchId(teamA: string, teamB: string): string {
+    let date_code = '';
+    let code =
+      this.generateKey(teamA) + '_' + this.generateKey(teamB) + '_' + date_code;
+    return code;
+  }
 }
