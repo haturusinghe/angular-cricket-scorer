@@ -1,0 +1,25 @@
+<mat-card fxFlex="100" fxFill>
+  <mat-card-subtitle>Current batsmen</mat-card-subtitle>
+  <mat-card-content>
+    <mat-divider></mat-divider>
+
+    <h3>
+      {{ batsmen.striker.player.name }} {{ batsmen.striker.runs }} ({{
+        batsmen.striker.ballsFaced
+      }}) <b>*</b>
+    </h3>
+
+    <h3>
+      {{ batsmen.non_striker.player.name }} {{ batsmen.non_striker.runs }} ({{
+        batsmen.non_striker.ballsFaced
+      }})
+    </h3>
+
+    <div
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      style="padding: 15px"
+      fxLayoutGap="10"
+    ></div>
+  </mat-card-content>
+</mat-card>

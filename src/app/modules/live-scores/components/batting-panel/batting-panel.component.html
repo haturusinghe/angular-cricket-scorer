@@ -1,0 +1,85 @@
+<mat-tab-group mat-align-tabs="start" color="primary" backgroundColor="primary">
+  <mat-tab label="LIVE" fxLayout="row" fxLayoutAlign="space-between start">
+    <!-- <mat-grid-list
+      cols="2"
+      rowHeight="3:1"
+      fxLayout="row"
+      fxLayoutAlign="center start"
+    > -->
+    <div class="bgx" fxLayout="row" fxLayoutAlign="center start">
+      <div class="container-1" fxFlex="50" fxFill>
+        <mat-card>
+          <mat-card-title>Batting Scores</mat-card-title>
+          <mat-card-subtitle
+            >{{ scorecard.summary.teamName }}
+            {{ scorecard.summary.inning }} inning</mat-card-subtitle
+          >
+          <mat-card-content>
+            <table class="table table-striped" [width]="500">
+              <thead>
+                <tr>
+                  <th scope="col">Batsman</th>
+                  <th scope="col">R</th>
+                  <th scope="col">B</th>
+                  <th scope="col">6s</th>
+                  <th scope="col">4s</th>
+                  <th scope="col">SR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of scores; index as i">
+                  <td>
+                    {{ s.player.name }}
+                  </td>
+                  <td>{{ s.runs | number }}</td>
+                  <td>{{ s.ballsFaced | number }}</td>
+                  <td>{{ s.sixes | number }}</td>
+                  <td>{{ s.fours | number }}</td>
+                  <td>{{ s.strikeRate | number }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="container-1" fxFlex fxFill>
+        <mat-card>
+          <mat-card-title>Bowling Scores</mat-card-title>
+          <mat-card-subtitle
+            >{{ scorecard.summary.bowlingTeam }} bowling</mat-card-subtitle
+          >
+          <mat-card-content>
+            <table class="table table-striped" [width]="500">
+              <thead>
+                <tr>
+                  <th scope="col">Bowler</th>
+                  <th scope="col">R</th>
+                  <th scope="col">M</th>
+                  <th scope="col">O</th>
+                  <th scope="col">W</th>
+                  <th scope="col">ER</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of bowlingfig; index as i">
+                  <td>
+                    {{ s.player.name }}
+                  </td>
+                  <td>{{ s.runs | number }}</td>
+                  <td>{{ s.maidenOvers | number }}</td>
+                  <td>{{ s.overs | number }}</td>
+                  <td>{{ s.wickets | number }}</td>
+                  <td>{{ s.economyRate | number }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- </mat-grid-list> -->
+    <mat-divider></mat-divider>
+  </mat-tab>
+</mat-tab-group>

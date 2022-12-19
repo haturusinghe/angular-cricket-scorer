@@ -1,0 +1,50 @@
+<section>
+  <mat-card>
+    <mat-card-title></mat-card-title>
+
+    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" fxFill
+      >{{ summary.teamName }} vs {{ summary.bowlingTeam }} ,
+      {{ summary.date }} , {{ summary.tournamentName }}
+      <div
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="10"
+      ></div
+    ></mat-card-title>
+    <mat-card-subtitle>Match Summary</mat-card-subtitle>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <div *ngIf="summary.teamName">
+        <div>
+          <div fxFlex="40" fxFill>
+            <div class="batting-team-title">
+              <h1>
+                {{ summary.teamName }}, {{ summary.inning }} Inning
+                <h2>
+                  {{ summary.totalScore }} - {{ summary.wickets }}
+
+                  {{ summary.currentOver }}.{{ summary.overBallsBowled }}/{{
+                    summary.totalOvers
+                  }}
+                  Overs
+                </h2>
+              </h1>
+            </div>
+          </div>
+          <mat-divider [vertical]="true"></mat-divider>
+          <div fxFlex fxFill>
+            <crx-batting-view></crx-batting-view>
+          </div>
+        </div>
+
+        <!-- Team Score -->
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div fxLayout="row" fxLayoutAlign="center center">
+        <!-- Right Side -->
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>

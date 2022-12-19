@@ -1,0 +1,38 @@
+<section>
+  <mat-card>
+    <mat-card-title>Wagon Wheel</mat-card-title>
+    <mat-card-subtitle>Select Angle</mat-card-subtitle>
+    <mat-card-content fxLayout="row" fxLayoutAlign="center center">
+      <mat-divider></mat-divider>
+
+      <div class="wagon-wheel" fxLayout="column">
+        <div class="wagon-wheel-container">
+          <div
+            class="wagon-wheel-background-container"
+            (click)="handleSliderChange($event)"
+          >
+            <div
+              class="wheel-marker"
+              [ngStyle]="{
+                transform: 'rotate(' + (shotAngle - 90) + 'deg)',
+                '-webkit-transform': 'rotate(' + (shotAngle - 90) + 'deg)',
+                '-ms-transform': 'rotate(' + (shotAngle - 90) + 'deg)'
+              }"
+            ></div>
+            <img
+              style="pointer-events: none"
+              src="../../../assets/Cricket_field.png"
+            />
+          </div>
+          <div>
+            <ngx-slider
+              [(value)]="shotAngle"
+              [options]="options"
+              (userChangeEnd)="sliderEvent()"
+            ></ngx-slider>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>
