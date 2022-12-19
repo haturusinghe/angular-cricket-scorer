@@ -22,6 +22,7 @@ import { PostGameService } from './post-game.service';
 import { ScoreCard } from './score-card';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TestMatchScorerService } from './updated-scorer-service.service';
+import { ResumeScoringService } from './resume-scoring.service';
 
 @Injectable({
   providedIn: 'root',
@@ -124,6 +125,7 @@ export class MatchDataServiceService {
     private session: SessionStorageService,
     private postGameService: PostGameService,
     private testMatchService: TestMatchScorerService,
+    private resumeService: ResumeScoringService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -159,6 +161,39 @@ export class MatchDataServiceService {
     this.preGameDataService
       .getTeamsArray()
       .subscribe((arr) => (this.teams = arr));
+  }
+
+  //Resumes Session
+  resumeScoringSession() {
+    this.resumeService.getResumeCardArr0().subscribe((s) => {
+      if (s.length > 0) {
+        console.log(s[0]);
+
+        this.ballLeftForOver = s[0].over_data.ballLeftForOver;
+        this.currentOverNumber = s[0].over_data.currentOverNumber;
+        this.totalOvers = s[0].over_data.totalOvers;
+
+        this.allOvers = s[0].over_data.allOvers;
+        this.currentOver = s[0].over_data.currentOver;
+        this.ballsForThisOver = s[0].over_data.ballsForThisOver;
+
+        this.isTestMatch = s[0].inning_data.isTestMatch;
+        this.inningThreshold = s[0].inning_data.inningThreshold;
+        this.currentInning = s[0].inning_data.currentInning;
+
+        this.battingTeamScore = s[0].battingTeamScore;
+
+        this.teamPlayerScores = s[0].teamPlayerScores;
+
+        this.battingTeamIndex = s[0].team_data.battingTeamIndex;
+        this.bowlerTeamIndex = s[0].team_data.bowlerTeamIndex;
+        this.teams = s[0].team_data.teams;
+
+        this.bowler = s[0].current_players.bowler;
+        this.striker = s[0].current_players.striker;
+        this.nonStriker = s[0].current_players.nonStriker;
+      }
+    });
   }
 
   //match-summary
@@ -359,6 +394,52 @@ export class MatchDataServiceService {
 
     console.log(scoreCard);
     return scoreCard;
+  }
+
+  generateResumeCard(): ScoreCard {
+    let today = new Date().toLocaleDateString('en-GB');
+
+    let resumeCard = new ScoreCard(
+      'resume_data_666',
+      today,
+      'Over',
+      this.teams[this.battingTeamIndex].teamName,
+      this.teams[this.bowlerTeamIndex].teamName,
+      {}
+    );
+
+    resumeCard.score_card['current_players'] = {
+      striker: this.striker,
+      nonStriker: this.nonStriker,
+      bowler: this.bowler,
+    };
+
+    resumeCard.score_card['over_data'] = {
+      ballLeftForOver: this.ballLeftForOver,
+      currentOverNumber: this.currentOverNumber,
+      allOvers: this.allOvers,
+      currentOver: this.currentOver,
+      ballsForThisOver: this.ballsForThisOver,
+      totalOvers: this.totalOvers,
+    };
+
+    resumeCard.score_card['inning_data'] = {
+      isTestMatch: this.isTestMatch,
+      inningThreshold: this.inningThreshold,
+      currentInning: this.currentInning,
+    };
+
+    resumeCard.score_card['team_data'] = {
+      battingTeamIndex: this.battingTeamIndex,
+      bowlerTeamIndex: this.bowlerTeamIndex,
+      teams: this.teams,
+    };
+
+    resumeCard.score_card['battingTeamScore'] = this.battingTeamScore;
+    resumeCard.score_card['teamPlayerScores'] = this.teamPlayerScores;
+
+    console.log(resumeCard);
+    return resumeCard;
   }
 
   generateScoreCard(): ScoreCard {
@@ -723,6 +804,14 @@ export class MatchDataServiceService {
       this.currentInning,
       this.generateScoreCard()
     );
+
+    this.sendResumeCard(this.generateResumeCard());
+  }
+
+  sendResumeCard(resumeCard: ScoreCard) {
+    this.postGameService.postScorecardToApi(resumeCard).subscribe((s) => {
+      console.log(s);
+    });
   }
 
   endInnings() {
