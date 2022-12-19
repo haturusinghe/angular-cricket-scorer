@@ -32,7 +32,7 @@ export class ResumeScoringService {
 
   initResumeCard() {
     this.teamDataService
-      .getSingleMatchData('resume_data_1')
+      .getSingleMatchData('resume_m3_f7_121922')
       .subscribe((response) => {
         this.resumeData[0] = JSON.parse(response.scorecard);
         // console.log(this.resumeData[0]);
@@ -76,6 +76,8 @@ export interface ResumeCard {
   team_data: TeamData;
   battingTeamScore: BattingTeamScore;
   teamPlayerScores: TeamPlayerScore[];
+  match_id: string;
+  tournament_name: string;
 }
 
 export interface BattingTeamScore {
