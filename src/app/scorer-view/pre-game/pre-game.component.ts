@@ -18,6 +18,7 @@ import { TeamDataService } from '../services/team-data.service';
 import { TeamResponse } from '../i/teamResponse';
 import { AuthComponent } from 'src/app/auth/auth.component';
 import { Cricketer } from '../i/cricketer';
+import { MatchDataServiceService } from '../services/match-data-service.service';
 
 @Component({
   selector: 'crx-pre-game',
@@ -425,6 +426,7 @@ export class PreGameComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private preGameDataService: PreGameDataService,
+    private matchDataService: MatchDataServiceService,
     private teamDataService: TeamDataService
   ) {}
 
@@ -451,6 +453,7 @@ export class PreGameComponent implements OnInit {
     this.preGameDataService.setMatchMetaData(this.matchMetaData);
 
     this.stepperClosed.isOn = true;
+    this.matchDataService.loadPreGameDataFromService();
   }
 
   isLinear = false;
