@@ -11,6 +11,7 @@ const routes: Routes = [
     component: DashHomeComponent,
     children: [
       { path: 'scorer', component: ScorerViewComponent },
+      { path: 'live-scores', component: LiveScoreHomeComponent },
       { path: 'start', component: DashResTestComponent },
       { path: '', redirectTo: 'start', pathMatch: 'full' },
     ],

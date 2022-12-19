@@ -1,14 +1,16 @@
+import { scoreText } from 'src/app/scorer-view/i/score-text';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { Scorecard, CurrentPlayers } from '../i/i/score-card';
 import { TeamScore } from '../i/i/team-score';
 import { GetLiveScoresService } from './get-live-scores.service';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LiveGameTsService {
+export class LiveGameTsService implements Resolve<Observable<Scorecard>>{
   endpoint: string = 'https://cricketchampx.com/v1/api';
 
   scoreCard: Scorecard = {
@@ -1205,6 +1207,9 @@ export class LiveGameTsService {
 
   constructor(private getLiveScoresService: GetLiveScoresService) {
     this.setScorecard('test_match_1');
+  }
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Scorecard> | Observable<Observable<Scorecard>> | Promise<Observable<Scorecard>> {
+    throw new Error('Method not implemented.');
   }
 
   ngOninit() {

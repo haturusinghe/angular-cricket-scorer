@@ -1,10 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { BowlerScore } from "../../i/i/bowler-score";
-import { BatterScore } from "../../i/i/player-score";
-import { ScoreCard } from "../../i/i/score-card";
-import { GetLiveScoresService } from "../../services/get-live-scores.service";
-import { LiveGameTsService } from "../../services/live-game.ts.service";
-
+import { Component, OnInit } from '@angular/core';
+import { BowlerScore } from '../../i/i/bowler-score';
+import { BatterScore } from '../../i/i/player-score';
+import { ScoreCard } from '../../i/i/score-card';
+import { GetLiveScoresService } from '../../services/get-live-scores.service';
+import { LiveGameTsService } from '../../services/live-game.ts.service';
 
 @Component({
   selector: 'crx-batting-panel',
@@ -1233,6 +1232,8 @@ export class BattingPanelComponent implements OnInit {
       this.teamsNames.batters = this.scorecard.summary.teamName;
       this.teamsNames.bowlers = this.scorecard.summary.bowlingTeam;
       this.inning = this.scorecard.summary.inning;
+
+      console.log(this.scorecard.innings.b_1);
     });
   }
 
