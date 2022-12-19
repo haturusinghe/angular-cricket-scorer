@@ -19,6 +19,7 @@ export class MatchSummaryComponent implements OnInit {
   totalOvers: number = -1;
   battingTeamScore?: TeamScore;
   isTest = false;
+  matchId: string = 'not_replaced';
 
   constructor(
     private matchDataService: MatchDataServiceService,
@@ -39,6 +40,7 @@ export class MatchSummaryComponent implements OnInit {
     this.tournamentName = meta.tName;
     this.batting = meta.batting;
     this.totalOvers = meta.totalOvers;
+    this.matchId = meta.matchId;
     if (meta.format == 'test') {
       this.isTest = true;
     }

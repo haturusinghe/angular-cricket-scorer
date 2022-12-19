@@ -213,6 +213,7 @@ export class MatchDataServiceService {
       totalOvers: this.totalOvers,
       batting: this.teams[this.battingTeamIndex].teamName,
       format: this.format,
+      matchId: this.matchId,
     };
   }
 
