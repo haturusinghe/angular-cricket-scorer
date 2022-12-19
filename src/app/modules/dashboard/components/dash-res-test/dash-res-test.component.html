@@ -1,4 +1,9 @@
-<p>dash-res-test works!</p>
-
-<button (click)="resumeMatch()">Resume Match</button>
-<button (click)="newMatch()">New Match</button>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Select Option</mat-card-title>
+  </mat-card-header>
+  <mat-card-actions align="end">
+    <button mat-button (click)="newMatch()">NEW MATCH</button>
+    <button mat-button (click)="resumeMatch()">RESUME MATCH</button>
+  </mat-card-actions>
+</mat-card>
