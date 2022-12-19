@@ -21,6 +21,8 @@ export class TestMatchScorerService {
     inning: number,
     scorecard: ScoreCard
   ) {
+    console.log(scoreObj);
+
     if (inning == 1) {
       this.innings.a_1 = scoreObj[0];
       this.innings.b_1 = scoreObj[1];

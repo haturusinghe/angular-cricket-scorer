@@ -980,7 +980,7 @@ export class MatchDataServiceService {
 
   updateBackEnd() {
     this.testMatchService.updateInningData(
-      this.teamPlayerScores,
+      structuredClone(this.teamPlayerScores),
       this.currentInning,
       this.generateScoreCard()
     );
