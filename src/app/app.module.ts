@@ -30,6 +30,7 @@ import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptor } from './auth/service/authconfig.interceptor';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { SwitchPromptComponent } from './scorer-view/switch-prompt/switch-prompt.component';
 
 //
 
@@ -53,6 +54,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     PlayerScoreCardComponent,
     AuthComponent,
     NotFoundComponent,
+    SwitchPromptComponent,
   ],
   imports: [
     ReactiveFormsModule,
