@@ -261,11 +261,11 @@ export class MatchDataServiceService {
     this.lastShotAngle = angle;
   }
 
-  sendScores(scoreCard: ScoreCard) {
+  /* sendScores(scoreCard: ScoreCard) {
     this.postGameService.postScorecardToApi(scoreCard).subscribe((s) => {
       console.log(s);
     });
-  }
+  } */
 
   getTeamNames() {
     return {
@@ -365,7 +365,7 @@ export class MatchDataServiceService {
     let today = new Date().toLocaleDateString('en-GB');
 
     let scoreCard = new ScoreCard(
-      'test_match_1',
+      'delete_later',
       today,
       'Over',
       this.teams[this.battingTeamIndex].teamName,
@@ -627,11 +627,11 @@ export class MatchDataServiceService {
 
         this.inningThreshold++;
         if (this.inningThreshold == 2) {
-          this.testMatchService.updateInningData(
+          /*  this.testMatchService.updateInningData(
             this.teamPlayerScores,
             this.currentInning,
             this.generateScoreCard()
-          );
+          ); */
           this.inningThreshold = 0;
           if (this.currentInning == 1) {
             this.currentInning = 2;
@@ -702,11 +702,11 @@ export class MatchDataServiceService {
 
         this.inningThreshold++;
         if (this.inningThreshold == 2) {
-          this.testMatchService.updateInningData(
+          /* this.testMatchService.updateInningData(
             this.teamPlayerScores,
             this.currentInning,
             this.generateScoreCard()
-          );
+          ); */
           this.inningThreshold = 0;
           if (this.currentInning == 1) {
             this.currentInning = 2;
@@ -718,6 +718,11 @@ export class MatchDataServiceService {
     }
 
     // this.saveAllOversLocally();
+    this.testMatchService.updateInningData(
+      this.teamPlayerScores,
+      this.currentInning,
+      this.generateScoreCard()
+    );
   }
 
   endInnings() {
