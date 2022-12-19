@@ -1,12 +1,7 @@
-import {
-  CurrentPlayers,
-  NonStriker,
-  Scorecard,
-} from './../../../../scorer-view/i/score-card';
-import { BatterScore } from './../../../../scorer-view/i/player-score';
 import { Component, OnInit } from '@angular/core';
-import { LiveGameTsService } from '../../services/live-game.ts.service';
+import { CurrentPlayers } from '../../i/i/score-card';
 import { GetLiveScoresService } from '../../services/get-live-scores.service';
+import { LiveGameTsService } from '../../services/live-game.ts.service';
 
 @Component({
   selector: 'crx-batting-view',

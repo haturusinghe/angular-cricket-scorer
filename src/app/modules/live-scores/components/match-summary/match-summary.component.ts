@@ -1,10 +1,8 @@
-import { ScoreCard } from 'src/app/scorer-view/i/score-card';
-import { GetLiveScoresService } from './../../services/get-live-scores.service';
-import { Summary, Scorecard } from './../../../../scorer-view/i/score-card';
-import { BowlerPanelComponent } from './../../../../scorer-view/bowler-panel/bowler-panel.component';
-import { TeamScore } from './../../../../scorer-view/i/team-score';
-import { LiveGameTsService } from './../../services/live-game.ts.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { ScoreCard } from "../../i/i/score-card";
+import { TeamScore } from "../../i/i/team-score";
+import { GetLiveScoresService } from "../../services/get-live-scores.service";
+import { LiveGameTsService } from "../../services/live-game.ts.service";
 
 @Component({
   selector: 'crx-match-summary',

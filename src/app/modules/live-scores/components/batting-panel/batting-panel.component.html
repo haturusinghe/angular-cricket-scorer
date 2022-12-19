@@ -11,8 +11,8 @@
         <mat-card>
           <mat-card-title>Batting Scores</mat-card-title>
           <mat-card-subtitle
-            >{{ scorecard[0].summary.teamName }}
-            {{ scorecard[0].summary.inning }} inning</mat-card-subtitle
+            >{{ scorecard.summary.teamName }}
+            {{ scorecard.summary.inning }} inning</mat-card-subtitle
           >
           <mat-card-content>
             <table class="table table-striped" [width]="500">
@@ -47,7 +47,7 @@
         <mat-card>
           <mat-card-title>Bowling Scores</mat-card-title>
           <mat-card-subtitle
-            >{{ scorecard[0].summary.bowlingTeam }} bowling</mat-card-subtitle
+            >{{ scorecard.summary.bowlingTeam }} bowling</mat-card-subtitle
           >
           <mat-card-content>
             <table class="table table-striped" [width]="500">

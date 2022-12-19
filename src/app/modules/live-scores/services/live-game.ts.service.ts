@@ -1,25 +1,9 @@
+import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, of, throwError } from 'rxjs';
+import { Scorecard, CurrentPlayers } from '../i/i/score-card';
+import { TeamScore } from '../i/i/team-score';
 import { GetLiveScoresService } from './get-live-scores.service';
-import {
-  CurrentPlayers,
-  Innings,
-  Scorecard,
-  ScoreCard,
-} from './../../../scorer-view/i/score-card';
-import { MatRadioModule } from '@angular/material/radio';
-
-import { Over } from './../../../scorer-view/i/over';
-import { TeamScore } from './../../../scorer-view/i/team-score';
-import {
-  HttpHeaders,
-  HttpClient,
-  HttpErrorResponse,
-} from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
-import { Observable, map, catchError, throwError, of } from 'rxjs';
-import { BatterScore } from 'src/app/scorer-view/i/player-score';
-import { scoreText } from 'src/app/scorer-view/i/score-text';
 
 @Injectable({
   providedIn: 'root',
