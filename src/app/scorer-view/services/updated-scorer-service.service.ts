@@ -19,7 +19,8 @@ export class TestMatchScorerService {
   updateInningData(
     scoreObj: PostScore[],
     inning: number,
-    scorecard: ScoreCard
+    scorecard: ScoreCard,
+    notSwapped: boolean = false //after the end of the ending , did the teams switch ?
   ) {
     console.log(scoreObj);
 
@@ -27,8 +28,13 @@ export class TestMatchScorerService {
       this.innings.a_1 = scoreObj[0];
       this.innings.b_1 = scoreObj[1];
     } else if (inning == 2) {
-      this.innings.a_2 = scoreObj[0];
-      this.innings.b_2 = scoreObj[1];
+      if (!notSwapped) {
+        this.innings.a_2 = scoreObj[0];
+        this.innings.b_2 = scoreObj[1];
+      } else {
+        this.innings.a_2 = scoreObj[1];
+        this.innings.b_2 = scoreObj[0];
+      }
     }
     scorecard.score_card['innings'] = this.innings;
     // console.log(scorecard);
