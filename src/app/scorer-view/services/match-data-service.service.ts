@@ -785,7 +785,7 @@ export class MatchDataServiceService {
     }
   }
 
-  addToTeamScoresBowler(b: BowlerScore) {
+  /* addToTeamScoresBowler(b: BowlerScore) {
     if (this.scoreTeamIndex) {
       this.teamPlayerScores[1].bowling.forEach((s) => {
         if ((s.player.id = b.player.id)) {
@@ -810,6 +810,37 @@ export class MatchDataServiceService {
           this.teamPlayerScores[0].bowling.push(b);
         }
       });
+    }
+  } */
+
+  addToTeamScoresBowler(b: BowlerScore) {
+    if (this.scoreTeamIndex) {
+      // this.teamPlayerScores[1].bowling.push(b);
+      this.insertBowlerScore(this.teamPlayerScores[1].bowling, b);
+    } else {
+      // this.teamPlayerScores[0].bowling.push(b);
+      this.insertBowlerScore(this.teamPlayerScores[0].bowling, b);
+    }
+  }
+
+  insertBowlerScore(scores: BowlerScore[], newScore: BowlerScore) {
+    // Find the index of the existing BowlerScore object with the same player_id
+    const index = scores.findIndex(
+      (score) => score.player.id === newScore.player.id
+    );
+
+    if (index !== -1) {
+      // If a BowlerScore object with the same player_id already exists in the array, add the scores
+
+      scores[index].overs += newScore.overs;
+      scores[index].maidenOvers += newScore.maidenOvers;
+      scores[index].wickets += newScore.wickets;
+      scores[index].runs += newScore.runs;
+      scores[index].economyRate +=
+        Math.round((scores[index].runs / scores[index].overs) * 100) / 100;
+    } else {
+      // Otherwise, insert the new BowlerScore object into the array
+      scores.push(newScore);
     }
   }
 }
