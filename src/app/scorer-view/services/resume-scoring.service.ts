@@ -14,6 +14,7 @@ export class ResumeScoringService {
 
   constructor(private teamDataService: TeamDataService) {
     this.initResumeCard();
+    // this.getMatchList();
   }
 
   getMatchList(): void {
@@ -32,12 +33,20 @@ export class ResumeScoringService {
 
   initResumeCard() {
     this.teamDataService
-      .getSingleMatchData('resume_m3_f7_121922')
+      .getSingleMatchData('resume_test_match_1')
       .subscribe((response) => {
         this.resumeData[0] = JSON.parse(response.scorecard);
         // console.log(this.resumeData[0]);
       });
   }
+
+  /* initResumeCard(match_id: string) {
+    let id = 'resume_' + match_id;
+    this.teamDataService.getSingleMatchData(id).subscribe((response) => {
+      this.resumeData[0] = JSON.parse(response.scorecard);
+      // console.log(this.resumeData[0]);
+    });
+  } */
 
   getMatchSummaryList(): Observable<MatchSummary[]> {
     const summaryList = of(this.summaryList);
