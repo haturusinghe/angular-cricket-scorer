@@ -807,7 +807,7 @@ export class MatchDataServiceService {
           s.runs += b.runs;
           s.economyRate += Math.round((s.runs / s.overs) * 100) / 100;
         } else {
-          this.teamPlayerScores[1].bowling.push(b);
+          this.teamPlayerScores[0].bowling.push(b);
         }
       });
     }
