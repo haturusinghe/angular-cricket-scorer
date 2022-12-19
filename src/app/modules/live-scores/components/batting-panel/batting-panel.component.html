@@ -10,7 +10,10 @@
       <div class="container-1" fxFlex="50" fxFill>
         <mat-card>
           <mat-card-title>Batting Scores</mat-card-title>
-          <mat-card-subtitle>Subtitle goes here</mat-card-subtitle>
+          <mat-card-subtitle
+            >{{ scorecard[0].summary.teamName }}
+            {{ scorecard[0].summary.inning }} inning</mat-card-subtitle
+          >
           <mat-card-content>
             <table class="table table-striped" [width]="500">
               <thead>
@@ -43,7 +46,9 @@
       <div class="container-1" fxFlex fxFill>
         <mat-card>
           <mat-card-title>Bowling Scores</mat-card-title>
-          <mat-card-subtitle>Subtitle goes here</mat-card-subtitle>
+          <mat-card-subtitle
+            >{{ scorecard[0].summary.bowlingTeam }} bowling</mat-card-subtitle
+          >
           <mat-card-content>
             <table class="table table-striped" [width]="500">
               <thead>

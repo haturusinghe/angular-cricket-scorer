@@ -12,6 +12,7 @@ import { Observable, map, catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class GetLiveScoresService {
+  matchid: string = 'test_match_1';
   endpoint: string = 'https://cricketchampx.com/v1/api';
   constructor(
     private http: HttpClient,
@@ -22,8 +23,8 @@ export class GetLiveScoresService {
   currentUser = {};
   loginStatus = { isLoggedIn: false };
 
-  getScoreCard(matchid: string): Observable<any> {
-    let api = `${this.endpoint}/scores/live-score/test_match_1`;
+  getScoreCard(): Observable<any> {
+    let api = `${this.endpoint}/scores/live-score/${this.matchid}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res) => {
         console.log(res);

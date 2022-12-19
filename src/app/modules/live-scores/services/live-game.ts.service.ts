@@ -27,18 +27,6 @@ import { scoreText } from 'src/app/scorer-view/i/score-text';
 export class LiveGameTsService {
   endpoint: string = 'https://cricketchampx.com/v1/api';
 
-  scoreCards = {
-    match_id: 'test_1999',
-    date: '14/12/2022',
-    description: 'ONGOING',
-    team_one: 'SACK 2nd XI',
-    team_two: 'Sri Lanka',
-    scorecard: '',
-    created_at: '2022-12-18 15:48:55',
-    id: 13,
-    updated_at: '2022-12-18 15:48:55',
-  };
-
   scoreCard: Scorecard = {
     match_id: 'test_1999',
     date: '14/12/2022',
@@ -50,8 +38,8 @@ export class LiveGameTsService {
     updated_at: '2022-12-18 15:48:55',
     score_card: {
       meta: {
-        tName: 'Tournament sTest',
-        totalOvers: 3,
+        tName: 'Tournament ssTest',
+        totalOvers: 20,
         batting: 'SACK 1sts XI',
         format: 'test',
       },
@@ -59,8 +47,8 @@ export class LiveGameTsService {
         teamName: 'SLC CRIC',
         bowlingTeam: 'SACK 1st XI',
         inning: '2nd',
-        totalScore: 0,
-        wickets: 0,
+        totalScore: 100,
+        wickets: 3,
       },
       current_over: {
         currentOver: 1,
@@ -220,7 +208,7 @@ export class LiveGameTsService {
         striker: {
           player: {
             id: 100057,
-            name: 'Lahiru Abeysinghe',
+            name: 'Lahiru A323beysinghe',
             photo: null,
             user_id: 179,
             date_of_birth: '2017-01-01',
@@ -1232,21 +1220,22 @@ export class LiveGameTsService {
   loginStatus = { isLoggedIn: false };
 
   constructor(private getLiveScoresService: GetLiveScoresService) {
-    // this.setScorecard('test_match_1');
-  }
-  ngOnInit(): void {
-    this.getSummary('test_match_1');
+    this.setScorecard('test_match_1');
   }
 
-  getSummary(matchid: string): Observable<TeamScore> {
-    // this.scoreCard.match_id = this.scoreCards.match_id;
-    // this.scoreCard.date = this.scoreCards.date;
-    // this.scoreCard.description = this.scoreCards.description;
-    // this.scoreCard.team_one = this.scoreCards.team_one;
-    // this.scoreCard.team_two = this.scoreCards.team_two;
+  ngOninit() {
+    this.setScorecard('test_match_1');
+  }
 
-    // console.log(this.scoreCards);
-
+  getScorecard(): Observable<Scorecard> {
+    const scorecard = of(this.scoreCard);
+    return scorecard;
+  }
+  getSummary(): Observable<TeamScore> {
+    this.setScorecard('test_match_1');
+    console.log(this.scoreCard);
+    this.setScorecard('test_match_1');
+    console.log(this.scoreCard);
     let teamScore: TeamScore = {
       teamName: this.scoreCard.score_card.summary.teamName,
       bowlingTeam: this.scoreCard.score_card.summary.bowlingTeam,
@@ -1260,24 +1249,22 @@ export class LiveGameTsService {
       tournamentName: this.scoreCard.score_card.meta.tName,
     };
 
-    console.log(this.scoreCard);
+    console.log(teamScore);
     const score = of(teamScore);
     return score;
   }
 
   setScorecard(matchid: string) {
-    this.getLiveScoresService
-      .getScoreCard(matchid)
-      .subscribe((s: scoreText) => {
-        this.scoreCard.score_card = JSON.parse(s.scorecard);
-        this.scoreCard.created_at = s.created_at;
-        this.scoreCard.date = s.date;
-        this.scoreCard.match_id = s.match_id;
-        this.scoreCard.team_one = s.team_one;
-        this.scoreCard.team_two = s.team_two;
-        this.scoreCard.description = s.description;
-        this.scoreCard.updated_at = s.updated_at;
-      });
+    this.getLiveScoresService.getScoreCard().subscribe((s) => {
+      this.scoreCard.score_card = JSON.parse(s.scorecard);
+      this.scoreCard.created_at = s.created_at;
+      this.scoreCard.date = s.date;
+      this.scoreCard.match_id = s.match_id;
+      this.scoreCard.team_one = s.team_one;
+      this.scoreCard.team_two = s.team_two;
+      this.scoreCard.description = s.description;
+      this.scoreCard.updated_at = s.updated_at;
+    });
   }
 
   getCurrentBatsman(): Observable<any> {

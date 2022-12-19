@@ -15,26 +15,27 @@
     <mat-card-content>
       <mat-divider></mat-divider>
       <div *ngIf="summary.teamName">
-        <mat-grid-list cols="2" rowHeight="4:1">
-          <mat-grid-tile>
-            <mat-card-title class="batting-team-title"
-              >{{ summary.teamName }}, {{ summary.inning }} Inning
+        <div>
+          <div fxFlex="40" fxFill>
+            <div class="batting-team-title">
               <h1>
-                {{ summary.totalScore }} - {{ summary.wickets }}
-                <h5>
+                {{ summary.teamName }}, {{ summary.inning }} Inning
+                <h2>
+                  {{ summary.totalScore }} - {{ summary.wickets }}
+
                   {{ summary.currentOver }}.{{ summary.overBallsBowled }}/{{
                     summary.totalOvers
                   }}
                   Overs
-                </h5>
+                </h2>
               </h1>
-            </mat-card-title></mat-grid-tile
-          >
+            </div>
+          </div>
           <mat-divider [vertical]="true"></mat-divider>
-          <mat-grid-tile>
+          <div fxFlex fxFill>
             <crx-batting-view></crx-batting-view>
-          </mat-grid-tile>
-        </mat-grid-list>
+          </div>
+        </div>
 
         <!-- Team Score -->
       </div>

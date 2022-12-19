@@ -9,3 +9,17 @@
 .bgx {
   background-color: #fff;
 }
+table {
+  width: 100%;
+  box-shadow: none;
+}
+
+.mat-column-name {
+  width: 70%;
+}
+
+.mat-header-cell,
+.mat-cell {
+  padding: 10px;
+}
+@import "~bootstrap/dist/css/bootstrap.css";
