@@ -1,7 +1,7 @@
 export interface TeamScore {
-  teamName: string;
+  teamName?: string;
   bowlingTeam?: string;
-  inning: string;
+  inning?: string;
   totalScore: number;
   wickets: number;
 }
