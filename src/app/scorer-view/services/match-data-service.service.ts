@@ -437,10 +437,25 @@ export class MatchDataServiceService {
     ball.bowler = this.bowler.player;
     ball.bowlType = this.lastBowlType;
     ball.bowlSpeed = this.lastBowlSpeed;
+
     let extraScore: number = 0;
-    if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
+    /* if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
       extraScore++;
+    } */
+
+    if (
+      ball.extras.includes('LBy') ||
+      ball.extras.includes('By') ||
+      ball.extras.includes('WD') ||
+      ball.extras.includes('NB')
+    ) {
+      if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
+        extraScore++;
+      }
+      extraScore += ball.runs;
     }
+
+    // #TODO: Fix Extras Scoring Rules
     ball.striker = this.striker.player;
     ball.shotType = this.lastShotPlayed;
     ball.shotAngle = this.lastShotAngle;
@@ -448,24 +463,33 @@ export class MatchDataServiceService {
     // console.log(ball);
 
     //Update Batting Team Score & Wickets
-    this.battingTeamScore.totalScore += ball.runs + extraScore;
+    this.battingTeamScore.totalScore +=
+      extraScore <= 0 ? ball.runs : extraScore;
     if (ball.Out.isOut) {
       this.battingTeamScore.wickets++;
       this.bowler.wickets++;
     }
 
     //Update Bowler Score
-    this.bowler.runs += ball.runs + extraScore;
+    this.bowler.runs += extraScore <= 0 ? ball.runs : extraScore;
 
     //Updating Striker Score
-    this.striker.ballsFaced++;
-    this.striker.runs += ball.runs;
-    if (ball.is4) {
-      this.striker.fours++;
+    if (ball.extras.includes('WD') || ball.extras.includes('NB')) {
+    } else {
+      this.striker.ballsFaced++;
     }
-    if (ball.is6) {
-      this.striker.sixes++;
+
+    if (extraScore <= 0) {
+      this.striker.runs += ball.runs;
+
+      if (ball.is4) {
+        this.striker.fours++;
+      }
+      if (ball.is6) {
+        this.striker.sixes++;
+      }
     }
+
     this.striker.strikeRate =
       Math.round((this.striker.runs / this.striker.ballsFaced) * 100 * 100) /
       100;
@@ -697,11 +721,12 @@ export class MatchDataServiceService {
   }
 
   endInnings() {
-    /* this.addToTeamScoresBowler(structuredClone(this.bowler));
-    this.addToTeamScores(structuredClone(this.striker));
-    this.addToTeamScores(structuredClone(this.nonStriker));
-    this.testMatchService.updateInningData(this.teamPlayerScores, inning); */
+    /*RESET OVERS AND BALLS*/
+    /*     this.ballLeftForOver = 6; //Update Number of balls for new Over
+    this.currentOverNumber = 1; //Update current over number to next over
+    this.ballsForThisOver = new Array<Ball>(); //Replace Balls Array with Empty array
 
+ */
     this._snackBar.open('Declared - Switching Batting Team', '', {
       horizontalPosition: 'start',
       verticalPosition: 'bottom',
@@ -762,9 +787,29 @@ export class MatchDataServiceService {
 
   addToTeamScoresBowler(b: BowlerScore) {
     if (this.scoreTeamIndex) {
-      this.teamPlayerScores[1].bowling.push(b);
+      this.teamPlayerScores[1].bowling.forEach((s) => {
+        if ((s.player.id = b.player.id)) {
+          s.overs += b.overs;
+          s.maidenOvers += b.maidenOvers;
+          s.wickets += b.wickets;
+          s.runs += b.runs;
+          s.economyRate += Math.round((s.runs / s.overs) * 100) / 100;
+        } else {
+          this.teamPlayerScores[1].bowling.push(b);
+        }
+      });
     } else {
-      this.teamPlayerScores[0].bowling.push(b);
+      this.teamPlayerScores[0].bowling.forEach((s) => {
+        if ((s.player.id = b.player.id)) {
+          s.overs += b.overs;
+          s.maidenOvers += b.maidenOvers;
+          s.wickets += b.wickets;
+          s.runs += b.runs;
+          s.economyRate += Math.round((s.runs / s.overs) * 100) / 100;
+        } else {
+          this.teamPlayerScores[1].bowling.push(b);
+        }
+      });
     }
   }
 }
