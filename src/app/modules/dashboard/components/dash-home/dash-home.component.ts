@@ -59,7 +59,7 @@ export class DashHomeComponent implements OnInit {
         let seconds = this.rxTime.getSeconds();
         //let a = time.toLocaleString('en-US', { hour: 'numeric', hour12: true });
         let NewTime = hour + ':' + minuts + ':' + seconds;
-        console.log(NewTime);
+        // console.log(NewTime);
         this.rxTime = time;
       });
   }
