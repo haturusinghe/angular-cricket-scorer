@@ -486,8 +486,21 @@ export class PreGameComponent implements OnInit {
       return hash.digest('hex').substring(0, 6);
     } */
 
+  getDateCode(date: string): string {
+    // Split the date string into its individual components
+    const dateComponents = date.split('/');
+
+    // Extract the month, day, and year
+    const month = dateComponents[0];
+    const day = dateComponents[1];
+    const year = dateComponents[2];
+
+    // Return the date code in the format "MMDDYY"
+    return month + day + year.slice(-2);
+  }
+
   generateMatchId(teamA: string, teamB: string): string {
-    let date_code = '';
+    let date_code = this.getDateCode(new Date().toLocaleDateString());
     let code =
       this.generateKey(teamA) + '_' + this.generateKey(teamB) + '_' + date_code;
     return code;
