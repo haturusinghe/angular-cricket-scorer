@@ -432,10 +432,12 @@ export class PreGameComponent implements OnInit {
   ) {}
 
   startScoring() {
-    this.matchMetaData.match_id = this.generateMatchId(
+    /* this.matchMetaData.match_id = this.generateMatchId(
       this.matchMetaData.teamA.teamName,
       this.matchMetaData.teamB.teamName
-    );
+    ); */
+
+    this.matchMetaData.match_id = 'test_match_1';
 
     if (this.tossWonBy == 'teamA') {
       this.matchMetaData.teamA.tossWon = true;
