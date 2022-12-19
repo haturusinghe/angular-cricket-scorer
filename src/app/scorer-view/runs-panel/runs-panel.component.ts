@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { OverData } from '../i/over-data';
+import { TeamScore } from '../i/team-score';
 import { MatchDataServiceService } from '../services/match-data-service.service';
 @Component({
   selector: 'crx-runs-panel',
@@ -11,6 +13,9 @@ export class RunsPanelComponent implements OnInit {
   selectedRun: string = '0';
   run: number = 0;
   isWicket: boolean = false;
+
+  battingTeamScore: TeamScore = { totalScore: -1, wickets: -1 };
+  currentOver: OverData = { currentOver: -1, ballsLeft: -1 };
 
   extrasToSend: Set<string> = new Set();
 
@@ -42,6 +47,28 @@ export class RunsPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.matchDataService.selectOpeningPlayers();
+    this.getCurrentOver();
+    this.getBattingTeamScore();
+  }
+
+  getCurrentOver(): void {
+    this.matchDataService
+      .getCurrentOver()
+      .subscribe((cOver) => (this.currentOver = cOver));
+  }
+
+  getBattingTeamScore(): void {
+    this.matchDataService
+      .getBattingTeamScore()
+      .subscribe((bts) => (this.battingTeamScore = bts));
+  }
+
+  getBattingTeam() {
+    if (this.battingTeamScore) {
+      return this.battingTeamScore.teamName;
+    } else {
+      return 'Invalid';
+    }
   }
 
   changeRun(run: string) {

@@ -36,7 +36,7 @@ export class PostGameService {
 
   postScorecardToApi(scoreCard = {}): Observable<any> {
     let api = `${this.endpoint}/account/save-score-card`;
-    console.log(JSON.stringify(scoreCard));
+    // console.log(JSON.stringify(scoreCard));
     return this.http
       .post(api, JSON.stringify(scoreCard), { headers: this.headers })
       .pipe(

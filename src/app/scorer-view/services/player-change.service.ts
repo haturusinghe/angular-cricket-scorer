@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { ChangeBatsmanComponent } from '../change-batsman/change-batsman.component';
 import { ChangeBowlerComponent } from '../change-bowler/change-bowler.component';
 import { Player } from '../i/player';
+import { SwitchPromptComponent } from '../switch-prompt/switch-prompt.component';
 import { MatchDataServiceService } from './match-data-service.service';
 
 @Injectable({
@@ -19,6 +20,10 @@ export class PlayerChangeService {
     name: '',
   };
 
+  answer = {
+    switch: true,
+  };
+
   constructor(public dialog: MatDialog) {}
 
   changeBowler(title: string): Observable<Player> {
@@ -26,6 +31,21 @@ export class PlayerChangeService {
       width: '300px',
       disableClose: true,
       data: { selectedPlayer: this.selectedBowler, title: title },
+    });
+
+    return dialogRef.afterClosed(); /* .subscribe((result) => {
+      if (result) {
+        this.selectedBowler = result;
+        console.log(result);
+      }
+    }); */
+  }
+
+  askForTeamChange(): Observable<any> {
+    const dialogRef = this.dialog.open(SwitchPromptComponent, {
+      width: '300px',
+      disableClose: true,
+      data: { response: this.answer, title: 'Switch Batting Teams ?' },
     });
 
     return dialogRef.afterClosed(); /* .subscribe((result) => {
