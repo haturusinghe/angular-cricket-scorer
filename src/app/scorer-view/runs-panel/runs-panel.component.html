@@ -9,7 +9,14 @@
         </button>
       </div></mat-card-title
     >
-    <mat-card-subtitle>Select the Runs</mat-card-subtitle>
+    <mat-card-subtitle>
+      <h3>
+        {{ battingTeamScore.totalScore }} / {{ battingTeamScore.wickets }} ({{
+          currentOver.currentOver - 1
+        }}.{{ 6 - currentOver.ballsLeft }}
+        Ov)
+      </h3>
+    </mat-card-subtitle>
 
     <mat-card-content>
       <mat-divider></mat-divider>
