@@ -403,11 +403,11 @@ export class MatchDataServiceService {
 
   generateResumeCard(): ScoreCard {
     let today = new Date().toLocaleDateString('en-GB');
-
+    let resume_id = 'resume_' + this.matchId;
     let resumeCard = new ScoreCard(
-      'resume_data_666',
+      resume_id,
       today,
-      'Over',
+      'ONGOING',
       this.teams[this.battingTeamIndex].teamName,
       this.teams[this.bowlerTeamIndex].teamName,
       {}
@@ -451,9 +451,9 @@ export class MatchDataServiceService {
     let today = new Date().toLocaleDateString('en-GB');
 
     let scoreCard = new ScoreCard(
-      'delete_later',
+      this.matchId,
       today,
-      'Over',
+      'ONGOING',
       this.teams[this.battingTeamIndex].teamName,
       this.teams[this.bowlerTeamIndex].teamName,
       {}
@@ -851,7 +851,7 @@ export class MatchDataServiceService {
         this.currentInning = 2;
       }
     }
-
+    this.sendResumeCard(this.generateResumeCard());
     this.swapBattingTeam();
   }
 
