@@ -118,6 +118,7 @@ export class MatchDataServiceService {
   isTestMatch = true;
   matchId: any;
   isResuming: boolean = false;
+  notSwapped = false; // true/false if after the end of the inning teams are swapped ?
 
   constructor(
     private preGameDataService: PreGameDataService,
@@ -331,17 +332,29 @@ export class MatchDataServiceService {
   }
 
   //Swap Batting Teams when Overs/Wickets are over
-  swapBattingTeam() {
-    if (this.scoreTeamIndex == false) {
+  swapBattingTeam(swith: boolean) {
+    if (this.currentInning == 2 && this.inningThreshold == 0) {
+      this.teamPlayerScores.forEach((s) => {
+        while (s.batting.length > 0) {
+          s.batting.pop();
+        }
+        while (s.bowling.length > 0) {
+          s.bowling.pop();
+        }
+      });
     }
 
-    this.scoreTeamIndex = false;
-    let temp = this.battingTeamIndex;
-    this.battingTeamIndex = this.bowlerTeamIndex;
-    this.bowlerTeamIndex = temp;
+    this.scoreTeamIndex = !this.scoreTeamIndex;
+
+    if (swith) {
+      let temp = this.battingTeamIndex;
+      this.battingTeamIndex = this.bowlerTeamIndex;
+      this.bowlerTeamIndex = temp;
+    }
 
     this.currentOver.currentOver = 1;
     this.currentOver.ballsLeft = 6;
+    this.ballLeftForOver = 6;
 
     this.battingTeamScore.teamName = this.teams[this.battingTeamIndex].teamName;
     this.battingTeamScore.bowlingTeam =
@@ -356,7 +369,7 @@ export class MatchDataServiceService {
     this.selectOpeningPlayers();
   }
 
-  createScoreCard(): ScoreCard {
+  /* createScoreCard(): ScoreCard {
     let today = new Date().toLocaleDateString('en-GB');
     let bowlers = [];
     if (this.scoreTeamIndex) {
@@ -405,6 +418,7 @@ export class MatchDataServiceService {
     console.log(scoreCard);
     return scoreCard;
   }
+ */
 
   generateResumeCard(): ScoreCard {
     let today = new Date().toLocaleDateString('en-GB');
@@ -451,7 +465,7 @@ export class MatchDataServiceService {
     resumeCard.score_card['battingTeamScore'] = this.battingTeamScore;
     resumeCard.score_card['teamPlayerScores'] = this.teamPlayerScores;
 
-    console.log(resumeCard);
+    // console.log(resumeCard);
     return resumeCard;
   }
 
@@ -480,7 +494,7 @@ export class MatchDataServiceService {
       bowler: this.bowler,
     };
 
-    console.log(scoreCard);
+    // console.log(scoreCard);
     return scoreCard;
   }
 
@@ -736,7 +750,7 @@ export class MatchDataServiceService {
           }
         }
 
-        this.swapBattingTeam();
+        this.swapBattingTeam(true);
       }
     } else {
       if (ball.Out.isOut && ball.Out.type == 'RON') {
@@ -815,7 +829,7 @@ export class MatchDataServiceService {
           }
         }
 
-        this.swapBattingTeam();
+        this.swapBattingTeam(true);
       }
     }
 
@@ -823,7 +837,8 @@ export class MatchDataServiceService {
     this.testMatchService.updateInningData(
       this.teamPlayerScores,
       this.currentInning,
-      this.generateScoreCard()
+      this.generateScoreCard(),
+      this.notSwapped
     );
 
     this.sendResumeCard(this.generateResumeCard());
@@ -831,7 +846,7 @@ export class MatchDataServiceService {
 
   sendResumeCard(resumeCard: ScoreCard) {
     this.postGameService.postScorecardToApi(resumeCard).subscribe((s) => {
-      console.log(s);
+      // console.log(s);
     });
   }
 
@@ -858,18 +873,21 @@ export class MatchDataServiceService {
 
     this.inningThreshold++;
     if (this.inningThreshold == 2) {
-      /* this.testMatchService.updateInningData(
-        this.teamPlayerScores,
-        this.currentInning,
-        this.generateScoreCard()
-      ); */
       this.inningThreshold = 0;
       if (this.currentInning == 1) {
         this.currentInning = 2;
       }
     }
     // this.sendResumeCard(this.generateResumeCard());
-    this.swapBattingTeam();
+    this.playerChangeService.askForTeamChange().subscribe((ans) => {
+      this.notSwapped = ans.switch;
+      console.log(ans);
+      if (ans.switch) {
+        this.swapBattingTeam(true);
+      } else {
+        this.swapBattingTeam(false);
+      }
+    });
   }
 
   //runs-panel
@@ -965,9 +983,10 @@ export class MatchDataServiceService {
 
   updateBackEnd() {
     this.testMatchService.updateInningData(
-      this.teamPlayerScores,
+      structuredClone(this.teamPlayerScores),
       this.currentInning,
-      this.generateScoreCard()
+      this.generateScoreCard(),
+      this.notSwapped
     );
     this.sendResumeCard(this.generateResumeCard());
   }
