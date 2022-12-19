@@ -44,7 +44,7 @@ export class MatchDataServiceService {
   battingTeamScore: TeamScore = {
     teamName: this.teams[this.battingTeamIndex].teamName,
     bowlingTeam: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName,
-    inning: 1,
+    inning: '1st',
     totalScore: 0,
     wickets: 0,
   };
@@ -291,7 +291,7 @@ export class MatchDataServiceService {
       this.teams[this.bowlerTeamIndex].teamName;
     this.battingTeamScore.totalScore = 0;
     this.battingTeamScore.wickets = 0;
-    this.battingTeamScore.inning = 2;
+    this.battingTeamScore.inning = '2nd';
 
     while (this.allOvers.length > 0) {
       this.allOvers.pop();

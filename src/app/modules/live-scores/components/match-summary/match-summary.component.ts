@@ -12,17 +12,19 @@ export class MatchSummaryComponent implements OnInit {
   summary: TeamScore = {
     teamName: 'SL',
     bowlingTeam: 'NZ',
-    inning: 1,
+    inning: '1st',
     totalScore: 12,
     wickets: 3,
     currentOver: 2,
     overBallsBowled: 4,
     totalOvers: 5,
+    date: '2020.12.20',
+    tournamentName: 'Tour of india',
   };
 
   getSummary(): void {
     this.liveGameTsService
-      .getSummary('test_1999')
+      .getSummary('test_match_1')
       .subscribe((s) => (this.summary = s));
   }
 

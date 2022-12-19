@@ -8,6 +8,7 @@ import { MaterialExampleModule } from 'src/environments/meterial.module';
 import { BattingViewComponent } from './components/batting-view/batting-view.component';
 import { BattingPanelComponent } from './components/batting-panel/batting-panel.component';
 import { BowlingPanelComponent } from './components/bowling-panel/bowling-panel.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,11 @@ import { BowlingPanelComponent } from './components/bowling-panel/bowling-panel.
     BattingPanelComponent,
     BowlingPanelComponent,
   ],
-  imports: [CommonModule, LiveScoresRoutingModule, MaterialExampleModule],
+  imports: [
+    CommonModule,
+    LiveScoresRoutingModule,
+    MaterialExampleModule,
+    FlexLayoutModule,
+  ],
 })
 export class LiveScoresModule {}

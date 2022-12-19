@@ -1,3 +1,4 @@
+import { BattingType } from './score-card';
 export interface Player {
   id: number;
   name: string;
@@ -12,4 +13,5 @@ export interface Player {
   updated_at?: any;
   user_id?: number;
   wicket_keeper?: number;
+  batting_type?: string;
 }

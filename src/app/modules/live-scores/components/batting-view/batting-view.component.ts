@@ -1,3 +1,4 @@
+import { CurrentPlayers } from './../../../../scorer-view/i/score-card';
 import { BatterScore } from './../../../../scorer-view/i/player-score';
 import { Component, OnInit } from '@angular/core';
 import { LiveGameTsService } from '../../services/live-game.ts.service';
@@ -8,17 +9,17 @@ import { LiveGameTsService } from '../../services/live-game.ts.service';
   styleUrls: ['./batting-view.component.scss'],
 })
 export class BattingViewComponent implements OnInit {
-  batsmen!: BatterScore[];
+  batsmen!: CurrentPlayers;
 
-  // getCurrentBatsmen(): void {
-  //   this.liveGameTsService
-  //     .getCurrentBatsman()
-  //     .subscribe((s) => (this.batsmen = s));
-  // }
+  getCurrentBatsmen(): void {
+    this.liveGameTsService
+      .getCurrentBatsman()
+      .subscribe((s) => (this.batsmen = s));
+  }
 
   constructor(private liveGameTsService: LiveGameTsService) {}
 
   ngOnInit(): void {
-    // this.getCurrentBatsmen();
+    this.getCurrentBatsmen();
   }
 }

@@ -1,16 +1,17 @@
-<mat-card>
-  <mat-card-subtitle>Batting Info</mat-card-subtitle>
+<mat-card fxFlex="100" fxFill>
+  <mat-card-subtitle>Current batsmen</mat-card-subtitle>
   <mat-card-content>
     <mat-divider></mat-divider>
 
     <h3>
-      {{ batsmen[0].player.name }} {{ batsmen[0].runs }} ({{
-        batsmen[0].ballsFaced
-      }})
+      {{ batsmen.striker.player.name }} {{ batsmen.striker.runs }} ({{
+        batsmen.striker.ballsFaced
+      }}) <b>*</b>
     </h3>
+
     <h3>
-      {{ batsmen[1].player.name }} {{ batsmen[1].runs }} ({{
-        batsmen[1].ballsFaced
+      {{ batsmen.non_striker.player.name }} {{ batsmen.non_striker.runs }} ({{
+        batsmen.non_striker.ballsFaced
       }})
     </h3>
 
