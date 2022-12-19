@@ -1,3 +1,5 @@
+import { LiveGameTsService } from './../live-scores/services/live-game.ts.service';
+import { ScoreCard } from 'src/app/scorer-view/i/score-card';
 import { LiveScoreHomeComponent } from './../live-scores/components/live-score-home/live-score-home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -11,7 +13,11 @@ const routes: Routes = [
     component: DashHomeComponent,
     children: [
       { path: 'scorer', component: ScorerViewComponent },
-      { path: 'live-scores', component: LiveScoreHomeComponent },
+      {
+        path: 'live-scores',
+        component: LiveScoreHomeComponent,
+        resolve: { scorecard: LiveGameTsService },
+      },
       { path: 'start', component: DashResTestComponent },
       { path: '', redirectTo: 'start', pathMatch: 'full' },
     ],

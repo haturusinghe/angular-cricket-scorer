@@ -1,16 +1,28 @@
 import { scoreText } from 'src/app/scorer-view/i/score-text';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError, map } from 'rxjs';
 import { Scorecard, CurrentPlayers } from '../i/i/score-card';
 import { TeamScore } from '../i/i/team-score';
 import { GetLiveScoresService } from './get-live-scores.service';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LiveGameTsService implements Resolve<Observable<Scorecard>>{
+export class LiveGameTsService implements Resolve<Observable<Scorecard>> {
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<Scorecard> {
+    const scorecard = of(this.scoreCard);
+    return scorecard;
+  }
   endpoint: string = 'https://cricketchampx.com/v1/api';
 
   scoreCard: Scorecard = {
@@ -1205,15 +1217,15 @@ export class LiveGameTsService implements Resolve<Observable<Scorecard>>{
   currentUser = {};
   loginStatus = { isLoggedIn: false };
 
-  constructor(private getLiveScoresService: GetLiveScoresService) {
-    this.setScorecard('test_match_1');
-  }
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Scorecard> | Observable<Observable<Scorecard>> | Promise<Observable<Scorecard>> {
-    throw new Error('Method not implemented.');
+  constructor(
+    private getLiveScoresService: GetLiveScoresService,
+    private router: Router
+  ) {
+    this.setScorecard();
   }
 
   ngOninit() {
-    this.setScorecard('test_match_1');
+    this.setScorecard();
   }
 
   getScorecard(): Observable<Scorecard> {
@@ -1221,9 +1233,9 @@ export class LiveGameTsService implements Resolve<Observable<Scorecard>>{
     return scorecard;
   }
   getSummary(): Observable<TeamScore> {
-    this.setScorecard('test_match_1');
+    this.setScorecard();
     console.log(this.scoreCard);
-    this.setScorecard('test_match_1');
+    this.setScorecard();
     console.log(this.scoreCard);
     let teamScore: TeamScore = {
       teamName: this.scoreCard.score_card.summary.teamName,
@@ -1243,7 +1255,7 @@ export class LiveGameTsService implements Resolve<Observable<Scorecard>>{
     return score;
   }
 
-  setScorecard(matchid: string) {
+  setScorecard() {
     this.getLiveScoresService.getScoreCard().subscribe((s) => {
       this.scoreCard.score_card = JSON.parse(s.scorecard);
       this.scoreCard.created_at = s.created_at;

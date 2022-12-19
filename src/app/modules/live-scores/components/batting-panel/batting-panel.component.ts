@@ -1,3 +1,5 @@
+import { map } from 'rxjs';
+import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { BowlerScore } from '../../i/i/bowler-score';
 import { BatterScore } from '../../i/i/player-score';
@@ -1204,13 +1206,15 @@ export class BattingPanelComponent implements OnInit {
 
   constructor(
     private liveDataService: LiveGameTsService,
-    private getLiveScoresService: GetLiveScoresService
+    private getLiveScoresService: GetLiveScoresService,
+    private activatedRoute: ActivatedRoute
   ) {
     // this.getTeamNames();
   }
 
   ngOnInit(): void {
     // this.updateData();
+
     this.updateDs();
 
     this.getBattingDetails();
@@ -1233,7 +1237,7 @@ export class BattingPanelComponent implements OnInit {
       this.teamsNames.bowlers = this.scorecard.summary.bowlingTeam;
       this.inning = this.scorecard.summary.inning;
 
-      console.log(this.scorecard.innings.b_1);
+      console.log(this.scorecard);
     });
   }
 

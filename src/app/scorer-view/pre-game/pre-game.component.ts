@@ -72,7 +72,7 @@ export class PreGameComponent implements OnInit {
 
   changeOvers() {
     this.overSelect = parseInt(this.totalOvers);
-    if (this.overSelect == NaN) {
+    if (Number.isNaN(this.overSelect)) {
       this.overSelect = -1;
       this.nextChk = false;
     } else {
@@ -432,12 +432,10 @@ export class PreGameComponent implements OnInit {
   ) {}
 
   startScoring() {
-    /* this.matchMetaData.match_id = this.generateMatchId(
+    this.matchMetaData.match_id = this.generateMatchId(
       this.matchMetaData.teamA.teamName,
       this.matchMetaData.teamB.teamName
-    ); */
-
-    this.matchMetaData.match_id = 'test_match_1';
+    );
 
     if (this.tossWonBy == 'teamA') {
       this.matchMetaData.teamA.tossWon = true;
@@ -488,21 +486,8 @@ export class PreGameComponent implements OnInit {
       return hash.digest('hex').substring(0, 6);
     } */
 
-  getDateCode(date: string): string {
-    // Split the date string into its individual components
-    const dateComponents = date.split('/');
-
-    // Extract the month, day, and year
-    const month = dateComponents[0];
-    const day = dateComponents[1];
-    const year = dateComponents[2];
-
-    // Return the date code in the format "MMDDYY"
-    return month + day + year.slice(-2);
-  }
-
   generateMatchId(teamA: string, teamB: string): string {
-    let date_code = this.getDateCode(new Date().toLocaleDateString());
+    let date_code = '';
     let code =
       this.generateKey(teamA) + '_' + this.generateKey(teamB) + '_' + date_code;
     return code;

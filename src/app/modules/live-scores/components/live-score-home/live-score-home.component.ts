@@ -12,11 +12,7 @@ export class LiveScoreHomeComponent implements OnInit {
 
   constructor(private liveGameTsService: LiveGameTsService) {}
 
-  getScorecard() {
-
-
-    
+  ngOnInit(): void {
+    this.liveGameTsService.setScorecard();
   }
-
-  ngOnInit(): void {}
 }

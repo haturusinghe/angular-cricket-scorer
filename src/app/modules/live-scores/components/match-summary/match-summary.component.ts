@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { ScoreCard } from "../../i/i/score-card";
-import { TeamScore } from "../../i/i/team-score";
-import { GetLiveScoresService } from "../../services/get-live-scores.service";
-import { LiveGameTsService } from "../../services/live-game.ts.service";
+import { Component, OnInit } from '@angular/core';
+import { ScoreCard } from '../../i/i/score-card';
+import { TeamScore } from '../../i/i/team-score';
+import { GetLiveScoresService } from '../../services/get-live-scores.service';
+import { LiveGameTsService } from '../../services/live-game.ts.service';
 
 @Component({
   selector: 'crx-match-summary',
@@ -24,7 +24,7 @@ export class MatchSummaryComponent implements OnInit {
   };
 
   getSummary(): void {
-    this.liveGameTsService.setScorecard('test_match_1');
+    this.liveGameTsService.setScorecard();
 
     this.getLiveScoresService.getScoreCard().subscribe((scoreCard) => {
       let score_card: ScoreCard = JSON.parse(scoreCard.scorecard);
@@ -48,7 +48,7 @@ export class MatchSummaryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.liveGameTsService.setScorecard('test_match_1');
+    this.liveGameTsService.setScorecard();
     this.getSummary();
   }
 }
