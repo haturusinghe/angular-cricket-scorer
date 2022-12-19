@@ -1,0 +1,95 @@
+<section>
+  <mat-card>
+    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center"
+      >Batting Panel
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+        <button
+          mat-raised-button
+          color
+          color="primary"
+          (click)="changeStriker()"
+        >
+          Change Striker
+        </button>
+        <button mat-raised-button color color="primary" (click)="swapSides()">
+          Swap Sides
+        </button>
+      </div></mat-card-title
+    >
+    <mat-card-subtitle>Batting Info</mat-card-subtitle>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      <table mat-table [dataSource]="batTableData" class="mat-elevation-z8">
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="player">
+          <th mat-header-cell *matHeaderCellDef>Batsman</th>
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [ngStyle]="{
+              'background-color':
+                element.isStrikingNow == true ? '#5f5fc4' : '#ffffff',
+              color: element.isStrikingNow == true ? '#fff' : 'black'
+            }"
+          >
+            {{ element.player.name }} 
+          </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="runs">
+          <th mat-header-cell *matHeaderCellDef>R</th>
+          <td mat-cell *matCellDef="let element">{{ element.runs }}</td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="ballsFaced">
+          <th mat-header-cell *matHeaderCellDef>B</th>
+          <td mat-cell *matCellDef="let element">{{ element.ballsFaced }}</td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="fours">
+          <th mat-header-cell *matHeaderCellDef>4s</th>
+          <td mat-cell *matCellDef="let element">{{ element.fours }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="sixes">
+          <th mat-header-cell *matHeaderCellDef>6s</th>
+          <td mat-cell *matCellDef="let element">{{ element.sixes }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="strikeRate">
+          <th mat-header-cell *matHeaderCellDef>SR</th>
+          <td mat-cell *matCellDef="let element">{{ element.strikeRate }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+      </table>
+
+      <div
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        style="padding: 15px"
+        fxLayoutGap="10"
+      >
+        <mat-form-field appearance="outline">
+          <mat-label>Shot Played</mat-label>
+          <mat-select
+            [(ngModel)]="selectedShot"
+            name="shotType"
+            (ngModelChange)="updateLastShot()"
+          >
+            <mat-option *ngFor="let s of shotVals" [value]="s">
+              {{ s }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</section>
