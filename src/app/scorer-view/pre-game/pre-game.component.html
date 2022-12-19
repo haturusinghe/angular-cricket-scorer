@@ -9,43 +9,65 @@
       <div class="steper" fxLayout="column" fxLayoutAlign="space-evenly center">
         <h4>Select Tournament</h4>
 
-        <mat-form-field class="example-full-width" appearance="fill">
+        <mat-form-field class="example-full-width" appearance="outline">
           <mat-label>Tournament Name</mat-label>
-          <input
-            matInput
-            #tour
-            [(ngModel)]="tournament"
-            (ngModelChange)="setTournament()"
-          />
+          <input matInput #tour [(ngModel)]="tournamentName" />
         </mat-form-field>
 
-        <!-- <mat-form-field appearance="fill">
-          <mat-label>tournament</mat-label>
-         <mat-select
-            [(ngModel)]="tournament"
-            (selectionChange)="setTournament()"
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15">
+          <h4>Select Format:</h4>
+          <mat-checkbox
+            class="chk-margin"
+            [(ngModel)]="isTest"
+            (ngModelChange)="onToggle()"
+            >Test Match</mat-checkbox
           >
-            <mat-option
-              *ngFor="let tournament of tournaments"
-              [value]="tournament.name"
-            >
-              {{ tournament.name }}
-            </mat-option>
-          </mat-select> 
-      </mat-form-field>  -->
+        </div>
 
-        <h4>Select Overs</h4>
-        <mat-form-field appearance="fill">
+        <!-- <mat-slide-toggle [(ngModel)]="isTest" (ngModelChange)="onToggle()"
+          >Test Match ?</mat-slide-toggle
+        > -->
+
+        <!-- <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+        >
+          <mat-radio-button
+            class="example-radio-button"
+            *ngFor="let f of formats"
+            [value]="f"
+          >
+            {{ f }}
+          </mat-radio-button>
+        </mat-radio-group> -->
+
+        <h4 *ngIf="!isTest">Select Overs</h4>
+        <!-- <mat-form-field appearance="outline">
           <mat-label>Overs:</mat-label>
-          <mat-select [(ngModel)]="overSelect" (selectionChange)="setOvers()">
+          <mat-select [(ngModel)]="overSelect">
             <mat-option *ngFor="let oversSelect of overs" [value]="oversSelect">
               {{ oversSelect }}
             </mat-option>
           </mat-select>
+        </mat-form-field> -->
+
+        <mat-form-field
+          class="example-full-width"
+          appearance="outline"
+          *ngIf="!isTest"
+        >
+          <mat-label>Overs</mat-label>
+          <input
+            matInput
+            #tour
+            [(ngModel)]="totalOvers"
+            (ngModelChange)="changeOvers()"
+          />
         </mat-form-field>
+
         <div>
           <button
-            *ngIf="tournament && overs"
+            *ngIf="tournamentName && overSelect != -1 && nextChk"
             mat-raised-button
             matStepperNext
             color="primary"
@@ -55,14 +77,15 @@
         </div>
       </div>
     </mat-step>
+
     <mat-step [stepControl]="secondFormGroup" label="Select Teams ">
       <div class="steper" fxLayout="column" fxLayoutAlign="space-evenly center">
         <h4>Select Teams</h4>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Team A</mat-label>
           <mat-select
-            [(ngModel)]="selectedValue1"
-            (selectionChange)="onChange(selectedValue1, 0)"
+            [(ngModel)]="selectedTeamA"
+            (selectionChange)="onTeamSelectedChange(selectedTeamA, 0)"
           >
             <mat-option
               *ngFor="let team of teamDetails.teams"
@@ -74,11 +97,11 @@
         </mat-form-field>
 
         <h4>V.S</h4>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="outline">
           <mat-label>Team B</mat-label>
           <mat-select
-            [(ngModel)]="selectedValue2"
-            (selectionChange)="onChange(selectedValue2, 1)"
+            [(ngModel)]="selectedTeamB"
+            (selectionChange)="onTeamSelectedChange(selectedTeamB, 1)"
           >
             <mat-option
               *ngFor="let team of teamDetails.teams"
@@ -90,7 +113,7 @@
         </mat-form-field>
         <div>
           <button
-            *ngIf="selectedValue2 && selectedValue1"
+            *ngIf="selectedTeamA && selectedTeamB"
             mat-raised-button
             matStepperNext
             color="primary"
@@ -104,23 +127,24 @@
     <mat-step label="Select players for Team">
       <div class="steper" fxLayout="column" fxLayoutAlign="space-evenly center">
         <div class="teams" fxLayout="row" fxLayoutAlign="space-around  stretch">
-          <div *ngIf="selectedValue1" class="team">
+          <div *ngIf="selectedTeamA" class="team">
             <mat-card class="scrollable-content">
               <mat-card-title
                 fxLayout="row"
                 fxLayoutAlign="space-between center"
-                >{{ selectedValue1 }}
+                >{{ selectedTeamA }}
               </mat-card-title>
 
               <mat-card-subtitle
                 >Players selected :
-                {{ playingXi[0].players.length }}</mat-card-subtitle
+                {{ selectedElevenOfTeams[0].players.length }}</mat-card-subtitle
               >
 
               <span class="example-list-section">
-                <mat-selection-list [(ngModel)]="playingXi[0].players">
+                <mat-selection-list
+                  [(ngModel)]="selectedElevenOfTeams[0].players"
+                >
                   <mat-list-option
-                    (change)="selectPlayingXi(0)"
                     *ngFor="let player of playingTeams[0].players"
                     [value]="player"
                   >
@@ -130,24 +154,23 @@
               </span>
             </mat-card>
           </div>
-          <div *ngIf="selectedValue2" class="team">
+          <div *ngIf="selectedTeamB" class="team">
             <mat-card class="scrollable-content">
               <mat-card-title
                 fxLayout="row"
                 fxLayoutAlign="space-between center"
-                >{{ selectedValue2 }}
+                >{{ selectedTeamB }}
               </mat-card-title>
 
               <mat-card-subtitle
                 >Players selected :
-                {{ playingXi[1].players.length }}</mat-card-subtitle
+                {{ selectedElevenOfTeams[1].players.length }}</mat-card-subtitle
               >
 
               <span class="example-list-section">
                 <mat-selection-list
                   #playerxi
-                  [(ngModel)]="playingXi[1].players"
-                  (change)="selectPlayingXi(1)"
+                  [(ngModel)]="selectedElevenOfTeams[1].players"
                 >
                   <mat-list-option
                     *ngFor="let player of playingTeams[1].players"
@@ -164,42 +187,41 @@
           <button mat-raised-button matStepperPrevious color="primary">
             Back
           </button>
-          <!-- <button
+          <button
             mat-raised-button
             color="primary"
             matStepperNext
-            *ngIf="
-              playingXi[0].players.length == 12 &&
-              playingXi[1].players.length == 12
-            "
-          > -->
-          <button mat-raised-button color="primary" matStepperNext>Next</button>
+            (click)="setMetaData()"
+          >
+            Next
+          </button>
         </div>
       </div>
     </mat-step>
+
     <mat-step
       label="Start Game"
       fxLayout="column"
       fxLayoutAlign="space-evenly center"
     >
       <div class="steper">
-        <h4>TOSS :</h4>
-        <mat-form-field appearance="fill">
-          <mat-label>TOSS:</mat-label>
-          <mat-select [(ngModel)]="toss" (selectionChange)="setToss()">
-            <mat-option [value]="selectedValue1">
-              {{ selectedValue1 }}
+        <h4>Toss Won by :</h4>
+        <mat-form-field appearance="outline">
+          <mat-label>Select Team</mat-label>
+          <mat-select [(value)]="tossWonBy">
+            <mat-option value="teamA">
+              {{ matchMetaData.teamA.teamName }}
             </mat-option>
-            <mat-option [value]="selectedValue2">
-              {{ selectedValue2 }}
+            <mat-option value="teamB">
+              {{ matchMetaData.teamB.teamName }}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
-        <h4>Choose to:</h4>
-        <mat-form-field appearance="fill">
-          <mat-select [(ngModel)]="role" (selectionChange)="setRole()">
-            <mat-label>ChooseTo:</mat-label>
+        <h4>Decision to:</h4>
+        <mat-form-field appearance="outline">
+          <mat-label>Select Decision</mat-label>
+          <mat-select [(value)]="tossWinnerDecision">
             <mat-option value="Batting"> Batting </mat-option>
             <mat-option value="Bowling"> Bowling </mat-option>
           </mat-select>
@@ -211,10 +233,10 @@
           <button
             mat-raised-button
             color="primary"
-            *ngIf="toss && role"
-            (click)="newGames()"
+            *ngIf="tossWonBy && tossWinnerDecision"
+            (click)="startScoring()"
           >
-            New Game
+            Start New Game
           </button>
         </div>
       </div>

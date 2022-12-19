@@ -18,7 +18,7 @@
           *ngFor="let option of filteredPlayers | async"
           [value]="option"
         >
-          {{ option.first_name }} {{ option.last_name }}
+          {{ option.name }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

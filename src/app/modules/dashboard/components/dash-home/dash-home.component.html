@@ -1,0 +1,48 @@
+<mat-toolbar>
+  <button mat-icon-button class="example-icon" (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <img src="../../assets/logo.png" class="logo" />
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon">
+    <mat-icon>today</mat-icon>
+  </button>
+  <div>
+    <h3>{{ time.toLocaleDateString("en-GB") }}</h3>
+  </div>
+  <button mat-icon-button class="example-icon favorite-icon">
+    <mat-icon>schedule</mat-icon>
+  </button>
+  <div>
+    <h3>{{ rxTime | date : "hh:mm:ss a" }}</h3>
+  </div>
+
+  <span class="spacer-2"></span>
+
+  <button mat-icon-button class="example-icon" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-nav-list>
+      <mat-list-item
+        *ngFor="let link of links"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <a matListItemTitle class="l-item" (click)="getLink(link)">{{
+          link.name
+        }}</a>
+        <span mat-icon-button matListItemMeta>
+          <mat-icon>{{ link.icon }}</mat-icon>
+        </span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container>

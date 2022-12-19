@@ -3,6 +3,8 @@ import { OverData } from '../i/over-data';
 import { BatterScore } from '../i/player-score';
 import { TeamScore } from '../i/team-score';
 import { MatchDataServiceService } from '../services/match-data-service.service';
+import { PreGameDataService } from '../services/pre-game-data.service';
+import { TestMatchScorerService } from '../services/updated-scorer-service.service';
 
 @Component({
   selector: 'crx-match-summary',
@@ -15,8 +17,13 @@ export class MatchSummaryComponent implements OnInit {
   currentOver: OverData = { currentOver: -1, ballsLeft: -1 };
   totalOvers: number = -1;
   battingTeamScore?: TeamScore;
+  isTest = false;
 
-  constructor(private matchDataService: MatchDataServiceService) {}
+  constructor(
+    private matchDataService: MatchDataServiceService,
+    private preGameDataService: PreGameDataService,
+    private testMatchService: TestMatchScorerService
+  ) {}
 
   ngOnInit(): void {
     this.matchDataService.loadPreGameDataFromService();
@@ -30,6 +37,9 @@ export class MatchSummaryComponent implements OnInit {
     this.tournamentName = meta.tName;
     this.batting = meta.batting;
     this.totalOvers = meta.totalOvers;
+    if (meta.format == 'test') {
+      this.isTest = true;
+    }
   }
 
   getCurrentOver(): void {
@@ -43,15 +53,31 @@ export class MatchSummaryComponent implements OnInit {
       .getBattingTeamScore()
       .subscribe((bts) => (this.battingTeamScore = bts));
   }
+
   getBattingTeam() {
     if (this.battingTeamScore) {
       return this.battingTeamScore.teamName;
     } else {
-      return 'Hello';
+      return 'Invalid';
     }
   }
 
-  testPost() {
-    // this.matchDataService.sendScores();
+  testMetaPreGame() {
+    this.preGameDataService
+      .getMatchMetaData()
+      .subscribe((s) => console.log(s.meta));
+
+    this.preGameDataService
+      .getFirstBattingTeam()
+      .subscribe((s) => console.log(s));
+
+    this.preGameDataService
+      .getFirstBowlingTeam()
+      .subscribe((s) => console.log(s));
+  }
+
+  endInning() {
+    this.testMatchService.getInnings().subscribe((s) => console.log(s));
+    this.matchDataService.endInnings();
   }
 }

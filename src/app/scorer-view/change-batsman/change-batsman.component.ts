@@ -37,20 +37,24 @@ export class ChangeBatsmanComponent implements OnInit {
     );
   }
 
-  private _filterPlayers(value: string): Player[] {
-    const filterValue = value.toLowerCase();
+  turnToLowerCase(str: string): string {
+    if (str) {
+      return str.toString().toLowerCase();
+    } else {
+      return '';
+    }
+  }
 
-    return this.players.filter(
-      (player) =>
-        player.first_name.toLowerCase().includes(filterValue) ||
-        player.last_name.toLowerCase().includes(filterValue)
+  private _filterPlayers(value: string): Player[] {
+    const filterValue = this.turnToLowerCase(value);
+
+    return this.players.filter((player) =>
+      player.name.toString().toLowerCase().includes(filterValue)
     );
   }
 
   displayFn(player: Player): string {
-    return player && (player.first_name || player.last_name)
-      ? player.first_name + ' ' + player.last_name
-      : '';
+    return player && player.name ? player.name : '';
   }
 
   getBatsmen(): void {

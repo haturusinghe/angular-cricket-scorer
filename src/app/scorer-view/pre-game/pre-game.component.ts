@@ -17,6 +17,7 @@ import { TeamDataService } from '../services/team-data.service';
 
 import { TeamResponse } from '../i/teamResponse';
 import { AuthComponent } from 'src/app/auth/auth.component';
+import { Cricketer } from '../i/cricketer';
 
 @Component({
   selector: 'crx-pre-game',
@@ -27,38 +28,76 @@ export class PreGameComponent implements OnInit {
   @Output('stepperClosed') setstepperClosed: EventEmitter<any> =
     new EventEmitter();
 
-  tournaments = [{ name: 'Ashes' }, { name: 'Nidahas Trophy' }];
-  tournament: string = '';
+  matchMetaData = {
+    tournamentName: '',
+    overs: 0,
+    teamA: {
+      teamId: 0,
+      teamName: '',
+      allPlayers: new Array<Cricketer>(),
+      selectedPlayers: new Array<Cricketer>(),
+      tossWon: false,
+      tossChoice: 'Batting',
+    },
+    teamB: {
+      teamId: 0,
+      teamName: '',
+      allPlayers: new Array<Cricketer>(),
+      selectedPlayers: new Array<Cricketer>(),
+      tossWon: false,
+      tossChoice: 'Batting',
+    },
+  };
+
+  isTest = false;
+
+  selectedFormat: string = '';
+  formats: string[] = ['ODI', 'Test Match'];
+
+  tournamentName: string = '';
+  totalOvers: string = '';
+  nextChk: boolean = false;
+
+  onToggle() {
+    if (this.isTest) {
+      this.overSelect = 0;
+      this.nextChk = true;
+    } else {
+      this.overSelect = -1;
+      this.nextChk = false;
+    }
+  }
+
+  changeOvers() {
+    this.overSelect = parseInt(this.totalOvers);
+    if (this.overSelect == NaN) {
+      this.overSelect = -1;
+      this.nextChk = false;
+    } else {
+      this.nextChk = true;
+    }
+    console.log(this.overSelect);
+  }
 
   teams!: Team[];
   teamDetails: TeamResponse = {
     success: '',
     teams: [],
   };
-  selectedValue1!: string;
-  selectedValue2!: string;
+  selectedTeamA!: string;
+  selectedTeamB!: string;
 
-  overs: number[] = [3, 10, 20, 50];
+  teamWonToss!: string;
+
+  overs: number[] = [3, 5, 10, 20, 50];
   overSelect!: number;
 
-  teamx!: Player[];
-  teamy!: Player[];
   next: boolean = true;
-  toss!: string;
-  role!: string;
+  tossWonBy!: string;
+  tossWinnerDecision!: string;
 
   stepperClosed = { isOn: false };
 
-  // playingTeams: Team[] = [
-  //   {
-  //     teamName: 'SL',
-  //     players: [{ id: 5, first_name: 'Lanna', last_name: 'Smead' }],
-  //   },
-  //   {
-  //     teamName: 'ind',
-  //     players: [{ id: 5, first_name: 'sss', last_name: 'Smead' }],
-  //   },
-  // ];
   playingTeams: PlayingTeam[] = [
     {
       success: '',
@@ -277,42 +316,11 @@ export class PreGameComponent implements OnInit {
   ];
 
   playingTeamsXi: Team[] = [];
-  player: Player = { first_name: '', last_name: '', id: 1 };
-  team1: Team = { teamName: '', players: [this.player, this.player] };
-  team2: Team = { teamName: '', players: [this.player, this.player] };
+  player: Player = { name: '', id: 1 };
+  /*  team1: Team = { teamName: '', players: [this.player, this.player] };
+  team2: Team = { teamName: '', players: [this.player, this.player] }; */
 
-  clearTeam(team: Team) {
-    team.players = [];
-  }
-  getTeamsXi() {
-    this.team1.teamName = this.playingXi[0].team.name;
-    this.clearTeam(this.team1);
-    this.playingXi[0].players.forEach((player) => {
-      this.team1.players.push({
-        first_name: player.name,
-        id: player.id,
-        last_name: '',
-      });
-    });
-
-    this.playingTeamsXi.push(this.team1);
-    this.clearTeam(this.team2);
-    this.team2.teamName = this.playingXi[1].team.name;
-
-    this.playingXi[1].players.forEach((player) => {
-      this.team2.players.push({
-        first_name: player.name,
-        id: player.id,
-        last_name: '',
-      });
-    });
-
-    this.playingTeamsXi.push(this.team2);
-
-    console.log(this.playingXi);
-    this.setPlayingXi();
-  }
-  playingXi: PlayingTeam[] = [
+  selectedElevenOfTeams: PlayingTeam[] = [
     {
       success: '',
       team: {
@@ -376,93 +384,72 @@ export class PreGameComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllTeams();
-    // this.getPlayingTeams();
-    // this.getPlayingTeamXi();
-    this.setToss();
-    this.setRole();
-    this.setOvers();
-    this.setTournament();
   }
 
   getAllTeams(): void {
     this.teamDataService.getTeams().subscribe((s) => (this.teamDetails = s));
-    console.log(this.teamDetails);
   }
 
   getTeamDetails() {
     return this.teamDetails.teams;
   }
 
-  // getPlayingTeams(): void {
-  //   this.preGameDataService
-  //     .getPlayingTeams()
-  //     .subscribe((s) => (this.playingTeams = s));
-  // }
-  getPlayingTeamXi(): void {
-    this.preGameDataService
-      .getPlayingTeamXi()
-      .subscribe((s) => (this.playingTeamsXi = s));
+  setMetaData() {
+    this.matchMetaData.tournamentName = this.tournamentName;
+    this.matchMetaData.overs = this.overSelect;
+
+    this.matchMetaData.teamA.teamId = this.playingTeams[0].team.id;
+    this.matchMetaData.teamA.teamName = this.playingTeams[0].team.name;
+    this.matchMetaData.teamA.allPlayers = this.playingTeams[0].players;
+    this.matchMetaData.teamA.selectedPlayers =
+      this.selectedElevenOfTeams[0].players;
+
+    this.matchMetaData.teamB.teamId = this.playingTeams[1].team.id;
+    this.matchMetaData.teamB.teamName = this.playingTeams[1].team.name;
+    this.matchMetaData.teamB.allPlayers = this.playingTeams[1].players;
+    this.matchMetaData.teamB.selectedPlayers =
+      this.selectedElevenOfTeams[1].players;
   }
 
-  setPlayingXi() {
-    this.preGameDataService.setTeamXi(this.playingTeamsXi);
-  }
-  setToss() {
-    this.preGameDataService.selectToss(this.toss);
-  }
-  setRole() {
-    this.preGameDataService.TossSelect(this.role);
-  }
-  setOvers() {
-    this.preGameDataService.selectOvers(this.overSelect);
-  }
-
-  setTournament() {
-    this.preGameDataService.selectTournament(this.tournament);
-    console.log(this.teamDetails);
-  }
-
-  onChange(selectedName: string, n: number): void {
-    // console.log(selectedName, n);
+  onTeamSelectedChange(selectedName: string, n: number): void {
     this.teamDetails.teams.forEach((team) => {
       if (team.name.trim() == selectedName.trim()) {
         this.teamDataService.getPlayingTeamById(team.id).subscribe((s) => {
-          this.playingTeams[n] = s;
-          console.log(s);
+          this.playingTeams[n] = s; // playingTeams is an array of size 2 , containing players of TeamA and TeamB which is selected
+          // console.log(s);
         });
       }
-      // console.log(this.playingTeams[n]);
     });
-  }
-
-  selectPlayingXi(n: number): void {
-    // this.playingXi[n].team.name = this.playingTeams[n].team.name;
-    // this.preGameDataService.clearPlayingTeamsXi(n);
-    // this.preGameDataService.addPlayingXi(this.playingTeamsXi[n], n);
-    // this.getPlayingTeamXi();
-    // this.teamValid(this.playingXi);
-  }
-
-  teamValid(team: TeamDetails[]): void {
-    // if (team[0].players.length != 11 || team[1].players.length != 11) {
-    //   this.next = false;
-    // } else this.next = true;
   }
 
   constructor(
     private _formBuilder: FormBuilder,
     private preGameDataService: PreGameDataService,
-    private authServiceService: AuthComponent,
     private teamDataService: TeamDataService
   ) {}
 
-  newGames() {
+  startScoring() {
+    if (this.tossWonBy == 'teamA') {
+      this.matchMetaData.teamA.tossWon = true;
+      this.matchMetaData.teamA.tossChoice = this.tossWinnerDecision;
+
+      this.matchMetaData.teamB.tossWon = false;
+      this.matchMetaData.teamB.tossChoice =
+        this.tossWinnerDecision == 'Batting' ? 'Bowling' : 'Batting';
+    } else if (this.tossWonBy == 'teamB') {
+      this.matchMetaData.teamB.tossWon = true;
+      this.matchMetaData.teamB.tossChoice = this.tossWinnerDecision;
+
+      this.matchMetaData.teamA.tossWon = false;
+      this.matchMetaData.teamA.tossChoice =
+        this.tossWinnerDecision == 'Batting' ? 'Bowling' : 'Batting';
+    }
+
+    // console.log(this.matchMetaData);
+
     this.preGameDataService.setStart(true);
-    this.getTeamsXi();
-    this.teamDataService
-      .getPlayingTeamById(12)
-      .subscribe((s) => (this.playingTeams[0] = s));
-    console.log(this.preGameDataService.getPreGameData());
+    this.preGameDataService.setMatchMetaData(this.matchMetaData);
+
     this.stepperClosed.isOn = true;
   }
 
@@ -474,4 +461,19 @@ export class PreGameComponent implements OnInit {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
+
+  /* HELPER FUNCTIONS FOR SCORECARD GENERATOR */
+  generateKey(teamName: string): string {
+    return teamName
+      .split('')
+      .map((char) => char.charCodeAt(0))
+      .reduce((acc, charCode) => acc + charCode, 0)
+      .toString(36)
+      .substring(0, 3);
+  }
+  /*   generateDateHash(input: string = new Date().toLocaleString()): string {
+      const hash = crypto.createHash('sha256');
+      hash.update(input);
+      return hash.digest('hex').substring(0, 6);
+    } */
 }

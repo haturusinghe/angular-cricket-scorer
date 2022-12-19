@@ -1,9 +1,4 @@
-<div
-  class="login"
-  fxLayout="column"
-  fxLayoutAlign="center center"
-  *ngIf="!loginStatus.isLoggedIn"
->
+<div class="login" fxLayout="column" fxLayoutAlign="center center">
   <img src="../../assets/logo.png" class="logo" />
 
   <form
@@ -30,22 +25,17 @@
       <mat-error *ngIf="invalidPassword">Invalid email or password</mat-error>
     </mat-form-field>
 
-    <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div fxLayout="row" fxLayoutAlign="center center" class="btns">
       <button
         mat-raised-button
         color="accent"
-        (click)="onSubmit()"
+        (click)="loginFormSubmit()"
         class="submit-button"
         aria-label="LOG IN"
         [disabled]="loginForm.invalid"
       >
-        LOGIN
+        Login
       </button>
     </div>
   </form>
-  <!-- <button (click)="onSubmit()">TEST</button> -->
-</div>
-
-<div *ngIf="loginStatus.isLoggedIn">
-  <crx-scorer-view></crx-scorer-view>
 </div>

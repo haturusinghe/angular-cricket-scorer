@@ -14,7 +14,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { AngularWebStorageModule } from 'angular-web-storage';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 //Components
-import { ToolbarComponent } from './scorer-view/toolbar/toolbar.component';
+
 import { RunsPanelComponent } from './scorer-view/runs-panel/runs-panel.component';
 import { BatterPanelComponent } from './scorer-view/batter-panel/batter-panel.component';
 import { WagonWheelSelectorComponent } from './scorer-view/wagon-wheel-selector/wagon-wheel-selector.component';
@@ -29,6 +29,7 @@ import { PlayerScoreCardComponent } from './scorer-view/player-score-card/player
 import { PreGameComponent } from './scorer-view/pre-game/pre-game.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptor } from './auth/service/authconfig.interceptor';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 //
 
@@ -37,7 +38,7 @@ import { AuthInterceptor } from './auth/service/authconfig.interceptor';
     AppComponent,
 
     ScorerViewComponent,
-    ToolbarComponent,
+
     RunsPanelComponent,
     BatterPanelComponent,
     WagonWheelSelectorComponent,
@@ -51,6 +52,7 @@ import { AuthInterceptor } from './auth/service/authconfig.interceptor';
     ChangeBowlerComponent,
     PlayerScoreCardComponent,
     AuthComponent,
+    NotFoundComponent,
   ],
   imports: [
     ReactiveFormsModule,

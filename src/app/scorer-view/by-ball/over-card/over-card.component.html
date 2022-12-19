@@ -46,10 +46,7 @@
               fxLayout="column"
               fxLayoutAlign="start start"
             >
-              <p>
-                Striker Name: {{ b.striker?.first_name }}
-                {{ b.striker?.last_name }}
-              </p>
+              <p>Striker Name: {{ b.striker?.name }}</p>
               <p class="mat-caption" *ngIf="b.shotType">
                 Shot Type: {{ b.shotType }}
               </p>
@@ -63,9 +60,7 @@
               fxLayout="column"
               fxLayoutAlign="start start"
             >
-              <p>
-                Bowler: {{ b.bowler?.first_name }} {{ b.bowler?.last_name }}
-              </p>
+              <p>Bowler: {{ b.bowler?.name }}</p>
               <p class="mat-caption" *ngIf="b.bowlType">
                 Ball Type: {{ b.bowlType }}
               </p>
@@ -140,7 +135,6 @@
       <mat-divider></mat-divider>
 
       <div class="osum-players">
-
         <mat-list>
           <div mat-subheader>Batters</div>
           <mat-list-item>
@@ -163,9 +157,6 @@
             <div mat-line>{{ "Placeholder" }}</div>
           </mat-list-item>
         </mat-list>
-
-
-        
       </div>
 
       <mat-divider></mat-divider>
