@@ -54,6 +54,16 @@ export class TeamDataService {
     );
   }
 
+  getSingleMatchData(id: string): Observable<any> {
+    let api = `${this.endpoint}/scores/live-score/${id}`;
+    return this.http.get(api, { headers: this.headers }).pipe(
+      map((res) => {
+        return res || 'Error';
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   getPlayingTeamById(id: number): Observable<any> {
     let api = `${this.endpoint}/account/get-players-by-team/${id}`;
     return this.http.get(api, { headers: this.headers }).pipe(
