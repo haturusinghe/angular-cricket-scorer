@@ -4,6 +4,7 @@ import { BatterScore } from '../i/player-score';
 import { TeamScore } from '../i/team-score';
 import { MatchDataServiceService } from '../services/match-data-service.service';
 import { PreGameDataService } from '../services/pre-game-data.service';
+import { ResumeScoringService } from '../services/resume-scoring.service';
 import { TestMatchScorerService } from '../services/updated-scorer-service.service';
 
 @Component({
@@ -22,14 +23,15 @@ export class MatchSummaryComponent implements OnInit {
   constructor(
     private matchDataService: MatchDataServiceService,
     private preGameDataService: PreGameDataService,
-    private testMatchService: TestMatchScorerService
+    private testMatchService: TestMatchScorerService,
+    private resumeScoringService: ResumeScoringService
   ) {}
 
   ngOnInit(): void {
-    this.matchDataService.loadPreGameDataFromService();
     this.getMatchMeta();
     this.getCurrentOver();
     this.getBattingTeamScore();
+    // this.resumeScoringService.initResumeCard();
   }
 
   getMatchMeta(): void {
@@ -74,6 +76,12 @@ export class MatchSummaryComponent implements OnInit {
     this.preGameDataService
       .getFirstBowlingTeam()
       .subscribe((s) => console.log(s));
+  }
+
+  testResumeCard() {
+    console.log('Test Resume Card');
+    // this.resumeScoringService.initResumeCard();
+    this.matchDataService.resumeScoringSession();
   }
 
   endInning() {
