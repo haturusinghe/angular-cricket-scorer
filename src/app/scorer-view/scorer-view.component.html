@@ -1,7 +1,8 @@
 <!-- Uncomment Later -->
-<crx-pre-game></crx-pre-game>
+<crx-pre-game *ngIf="!stepperClosed.isOn"></crx-pre-game>
 
 <!-- Scoring Component -->
+<!-- *ngIf="stepperClosed.isOn" -->
 <mat-tab-group
   mat-align-tabs="end"
   color="primary"
