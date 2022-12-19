@@ -48,10 +48,10 @@ export class ChangeBowlerComponent implements OnInit {
   } */
 
   private _filterPlayers(value: string): Player[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = value.toString().toLowerCase();
 
     return this.players.filter((player) =>
-      player.name.toLowerCase().includes(filterValue)
+      player.name.toString().toLowerCase().includes(filterValue)
     );
   }
 

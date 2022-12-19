@@ -37,11 +37,19 @@ export class ChangeBatsmanComponent implements OnInit {
     );
   }
 
+  turnToLowerCase(str: string): string {
+    if (str) {
+      return str.toString().toLowerCase();
+    } else {
+      return '';
+    }
+  }
+
   private _filterPlayers(value: string): Player[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = this.turnToLowerCase(value);
 
     return this.players.filter((player) =>
-      player.name.toLowerCase().includes(filterValue)
+      player.name.toString().toLowerCase().includes(filterValue)
     );
   }
 
