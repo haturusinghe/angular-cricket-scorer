@@ -29,7 +29,7 @@ export class TestMatchScorerService {
       this.innings.b_2 = scoreObj[1];
     }
     scorecard.score_card['innings'] = this.innings;
-    console.log(scorecard);
+    // console.log(scorecard);
     this.sendScores(scorecard);
   }
 
@@ -40,7 +40,7 @@ export class TestMatchScorerService {
 
   sendScores(scoreCard: ScoreCard) {
     this.postGameService.postScorecardToApi(scoreCard).subscribe((s) => {
-      console.log(s);
+      // console.log(s);
     });
   }
 }
