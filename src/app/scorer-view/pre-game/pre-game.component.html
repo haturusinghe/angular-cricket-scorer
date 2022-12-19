@@ -14,10 +14,20 @@
           <input matInput #tour [(ngModel)]="tournamentName" />
         </mat-form-field>
 
-        <h4>Select Format</h4>
-        <mat-slide-toggle [(ngModel)]="isTest" (ngModelChange)="onToggle()"
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="15">
+          <h4>Select Format:</h4>
+          <mat-checkbox
+            class="chk-margin"
+            [(ngModel)]="isTest"
+            (ngModelChange)="onToggle()"
+            >Test Match</mat-checkbox
+          >
+        </div>
+
+        <!-- <mat-slide-toggle [(ngModel)]="isTest" (ngModelChange)="onToggle()"
           >Test Match ?</mat-slide-toggle
-        >
+        > -->
+
         <!-- <mat-radio-group
           aria-labelledby="example-radio-group-label"
           class="example-radio-group"
@@ -57,7 +67,7 @@
 
         <div>
           <button
-            *ngIf="tournamentName && overSelect != -1"
+            *ngIf="tournamentName && overSelect != -1 && nextChk"
             mat-raised-button
             matStepperNext
             color="primary"

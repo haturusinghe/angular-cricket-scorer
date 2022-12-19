@@ -56,17 +56,26 @@ export class PreGameComponent implements OnInit {
 
   tournamentName: string = '';
   totalOvers: string = '';
+  nextChk: boolean = false;
 
   onToggle() {
     if (this.isTest) {
       this.overSelect = 0;
+      this.nextChk = true;
     } else {
       this.overSelect = -1;
+      this.nextChk = false;
     }
   }
 
   changeOvers() {
     this.overSelect = parseInt(this.totalOvers);
+    if (this.overSelect == NaN) {
+      this.overSelect = -1;
+      this.nextChk = false;
+    } else {
+      this.nextChk = true;
+    }
     console.log(this.overSelect);
   }
 
