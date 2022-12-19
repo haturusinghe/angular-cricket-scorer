@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { Ball } from '../i/ball';
+import { Over } from '../i/over';
 import { TeamDataService } from './team-data.service';
 
 @Injectable({
@@ -10,10 +12,8 @@ export class ResumeScoringService {
   summaryList: MatchSummary[] = [];
   resumeData: ResumeCard[] = [];
 
-  constructor(private teamDataService: TeamDataService) {}
-
-  ngOnInit(): void {
-    this.getMatchList();
+  constructor(private teamDataService: TeamDataService) {
+    this.initResumeCard();
   }
 
   getMatchList(): void {
@@ -35,16 +35,16 @@ export class ResumeScoringService {
       .getSingleMatchData('resume_data_1')
       .subscribe((response) => {
         this.resumeData[0] = JSON.parse(response.scorecard);
-        console.log(this.resumeData[0]);
+        // console.log(this.resumeData[0]);
       });
   }
 
-  gerResumeCard(): Observable<MatchSummary[]> {
+  getMatchSummaryList(): Observable<MatchSummary[]> {
     const summaryList = of(this.summaryList);
     return summaryList;
   }
 
-  getMatchSummaryList(): Observable<ResumeCard[]> {
+  getResumeCardArr0(): Observable<ResumeCard[]> {
     const resumeData = of(this.resumeData);
     return resumeData;
   }
@@ -143,13 +143,13 @@ export interface InningData {
 export interface OverData {
   ballLeftForOver: number;
   currentOverNumber: number;
-  allOvers: AllOver[];
+  allOvers: Over[];
   currentOver: CurrentOver;
   ballsForThisOver: Ball[];
   totalOvers: number;
 }
 
-export interface AllOver {
+/* export interface AllOver {
   overNumber: number;
   balls: Ball[];
   score: number;
@@ -157,9 +157,9 @@ export interface AllOver {
   striker: NonStriker;
   nonStriker: NonStriker;
   bowler: Bowl;
-}
+} */
 
-export interface Ball {
+/* export interface Ball {
   runs: number;
   is4: boolean;
   is6: boolean;
@@ -172,7 +172,7 @@ export interface Ball {
   shotType: string;
   shotAngle: number;
   nonStriker: Player;
-}
+} */
 
 export interface Out {
   isOut: boolean;
