@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { ScoreCard } from "../../i/i/score-card";
-import { TeamScore } from "../../i/i/team-score";
-import { GetLiveScoresService } from "../../services/get-live-scores.service";
-import { LiveGameTsService } from "../../services/live-game.ts.service";
+import { Component, OnInit } from '@angular/core';
+import { ScoreCard } from '../../i/i/score-card';
+import { TeamScore } from '../../i/i/team-score';
+import { GetLiveScoresService } from '../../services/get-live-scores.service';
+import { LiveGameTsService } from '../../services/live-game.ts.service';
 
 @Component({
   selector: 'crx-match-summary',
@@ -34,7 +34,7 @@ export class MatchSummaryComponent implements OnInit {
       this.summary.totalScore = score_card.summary.totalScore;
       this.summary.wickets = score_card.summary.wickets;
       this.summary.inning = score_card.summary.inning;
-      this.summary.currentOver = score_card.current_over.currentOver;
+      this.summary.currentOver = score_card.current_over.currentOver - 1;
       this.summary.overBallsBowled = 6 - score_card.current_over.ballsLeft;
       this.summary.totalOvers = score_card.meta.totalOvers;
       this.summary.date = scoreCard.date;

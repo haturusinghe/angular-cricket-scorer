@@ -251,7 +251,8 @@
       fxLayout="row"
       fxLayoutAlign="center start"
       *ngIf="
-        scorecard.summary.teamName == scorecard.innings.b_2.teamName &&
+        scorecard.summary.teamName.trim() ==
+          scorecard.innings.b_2.teamName.trim() &&
         scorecard.summary.inning == '2'
       "
     >
@@ -259,8 +260,8 @@
         <mat-card>
           <mat-card-title>Batting Scores</mat-card-title>
           <mat-card-subtitle
-            >{{ scorecard.summary.teamName }} ,
-            {{ scorecard.innings.b_2.teamName }}
+            >{{ scorecard.summary.teamName.trim() }} ,
+            {{ scorecard.innings.b_2.teamName.trim() }}
             2nd inning</mat-card-subtitle
           >
           <mat-card-content>

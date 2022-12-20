@@ -9,6 +9,7 @@ import { BattingViewComponent } from './components/batting-view/batting-view.com
 import { BattingPanelComponent } from './components/batting-panel/batting-panel.component';
 import { BowlingPanelComponent } from './components/bowling-panel/bowling-panel.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { GetLiveComponent } from './components/get-live/get-live.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     BattingViewComponent,
     BattingPanelComponent,
     BowlingPanelComponent,
+    GetLiveComponent,
   ],
   imports: [
     CommonModule,
