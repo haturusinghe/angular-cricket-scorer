@@ -25,7 +25,7 @@
       <mat-error *ngIf="invalidPassword">Invalid email or password</mat-error>
     </mat-form-field>
 
-    <div fxLayout="row" fxLayoutAlign="center center" class="btns">
+    <div fxLayout="column" fxLayoutAlign="center center" class="btns">
       <button
         mat-raised-button
         color="accent"
@@ -36,6 +36,7 @@
       >
         Login
       </button>
+      <button mat-button (click)="viewScore()">View Scores</button>
     </div>
   </form>
 </div>

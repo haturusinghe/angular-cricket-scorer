@@ -78,6 +78,10 @@ export class DashHomeComponent implements OnInit {
     this.router.navigate(['dashboard/start']);
   }
 
+  navScore() {
+    this.router.navigate(['live-scores']);
+  }
+
   getLink(link: any) {
     this.router.navigate([link.route]);
   }
