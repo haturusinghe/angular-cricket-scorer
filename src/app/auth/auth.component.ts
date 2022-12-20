@@ -45,6 +45,10 @@ export class AuthComponent implements OnInit {
     });
   }
 
+  viewScore() {
+    this.router.navigate(['live-scores']);
+  }
+
   loginFormSubmit() {
     this.invalidPassword = false;
     this.isloading = true;

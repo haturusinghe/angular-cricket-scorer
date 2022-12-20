@@ -11,7 +11,16 @@
         fxLayoutGap="10"
       ></div
     ></mat-card-title>
-    <mat-card-subtitle>Match Summary</mat-card-subtitle>
+    <mat-card-subtitle>
+      <button
+        mat-raised-button
+        color="accent"
+        class="submit-button"
+        (click)="dash()"
+      >
+        Go Back to Dashboard
+      </button></mat-card-subtitle
+    >
     <mat-card-content>
       <mat-divider></mat-divider>
       <div *ngIf="summary.teamName">

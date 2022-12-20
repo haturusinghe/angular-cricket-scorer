@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { ScoreCard } from "../../i/i/score-card";
-import { TeamScore } from "../../i/i/team-score";
-import { GetLiveScoresService } from "../../services/get-live-scores.service";
-import { LiveGameTsService } from "../../services/live-game.ts.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ScoreCard } from '../../i/i/score-card';
+import { TeamScore } from '../../i/i/team-score';
+import { GetLiveScoresService } from '../../services/get-live-scores.service';
+import { LiveGameTsService } from '../../services/live-game.ts.service';
 
 @Component({
   selector: 'crx-match-summary',
@@ -44,11 +45,16 @@ export class MatchSummaryComponent implements OnInit {
 
   constructor(
     private liveGameTsService: LiveGameTsService,
-    private getLiveScoresService: GetLiveScoresService
+    private getLiveScoresService: GetLiveScoresService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.liveGameTsService.setScorecard('test_match_1');
     this.getSummary();
+  }
+
+  dash() {
+    this.router.navigate(['dashboard']);
   }
 }
