@@ -630,6 +630,7 @@ export class MatchDataServiceService {
     // console.log(this.currentOver);
 
     if (this.ballLeftForOver == 0) {
+      this.swapBatsman();
       //Update Current Over Data to Next over when balls are finished for this over
       this.allOvers.push({
         // Add current over data to large array containing all over data
