@@ -74,6 +74,10 @@ export class DashHomeComponent implements OnInit {
     this.auth.signOut();
   }
 
+  navHome() {
+    this.router.navigate(['dashboard/start']);
+  }
+
   getLink(link: any) {
     this.router.navigate([link.route]);
   }
