@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
-=======
 import { Router } from '@angular/router';
->>>>>>> 7221fb1f3f608f9fbf456d4f3066c5c768ef9683
 import { ScoreCard } from '../../i/i/score-card';
 import { TeamScore } from '../../i/i/team-score';
 import { GetLiveScoresService } from '../../services/get-live-scores.service';
