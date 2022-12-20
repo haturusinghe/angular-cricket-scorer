@@ -1,3 +1,4 @@
+import { LiveScoreHomeComponent } from './../live-scores/components/live-score-home/live-score-home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ScorerViewComponent } from 'src/app/scorer-view/scorer-view.component';

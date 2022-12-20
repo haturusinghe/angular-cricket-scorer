@@ -1,0 +1,128 @@
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab [label]="allScores[0].teamName">
+    <mat-card *ngIf="allScores[0].batting.length > 0">
+      <mat-card-title>Batting Scores</mat-card-title>
+      <mat-card-subtitle>Subtitle goes here</mat-card-subtitle>
+      <mat-card-content>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Batsman</th>
+              <th scope="col">R</th>
+              <th scope="col">B</th>
+              <th scope="col">6s</th>
+              <th scope="col">4s</th>
+              <th scope="col">SR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of allScores[0].batting; index as i">
+              <td>
+                {{ s.player.name }}
+              </td>
+              <td>{{ s.runs | number }}</td>
+              <td>{{ s.ballsFaced | number }}</td>
+              <td>{{ s.sixes | number }}</td>
+              <td>{{ s.fours | number }}</td>
+              <td>{{ s.strikeRate | number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </mat-card>
+    <mat-divider></mat-divider>
+    <mat-card *ngIf="allScores[0].bowling.length > 0">
+      <mat-card-title>Bowling Scores</mat-card-title>
+      <mat-card-subtitle>Subtitle goes here</mat-card-subtitle>
+      <mat-card-content>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Bowler</th>
+              <th scope="col">R</th>
+              <th scope="col">M</th>
+              <th scope="col">O</th>
+              <th scope="col">W</th>
+              <th scope="col">ER</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of allScores[0].bowling; index as i">
+              <td>
+                {{ s.player.name }}
+              </td>
+              <td>{{ s.runs | number }}</td>
+              <td>{{ s.maidenOvers | number }}</td>
+              <td>{{ s.overs | number }}</td>
+              <td>{{ s.wickets | number }}</td>
+              <td>{{ s.economyRate | number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+  <mat-tab [label]="allScores[1].teamName">
+    <mat-card *ngIf="allScores[1].batting.length > 0">
+      <mat-card-title>Batting Scores</mat-card-title>
+      <mat-card-subtitle>Subtitle goes here</mat-card-subtitle>
+      <mat-card-content>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Batsman</th>
+              <th scope="col">R</th>
+              <th scope="col">B</th>
+              <th scope="col">6s</th>
+              <th scope="col">4s</th>
+              <th scope="col">SR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of allScores[1].batting; index as i">
+              <td>
+                {{ s.player.name }}
+              </td>
+              <td>{{ s.runs | number }}</td>
+              <td>{{ s.ballsFaced | number }}</td>
+              <td>{{ s.sixes | number }}</td>
+              <td>{{ s.fours | number }}</td>
+              <td>{{ s.strikeRate | number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </mat-card>
+    <mat-divider></mat-divider>
+    <mat-card *ngIf="allScores[1].bowling.length > 0">
+      <mat-card-title>Bowling Scores</mat-card-title>
+      <mat-card-subtitle>Subtitle goes here</mat-card-subtitle>
+      <mat-card-content>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Bowler</th>
+              <th scope="col">R</th>
+              <th scope="col">M</th>
+              <th scope="col">O</th>
+              <th scope="col">W</th>
+              <th scope="col">ER</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of allScores[1].bowling; index as i">
+              <td>
+                {{ s.player.name }}
+              </td>
+              <td>{{ s.runs | number }}</td>
+              <td>{{ s.maidenOvers | number }}</td>
+              <td>{{ s.overs | number }}</td>
+              <td>{{ s.wickets | number }}</td>
+              <td>{{ s.economyRate | number }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </mat-tab>
+</mat-tab-group>
