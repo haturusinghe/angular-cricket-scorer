@@ -1204,11 +1204,11 @@ export class LiveGameTsService {
   loginStatus = { isLoggedIn: false };
 
   constructor(private getLiveScoresService: GetLiveScoresService) {
-    this.setScorecard('test_match_1');
+    this.setScorecard('test_match_2');
   }
 
   ngOninit() {
-    this.setScorecard('test_match_1');
+    this.setScorecard('test_match_2');
   }
 
   getScorecard(): Observable<Scorecard> {
@@ -1216,9 +1216,9 @@ export class LiveGameTsService {
     return scorecard;
   }
   getSummary(): Observable<TeamScore> {
-    this.setScorecard('test_match_1');
+    this.setScorecard('test_match_2');
     console.log(this.scoreCard);
-    this.setScorecard('test_match_1');
+    this.setScorecard('test_match_2');
     console.log(this.scoreCard);
     let teamScore: TeamScore = {
       teamName: this.scoreCard.score_card.summary.teamName,

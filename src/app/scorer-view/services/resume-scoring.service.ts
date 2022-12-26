@@ -33,7 +33,7 @@ export class ResumeScoringService {
 
   initResumeCard() {
     this.teamDataService
-      .getSingleMatchData('resume_test_match_1')
+      .getSingleMatchData('resume_test_match_2')
       .subscribe((response) => {
         this.resumeData[0] = JSON.parse(response.scorecard);
         // console.log(this.resumeData[0]);

@@ -25,7 +25,7 @@ export class MatchSummaryComponent implements OnInit {
   };
 
   getSummary(): void {
-    this.liveGameTsService.setScorecard('test_match_1');
+    this.liveGameTsService.setScorecard('test_match_2');
 
     this.getLiveScoresService.getScoreCard().subscribe((scoreCard) => {
       let score_card: ScoreCard = JSON.parse(scoreCard.scorecard);
@@ -50,7 +50,7 @@ export class MatchSummaryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.liveGameTsService.setScorecard('test_match_1');
+    this.liveGameTsService.setScorecard('test_match_2');
     this.getSummary();
   }
 

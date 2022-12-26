@@ -376,7 +376,7 @@ export class MatchDataServiceService {
     }
 
     let scoreCard = new ScoreCard(
-      'test_match_1',
+      'test_match_2',
       today,
       'Over',
       this.teams[this.battingTeamIndex].teamName,

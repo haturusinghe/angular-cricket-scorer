@@ -16,7 +16,7 @@ export class GetLiveComponent implements OnInit {
   ngOnInit(): void {}
 
   newMatch() {
-    this.liveGameTsService.setScorecard('test_match_1');
+    this.liveGameTsService.setScorecard('test_match_2');
 
     this.router.navigate(['live-scores/live']);
   }

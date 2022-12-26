@@ -12,7 +12,7 @@ import { Observable, map, catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class GetLiveScoresService {
-  matchid: string = 'test_match_1';
+  matchid: string = 'test_match_2';
   endpoint: string = 'https://cricketchampx.com/v1/api';
   constructor(
     private http: HttpClient,
