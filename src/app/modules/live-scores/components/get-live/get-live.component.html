@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="start" (onload)="newMatch()">
   <mat-card-header>
     <mat-card-title>Select Option</mat-card-title>
   </mat-card-header>
@@ -6,5 +6,3 @@
     <button mat-button (click)="newMatch()">Watch Live Game</button>
   </mat-card-actions>
 </mat-card>
-
-<router-outlet></router-outlet>

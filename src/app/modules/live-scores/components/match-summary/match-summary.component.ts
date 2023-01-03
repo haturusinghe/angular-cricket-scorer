@@ -26,7 +26,9 @@ export class MatchSummaryComponent implements OnInit {
 
   getSummary(): void {
     this.liveGameTsService.setScorecard('test_match_2');
-
+    this.liveGameTsService.resumeScoringSession();
+    this.liveGameTsService.getOverDetails();
+    this.liveGameTsService.getCurrentOver();
     this.getLiveScoresService.getScoreCard().subscribe((scoreCard) => {
       let score_card: ScoreCard = JSON.parse(scoreCard.scorecard);
 
