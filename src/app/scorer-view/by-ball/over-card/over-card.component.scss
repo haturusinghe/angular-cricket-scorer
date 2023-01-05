@@ -70,3 +70,9 @@ p {
     display: none;
   }
 }
+
+@media (min-width: 850px) {
+  .show-on-mobile {
+    display: none;
+  }
+}
