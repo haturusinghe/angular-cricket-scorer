@@ -106,3 +106,37 @@ mat-list-option {
   border-radius: 10px;
   margin: 5px;
 }
+
+/* use vertical stepper on screens narrower than 600px */
+@media (max-width: 599px) {
+  mat-horizontal-stepper {
+    display: none;
+  }
+  mat-vertical-stepper {
+    display: block;
+  }
+}
+
+/* use horizontal stepper on screens wider than 600px */
+@media (min-width: 600px) {
+  mat-horizontal-stepper {
+    display: block;
+  }
+  mat-vertical-stepper {
+    display: none;
+  }
+
+  mat-grid-tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+mat-select {
+  width: 200px;
+}
+
+mat-form-field {
+  width: 220px;
+}
