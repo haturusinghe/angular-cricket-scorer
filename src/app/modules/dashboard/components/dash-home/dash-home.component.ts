@@ -4,12 +4,19 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 import { map, share } from 'rxjs/operators';
 
+import { Observable } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
 @Component({
   selector: 'crx-dash-home',
   templateUrl: './dash-home.component.html',
   styleUrls: ['./dash-home.component.scss'],
 })
 export class DashHomeComponent implements OnInit {
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(['(max-width: 599px)'])
+    .pipe(map((result) => result.matches));
+
   time = new Date();
   rxTime = new Date();
   intervalId;
@@ -39,7 +46,11 @@ export class DashHomeComponent implements OnInit {
   subscription: Subscription = new Subscription();
 
   showFiller = false;
-  constructor(private auth: AuthServiceService, private router: Router) {
+  constructor(
+    private auth: AuthServiceService,
+    private router: Router,
+    private breakpointObserver: BreakpointObserver
+  ) {
     // Using Basic Interval
     this.intervalId = setInterval(() => {
       this.time = new Date();
