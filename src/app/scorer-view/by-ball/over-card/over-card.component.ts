@@ -17,7 +17,7 @@ export class OverCardComponent implements OnInit {
   @Input() currentOver?: OverData;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(['(max-width: 904px)'])
+    .observe(['(max-width: 850px)'])
     .pipe(map((result) => result.matches));
 
   constructor(private breakpointObserver: BreakpointObserver) {}
