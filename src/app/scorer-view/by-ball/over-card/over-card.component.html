@@ -121,20 +121,41 @@
   <mat-card>
     <mat-card-content *ngIf="over.balls.length > 0">
       <div
-        fxLayout="row"
+        fxLayout.lg="row"
+        fxLayout.md="column"
+        fxLayout.xs="column"
+        fxLayout.sm="column"
         fxLayoutAlign="space-between center"
-        class="osum-header"
       >
-        <mat-card-title>Over {{ over.overNumber }}</mat-card-title>
-        <mat-card-title>Runs {{ getTotalRuns(over.balls) }}</mat-card-title>
-        <mat-card-title
-          >Score {{ over.score }} - {{ over.wickets }}</mat-card-title
+        <div
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxLayoutGap="10"
+          class="osum-header"
         >
+          <mat-card-title>Over {{ over.overNumber }}</mat-card-title>
+          <mat-card-title>Runs {{ getTotalRuns(over.balls) }}</mat-card-title>
+          <mat-card-title
+            >Score {{ over.score }} - {{ over.wickets }}</mat-card-title
+          >
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="osum-chips">
+          <mat-chip-list>
+            <mat-chip *ngFor="let b of over.balls" selected>
+              <span *ngIf="b.runs > 0 || b.extras.length < 1"
+                >{{ b.runs }}
+              </span>
+              <span *ngFor="let e of b.extras" style="margin-left: 2px">
+                {{ e }}
+              </span>
+            </mat-chip>
+          </mat-chip-list>
+        </div>
       </div>
 
       <mat-divider></mat-divider>
 
-      <div class="osum-players">
+      <!-- <div class="osum-players">
         <mat-list>
           <div mat-subheader>Batters</div>
           <mat-list-item>
@@ -157,20 +178,101 @@
             <div mat-line>{{ "Placeholder" }}</div>
           </mat-list-item>
         </mat-list>
-      </div>
+      </div> -->
 
-      <mat-divider></mat-divider>
+      <!-- <mat-divider></mat-divider> -->
 
-      <div fxLayout="row" fxLayoutAlign="center center" class="osum-chips">
-        <mat-chip-list>
-          <mat-chip *ngFor="let b of over.balls" selected>
-            <span *ngIf="b.runs > 0 || b.extras.length < 1">{{ b.runs }} </span>
-            <span *ngFor="let e of b.extras" style="margin-left: 2px">
-              {{ e }}
-            </span>
-          </mat-chip>
-        </mat-chip-list>
-      </div>
+      <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Batters </mat-panel-title>
+            <mat-panel-description>
+              Batter Summary
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <!-- Content -->
+
+          <div class="osum-players">
+            <mat-list>
+              <mat-list-item>
+                <mat-icon mat-list-icon>sports_cricket</mat-icon>
+                <div mat-line>{{ getPlayerName(over.striker) }}</div>
+                <div mat-line>{{ getPlayerRB(over.striker) }}</div>
+              </mat-list-item>
+              <mat-list-item>
+                <mat-icon mat-list-icon>sports_cricket</mat-icon>
+                <div mat-line>{{ getPlayerName(over.nonStriker) }}</div>
+                <div mat-line>{{ getPlayerRB(over.nonStriker) }}</div>
+              </mat-list-item>
+            </mat-list>
+          </div>
+
+          <!-- End of Content -->
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Bowlers </mat-panel-title>
+            <mat-panel-description>
+              Bowler Summary
+              <mat-icon>account_circle</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <!-- Content -->
+
+          <div class="osum-players">
+            <mat-list>
+              <mat-list-item>
+                <mat-icon mat-list-icon>sports_baseball</mat-icon>
+                <div mat-line>{{ getPlayerName(over.bowler) }}</div>
+                <div mat-line>{{ "Placeholder" }}</div>
+              </mat-list-item>
+            </mat-list>
+          </div>
+
+          <!-- End of Content -->
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> Ball By Ball </mat-panel-title>
+            <mat-panel-description>
+              Ball by Ball Summary
+              <mat-icon>date_range</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <!-- Content -->
+        </mat-expansion-panel>
+      </mat-accordion>
     </mat-card-content>
   </mat-card>
+</section>
+
+<section *ngIf="false">
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Personal data </mat-panel-title>
+        <mat-panel-description>
+          Type your name and age
+          <mat-icon>account_circle</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!-- Content -->
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Day of the trip </mat-panel-title>
+        <mat-panel-description>
+          Inform the date you wish to travel
+          <mat-icon>date_range</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- Content -->
+    </mat-expansion-panel>
+  </mat-accordion>
 </section>
