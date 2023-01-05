@@ -10,109 +10,77 @@
     </div>
     <mat-card-content *ngIf="currentOver.balls">
       <mat-divider></mat-divider>
-      <mat-list>
+
+      <mat-selection-list [multiple]="false" disableRipple>
         <div mat-subheader>Balls</div>
         <mat-divider></mat-divider>
-        <mat-list-item *ngFor="let b of currentOver.balls">
-          <!-- Runs Chip -->
-          <mat-divider></mat-divider>
-          <mat-chip
-            mat-list-icon
-            disableRipple
-            selectable="false"
-            [ngStyle]="{
-              'background-color':
-                b.is4 == true
-                  ? '#FFF176'
-                  : b.is6 == true
-                  ? '#81C784'
-                  : '#EDF0F2'
-            }"
-          >
-            <span class="run-chip">{{ b.runs }}</span></mat-chip
-          >
 
-          <div
-            fxLayout="row"
-            fxLayoutAlign="start start"
-            fxLayoutGap="5"
-            matLine
-            class="info-container"
-          >
-            <!-- STRIKER -->
-            <mat-card
-              class=""
-              div
+        <mat-list-option
+          [style.height.px]="75"
+          *ngFor="let b of currentOver.balls; index as i"
+        >
+          <div style="display: flex; flex-wrap: wrap">
+            <!-- COL 1 -->
+            <div
+              style="flex: 0 0 10%; width: 10%"
               fxLayout="column"
-              fxLayoutAlign="start start"
+              fxLayoutAlign="center center"
             >
-              <p>Striker Name: {{ b.striker?.name }}</p>
-              <p class="mat-caption" *ngIf="b.shotType">
-                Shot Type: {{ b.shotType }}
-              </p>
-              <p class="mat-caption">Shot Angle: {{ b.shotAngle }}</p>
-            </mat-card>
+              {{ currentOver.currentOver }}.{{ i + 1 }}
+            </div>
 
-            <!-- BOWLER -->
-            <mat-card
-              class=""
-              div
+            <!-- COL 2 -->
+            <div
+              style="flex: 0 0 10%; width: 10%"
               fxLayout="column"
-              fxLayoutAlign="start start"
+              fxLayoutAlign="center center"
             >
+              <mat-chip
+                disableRipple
+                selectable="false"
+                [ngStyle]="{
+                  'background-color':
+                    b.is4 == true
+                      ? '#FFF176'
+                      : b.is6 == true
+                      ? '#81C784'
+                      : '#EDF0F2'
+                }"
+              >
+                <span class="run-chip">{{ b.runs }}</span></mat-chip
+              >
+            </div>
+
+            <!-- COL 3 -->
+            <div style="flex: 0 0 20%; width: 20%">
+              <p>Striker: {{ b.striker?.name }}</p>
+            </div>
+            <div style="flex: 0 0 20%; width: 20%">
               <p>Bowler: {{ b.bowler?.name }}</p>
-              <p class="mat-caption" *ngIf="b.bowlType">
-                Ball Type: {{ b.bowlType }}
-              </p>
-              <p class="mat-caption" *ngIf="b.bowlSpeed">
-                Ball Speed: {{ b.bowlSpeed }} km/h
-              </p>
-            </mat-card>
-
-            <!-- Non-STRIKER -->
-            <!-- <div class="" div fxLayout="row">
-              <p>
-                Non-Striker Name: {{ b.nonStriker?.first_name }}
-                {{ b.nonStriker?.last_name }}
-              </p>
-            </div> -->
-
-            <!-- Extras -->
-            <mat-card
-              *ngIf="b.extras.length > 0"
-              div
-              fxLayout="column"
-              fxLayoutAlign="start start"
-            >
+            </div>
+            <div style="flex: 0 0 20%; width: 20%">
+              <div *ngIf="b.extras.length > 0"></div>
               <p>Extras:</p>
               <mat-chip-list>
                 <mat-chip *ngFor="let e of b.extras" selected>
                   {{ getType(e) }}
                 </mat-chip>
               </mat-chip-list>
-            </mat-card>
+            </div>
+            <div style="flex: 0 0 20%; width: 20%">
+              <div *ngIf="b.Out.isOut">
+                <p>Out:</p>
 
-            <!-- Wicket -->
-            <mat-card
-              *ngIf="b.Out.isOut"
-              fxLayout="column"
-              fxLayoutAlign="start start"
-            >
-              <p>Out:</p>
-
-              <mat-chip-list>
-                <mat-chip selected color="warn">
-                  {{ getType(b.Out.type) }}
-                </mat-chip>
-              </mat-chip-list>
-            </mat-card>
+                <mat-chip-list>
+                  <mat-chip selected color="warn">
+                    {{ getType(b.Out.type) }}
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </div>
           </div>
-
-          <!-- <button mat-icon-button>
-            <mat-icon class="mat-12">edit</mat-icon>
-          </button> -->
-        </mat-list-item>
-      </mat-list>
+        </mat-list-option>
+      </mat-selection-list>
     </mat-card-content>
   </mat-card>
 </section>
@@ -248,31 +216,4 @@
       </mat-accordion>
     </mat-card-content>
   </mat-card>
-</section>
-
-<section *ngIf="false">
-  <mat-accordion class="example-headers-align" multi>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Personal data </mat-panel-title>
-        <mat-panel-description>
-          Type your name and age
-          <mat-icon>account_circle</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <!-- Content -->
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Day of the trip </mat-panel-title>
-        <mat-panel-description>
-          Inform the date you wish to travel
-          <mat-icon>date_range</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <!-- Content -->
-    </mat-expansion-panel>
-  </mat-accordion>
 </section>

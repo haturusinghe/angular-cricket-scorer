@@ -4,6 +4,9 @@ import { Over } from '../../i/over';
 import { OverData } from '../../i/over-data';
 import { BatterScore } from '../../i/player-score';
 
+import { Observable } from 'rxjs';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map, share } from 'rxjs/operators';
 @Component({
   selector: 'crx-over-card',
   templateUrl: './over-card.component.html',
@@ -13,7 +16,11 @@ export class OverCardComponent implements OnInit {
   @Input() over: Over = { overNumber: 0, balls: [] };
   @Input() currentOver?: OverData;
 
-  constructor() {}
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(['(max-width: 904px)'])
+    .pipe(map((result) => result.matches));
+
+  constructor(private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {}
 
@@ -70,7 +77,7 @@ export class OverCardComponent implements OnInit {
   getPlayerName(p: any) {
     let name = 'N/A';
     if (p) {
-      name = p.player.name ;
+      name = p.player.name;
     }
     return name;
   }
