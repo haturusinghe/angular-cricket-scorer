@@ -26,3 +26,18 @@
 .l-item {
   width: 100px;
 }
+
+/* show the logo on screens wider than 600px */
+@media (min-width: 600px) {
+  .logo {
+    display: block;
+  }
+}
+
+/* hide the logo on screens narrower than 600px */
+@media (max-width: 600px) {
+  .logo {
+    display: block;
+    width: 50%;
+  }
+}
