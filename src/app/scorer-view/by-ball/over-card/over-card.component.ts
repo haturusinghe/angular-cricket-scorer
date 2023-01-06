@@ -47,7 +47,7 @@ export class OverCardComponent implements OnInit {
 
     extraVals.forEach((v) => {
       if (v.value == d) {
-        match = v.name;
+        match = v.value;
       }
     });
 

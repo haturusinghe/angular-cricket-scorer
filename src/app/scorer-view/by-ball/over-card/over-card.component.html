@@ -75,7 +75,6 @@
             <!-- COL 5 -->
             <div style="flex: 0 0 20%; width: 20%">
               <div *ngIf="b.extras.length > 0">
-                <p>Extras:</p>
                 <mat-chip-list>
                   <mat-chip *ngFor="let e of b.extras" selected>
                     {{ getType(e) }}
@@ -85,13 +84,90 @@
             </div>
             <div style="flex: 0 0 20%; width: 20%">
               <div *ngIf="b.Out.isOut">
-                <p>Out:</p>
-
                 <mat-chip-list>
                   <mat-chip selected color="warn">
                     {{ getType(b.Out.type) }}
                   </mat-chip>
                 </mat-chip-list>
+              </div>
+            </div>
+          </div>
+        </mat-list-option>
+      </mat-selection-list>
+
+      <!-- Current Over Ball List FOR MOBILE -->
+      <mat-selection-list
+        [multiple]="false"
+        disableRipple
+        class="show-on-mobile"
+      >
+        <div mat-subheader>Balls</div>
+        <mat-divider></mat-divider>
+
+        <!-- List Element -->
+        <mat-list-option
+          class="mobile-list-item"
+          *ngFor="let b of currentOver.balls; index as i"
+        >
+          <div class="card">
+            <div
+              class="row"
+              fxLayout="row"
+              fxLayoutAlign="space-around center"
+              fxLayoutGap="10px"
+            >
+              <div fxFlex="10" fxLayoutAlign="space-around center">
+                {{ currentOver.currentOver }}.{{ i + 1 }}
+              </div>
+              <div fxFlex="10" fxLayoutAlign="space-around center">
+                <mat-chip
+                  disableRipple
+                  selectable="false"
+                  [ngStyle]="{
+                    'background-color':
+                      b.is4 == true
+                        ? '#FFF176'
+                        : b.is6 == true
+                        ? '#81C784'
+                        : '#EDF0F2'
+                  }"
+                >
+                  <span class="run-chip">{{ b.runs }}</span></mat-chip
+                >
+              </div>
+              <div fxFlex="50" fxLayoutAlign="space-around center">
+                <div *ngIf="b.extras.length > 0">
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let e of b.extras" selected>
+                      {{ getType(e) }}
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+              <div fxFlex="30" fxLayoutAlign="space-around center">
+                <div *ngIf="b.Out.isOut">
+                  <mat-chip-list>
+                    <mat-chip selected color="warn">
+                      {{ getType(b.Out.type) }}
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+            </div>
+            <div
+              class="row"
+              fxLayout="row"
+              fxLayoutAlign="space-around center"
+              fxLayoutGap="10px"
+              style="height: 50px"
+            >
+              <div fxLayout="row" fxLayoutAlign="space-around start">
+                <p>Striker:</p>
+                <p>{{ b.striker?.name }}</p>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-around start">
+                <p>Bowler:</p>
+                <p>{{ b.bowler?.name }}</p>
               </div>
             </div>
           </div>
@@ -292,7 +368,7 @@
                 </div>
                 <div style="flex: 0 0 20%; width: 20%">
                   <div *ngIf="b.extras.length > 0"></div>
-                  <p>Extras:</p>
+
                   <mat-chip-list>
                     <mat-chip *ngFor="let e of b.extras" selected>
                       {{ getType(e) }}
@@ -301,13 +377,87 @@
                 </div>
                 <div style="flex: 0 0 20%; width: 20%">
                   <div *ngIf="b.Out.isOut">
-                    <p>Out:</p>
-
                     <mat-chip-list>
                       <mat-chip selected color="warn">
                         {{ getType(b.Out.type) }}
                       </mat-chip>
                     </mat-chip-list>
+                  </div>
+                </div>
+              </div>
+            </mat-list-option>
+          </mat-selection-list>
+
+          <!-- Current Over Ball List FOR MOBILE -->
+          <mat-selection-list
+            [multiple]="false"
+            disableRipple
+            class="show-on-mobile"
+          >
+            <div mat-subheader>Balls</div>
+            <mat-divider></mat-divider>
+
+            <!-- List Element -->
+            <mat-list-option
+              class="mobile-list-item"
+              *ngFor="let b of over.balls; index as i"
+            >
+              <div class="card">
+                <div
+                  class="row"
+                  fxLayout="row"
+                  fxLayoutAlign="space-around center"
+                  fxLayoutGap="10px"
+                >
+                  <div fxFlex="10" fxLayoutAlign="space-around center">
+                    {{ over.overNumber }}.{{ i + 1 }}
+                  </div>
+                  <div fxFlex="10" fxLayoutAlign="space-around center">
+                    <mat-chip
+                      class="chip-circle"
+                      disableRipple
+                      selectable="false"
+                      [ngStyle]="{
+                        'background-color':
+                          b.is4 == true
+                            ? '#FFF176'
+                            : b.is6 == true
+                            ? '#81C784'
+                            : '#EDF0F2'
+                      }"
+                    >
+                      {{ b.runs }}</mat-chip
+                    >
+                  </div>
+                  <div fxFlex="50" fxLayoutAlign="space-around center">
+                    <div *ngIf="b.extras.length > 0">
+                      <mat-chip-list>
+                        <mat-chip *ngFor="let e of b.extras" selected>
+                          {{ getType(e) }}
+                        </mat-chip>
+                      </mat-chip-list>
+                    </div>
+                  </div>
+                  <div fxFlex="30" fxLayoutAlign="space-around center">
+                    <div *ngIf="b.Out.isOut">
+                      <mat-chip-list>
+                        <mat-chip selected color="warn">
+                          {{ getType(b.Out.type) }}
+                        </mat-chip>
+                      </mat-chip-list>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="row"
+                  fxLayout="row"
+                  fxLayoutAlign="space-around center"
+                  fxLayoutGap="10px"
+                  style="height: 50px"
+                >
+                  <div fxLayout="row" fxLayoutAlign="space-around start">
+                    <p>Striker:</p>
+                    <p>{{ b.striker?.name }}</p>
                   </div>
                 </div>
               </div>

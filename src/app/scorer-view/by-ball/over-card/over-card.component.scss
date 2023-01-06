@@ -29,7 +29,7 @@ mat-list-item {
   padding-bottom: 10px !important;
 }
 
-mat-chip-list {
+/* mat-chip-list {
   margin: 5px 0 5px 0;
 }
 
@@ -37,6 +37,14 @@ mat-chip {
   width: fit-content;
   height: fit-content;
   margin: 5px 0 5px 0;
+} */
+
+.chip-circle {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 50px;
+  text-align: center;
 }
 
 p {
@@ -74,5 +82,29 @@ p {
 @media (min-width: 850px) {
   .show-on-mobile {
     display: none;
+  }
+}
+
+@media (max-width: 399px) {
+  .row {
+    height: 100px;
+  }
+}
+
+@media (min-width: 400px) {
+  .row {
+    height: 50px;
+  }
+}
+
+@media (max-width: 399px) {
+  .mobile-list-item {
+    height: 150px;
+  }
+}
+
+@media (min-width: 400px) {
+  .mobile-list-item {
+    height: 100px;
   }
 }
