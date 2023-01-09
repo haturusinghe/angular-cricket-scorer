@@ -82,12 +82,23 @@ p {
 @media (min-width: 850px) {
   .show-on-mobile {
     display: none;
+    font-size: xx-large !important;
   }
 }
 
 @media (max-width: 399px) {
   .row {
     height: 100px;
+  }
+}
+
+@media (max-width: 399px) {
+  .font-on-mobile {
+    font-size: smaller;
+  }
+
+  .font-on-mobile-m {
+    font-size: medium;
   }
 }
 

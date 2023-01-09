@@ -1,7 +1,14 @@
 <section>
   <mat-card>
-    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center"
-      >Batting Panel
+    <mat-card-title
+      class="font-on-mobile-m"
+      fxLayout.lg="row"
+      fxLayout.md="column"
+      fxLayout.xs="column"
+      fxLayout.sm="column"
+      fxLayoutAlign="space-between center"
+    >
+      Batting Panel
       <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
         <button
           mat-raised-button
@@ -35,7 +42,7 @@
               color: element.isStrikingNow == true ? '#fff' : 'black'
             }"
           >
-            {{ element.player.name }} 
+            {{ element.player.name }}
           </td>
         </ng-container>
 

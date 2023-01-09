@@ -35,7 +35,7 @@
               fxLayout="column"
               fxLayoutAlign="center center"
             >
-              {{ currentOver.currentOver }}.{{ i + 1 }}
+              {{ currentOver.currentOver - 1 }}.{{ i + 1 }}
             </div>
 
             <!-- COL 2 -->
@@ -117,7 +117,7 @@
               fxLayoutGap="10px"
             >
               <div fxFlex="10" fxLayoutAlign="space-around center">
-                {{ currentOver.currentOver }}.{{ i + 1 }}
+                {{ currentOver.currentOver - 1 }}.{{ i + 1 }}
               </div>
               <div fxFlex="10" fxLayoutAlign="space-around center">
                 <mat-chip
@@ -161,9 +161,9 @@
               fxLayoutGap="10px"
               style="height: 50px"
             >
-              <div fxLayout="row" fxLayoutAlign="space-around start">
-                <p>Striker:</p>
-                <p>{{ b.striker?.name }}</p>
+              <div fxLayout="row" fxLayoutAlign="space-around start" c>
+                <p class="font">Striker:</p>
+                <p class="font">{{ b.striker?.name }}</p>
               </div>
               <div fxLayout="row" fxLayoutAlign="space-around start">
                 <p>Bowler:</p>
@@ -195,9 +195,13 @@
           fxLayoutGap="10"
           class="osum-header"
         >
-          <mat-card-title>Over {{ over.overNumber }}</mat-card-title>
-          <mat-card-title>Runs {{ getTotalRuns(over.balls) }}</mat-card-title>
-          <mat-card-title
+          <mat-card-title class="font-on-mobile-m"
+            >Over {{ over.overNumber }}</mat-card-title
+          >
+          <mat-card-title class="font-on-mobile-m"
+            >Runs {{ getTotalRuns(over.balls) }}</mat-card-title
+          >
+          <mat-card-title class="font-on-mobile-m"
             >Score {{ over.score }} - {{ over.wickets }}</mat-card-title
           >
         </div>
@@ -330,7 +334,7 @@
                   fxLayout="column"
                   fxLayoutAlign="center center"
                 >
-                  {{ over.overNumber }}.{{ i + 1 }}
+                  {{ over.overNumber - 1 }}.{{ i + 1 }}
                 </div>
 
                 <!-- COL 2 -->
@@ -410,7 +414,7 @@
                   fxLayoutGap="10px"
                 >
                   <div fxFlex="10" fxLayoutAlign="space-around center">
-                    {{ over.overNumber }}.{{ i + 1 }}
+                    {{ over.overNumber - 1 }}.{{ i + 1 }}
                   </div>
                   <div fxFlex="10" fxLayoutAlign="space-around center">
                     <mat-chip

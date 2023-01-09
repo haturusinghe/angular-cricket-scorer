@@ -35,3 +35,9 @@ mat-card {
   color: black;
   padding-top: 10px;
 }
+
+@media (max-width: 399px) {
+  .font-on-mobile-m {
+    font-size: medium;
+  }
+}
