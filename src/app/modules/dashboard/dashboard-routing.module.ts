@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'scorer', component: ScorerViewComponent },
       { path: 'start', component: DashResTestComponent },
       { path: 'my-matches', component: MyMatchesComponent },
-      { path: '', redirectTo: 'start', pathMatch: 'full' },
+      { path: '', redirectTo: 'my-matches', pathMatch: 'full' },
     ],
   },
 ];

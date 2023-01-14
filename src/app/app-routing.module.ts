@@ -26,11 +26,6 @@ const routes: Routes = [
         (m) => m.LiveScoresModule
       ),
   },
-  {
-    path: 'score-match',
-    component: ScorerViewComponent,
-    canActivate: [AuthGuard],
-  },
   { path: '**', pathMatch: 'full', component: NotFoundComponent },
 ];
 
