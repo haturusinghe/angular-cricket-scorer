@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ScorerViewComponent } from 'src/app/scorer-view/scorer-view.component';
 import { DashHomeComponent } from './components/dash-home/dash-home.component';
 import { DashResTestComponent } from './components/dash-res-test/dash-res-test.component';
+import { MyMatchesComponent } from './components/my-matches/my-matches.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,7 @@ const routes: Routes = [
     children: [
       { path: 'scorer', component: ScorerViewComponent },
       { path: 'start', component: DashResTestComponent },
+      { path: 'my-matches', component: MyMatchesComponent },
       { path: '', redirectTo: 'start', pathMatch: 'full' },
     ],
   },
