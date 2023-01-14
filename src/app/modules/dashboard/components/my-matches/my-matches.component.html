@@ -1,0 +1,14 @@
+<!-- <button (click)="test()">LOG</button> -->
+<div fxLayout="row" style="width: 100%; padding: 2px">
+  <button mat-raised-button color="warn" style="width: 100%; height: 80px">
+    Start New Match
+  </button>
+</div>
+
+<div fxLayout="row" fxLayoutGap="50px">
+  <crx-match-card
+    fxFlex="50%"
+    *ngFor="let m of matchList"
+    [data]="m"
+  ></crx-match-card>
+</div>
