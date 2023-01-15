@@ -444,10 +444,10 @@ export class PreGameComponent implements OnInit {
   }
 
   startScoring() {
-    /* this.matchMetaData.match_id = this.generateMatchId(
+    this.matchMetaData.match_id = this.generateMatchId(
       this.matchMetaData.teamA.teamName,
       this.matchMetaData.teamB.teamName
-    ); */
+    );
 
     this.matchMetaData.match_id = 'test_match_x';
 
@@ -515,8 +515,15 @@ export class PreGameComponent implements OnInit {
 
   generateMatchId(teamA: string, teamB: string): string {
     let date_code = this.getDateCode(new Date().toLocaleDateString());
+    const id = sessionStorage.getItem('user_id');
     let code =
-      this.generateKey(teamA) + '_' + this.generateKey(teamB) + '_' + date_code;
+      this.generateKey(teamA) +
+      '_' +
+      this.generateKey(teamB) +
+      '_' +
+      date_code +
+      '_' +
+      id;
     return code;
   }
 }
