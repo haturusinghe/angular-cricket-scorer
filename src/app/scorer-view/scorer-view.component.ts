@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatchMetaDataService } from '../shared/services/match-meta-data.service';
 import { MatchDataServiceService } from './services/match-data-service.service';
 import { PreGameDataService } from './services/pre-game-data.service';
 @Component({
@@ -10,21 +11,38 @@ import { PreGameDataService } from './services/pre-game-data.service';
 export class ScorerViewComponent implements OnInit {
   currentStrikerControl = new FormControl('');
   player?: string;
-  stepperClosed = { isOn: false };
 
-  constructor(
-    private matchDataService: MatchDataServiceService,
-    private preGameService: PreGameDataService
-  ) {}
+  showPreGameComp: boolean = true;
+
+  constructor(private preGameService: PreGameDataService) {}
 
   ngOnInit(): void {
-    this.isPreGameDataValid();
+    this.checkStartingStatus();
+    // this.isPreGameDataValid();
     // this.matchDataService.selectOpeningPlayers();
   }
 
-  isPreGameDataValid() {
+  /* isPreGameDataValid() {
     this.preGameService
       .isPreGameComponentClosed()
       .subscribe((s) => (this.stepperClosed = s));
+  } */
+
+  handlePreGameEvent(data: boolean) {
+    console.log('Data From Child:' + data);
+    this.showPreGameComp = data;
   }
+
+  checkStartingStatus() {
+    const local_data = sessionStorage.getItem('match_starting_status');
+    let status: StartingStatus;
+    if (local_data) {
+      status = JSON.parse(local_data);
+      this.showPreGameComp = status.startingNewMatch;
+    }
+  }
+}
+
+export interface StartingStatus {
+  startingNewMatch: boolean;
 }
