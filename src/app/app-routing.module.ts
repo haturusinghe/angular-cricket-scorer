@@ -7,7 +7,7 @@ import { ScorerViewComponent } from './scorer-view/scorer-view.component';
 import { AuthGuard } from './shared/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard/start', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 
   { path: 'login', component: AuthComponent },
 
