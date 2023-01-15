@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatchSummary } from 'src/app/scorer-view/services/resume-scoring.service';
+import { MatchMetaDataService } from 'src/app/shared/services/match-meta-data.service';
 import { ManageMatchesService } from './services/manage-matches.service';
 
 @Component({
@@ -40,6 +41,20 @@ export class MyMatchesComponent implements OnInit {
   }
 
   startNewMatch() {
+    sessionStorage.setItem(
+      'match_starting_status',
+      JSON.stringify({ startingNewMatch: true })
+    );
+
+    this.router.navigate(['dashboard/scorer']);
+  }
+
+  resumeOldMatch() {
+    sessionStorage.setItem(
+      'match_starting_status',
+      JSON.stringify({ startingNewMatch: false })
+    );
+
     this.router.navigate(['dashboard/scorer']);
   }
 }
