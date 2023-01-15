@@ -31,7 +31,7 @@ export class AuthServiceService {
   }
 
   isUserLoggedIn() {
-    return !!localStorage.getItem('access_token');
+    return !!sessionStorage.getItem('access_token');
   }
 
   setUserLoggedInStatus(status: boolean) {
@@ -59,15 +59,16 @@ export class AuthServiceService {
             duration: 1 * 1000,
           });
         }
-        localStorage.setItem('access_token', res.success.access_token);
+        sessionStorage.setItem('access_token', res.success.access_token);
+        sessionStorage.setItem('user', JSON.stringify(res.user));
       });
   }
   getToken() {
-    return localStorage.getItem('access_token');
+    return sessionStorage.getItem('access_token');
   }
 
   signOut() {
-    localStorage.removeItem('access_token');
+    sessionStorage.removeItem('access_token');
     this.router.navigate(['login']);
   }
 
