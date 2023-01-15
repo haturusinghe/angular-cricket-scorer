@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatchSummary } from 'src/app/scorer-view/services/resume-scoring.service';
 import { ManageMatchesService } from './services/manage-matches.service';
 
@@ -10,7 +11,10 @@ import { ManageMatchesService } from './services/manage-matches.service';
 export class MyMatchesComponent implements OnInit {
   matchList: MatchSummary[] = [];
 
-  constructor(private manageMatchesService: ManageMatchesService) {}
+  constructor(
+    private manageMatchesService: ManageMatchesService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getMatchesList();
@@ -23,6 +27,19 @@ export class MyMatchesComponent implements OnInit {
   }
 
   test() {
-    console.log(this.matchList);
+    // console.log(this.matchList);
+    const local_u = sessionStorage.getItem('user');
+    const id = sessionStorage.getItem('user_id');
+    let user = '';
+    let user_id = '';
+    if (local_u) {
+      user = JSON.parse(local_u);
+    }
+    console.log(user);
+    console.log(id);
+  }
+
+  startNewMatch() {
+    this.router.navigate(['dashboard/scorer']);
   }
 }
