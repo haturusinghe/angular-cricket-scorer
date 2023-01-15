@@ -71,6 +71,11 @@ export interface AllMatchesList {
   match_id: string;
 }
 
+export interface MatchMetaDescription {
+  status: string;
+  scorer_id: string;
+}
+
 export interface MatchSummary {
   team_one: string;
   team_two: string;
