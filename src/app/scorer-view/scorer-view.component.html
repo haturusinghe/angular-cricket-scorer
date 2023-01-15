@@ -1,73 +1,79 @@
+<div [ngSwitch]="showPreGameComp">
+  <crx-pre-game
+    (preGameCloseEvent)="handlePreGameEvent($event)"
+    *ngSwitchCase="true"
+  ></crx-pre-game>
+  <mat-tab-group
+    mat-align-tabs="end"
+    color="primary"
+    backgroundColor="primary"
+    *ngSwitchCase="false"
+  >
+    <mat-tab label="Scorer">
+      <div fxLayout="column">
+        <div
+          class="bgx"
+          fxLayout.lg="row"
+          fxLayout.md="column"
+          fxLayout.xs="column"
+          fxLayout.sm="column"
+          fxLayoutAlign="space-between start"
+          fxFlexOrder="2"
+        >
+          <div class="container-1" fxFlex fxFill>
+            <crx-match-summary></crx-match-summary>
+          </div>
+
+          <div class="container-1" fxFlex fxFill>
+            <crx-batter-panel></crx-batter-panel>
+          </div>
+
+          <div class="container-1" fxFlex fxFill>
+            <crx-bowler-panel></crx-bowler-panel>
+          </div>
+        </div>
+
+        <div
+          class="bgx"
+          fxLayout.lg="row"
+          fxLayout.md="column"
+          fxLayout.xs="column"
+          fxLayout.sm="column"
+          fxLayoutAlign="start stretch"
+          fxFlexOrder="1"
+        >
+          <div class="container-1" fxFlex fxFill>
+            <crx-runs-panel></crx-runs-panel>
+          </div>
+          <div class="container-1" fxFlex="100%" fxFlex.gt-md="25%" fxFill>
+            <crx-wagon-wheel-selector></crx-wagon-wheel-selector>
+          </div>
+
+          <!-- <div class="container-1" fxFlex fxFill>
+          
+          <div class="container-1" fxFlex.lg="90" fxFill>
+            
+          </div>
+        </div> -->
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Ball-by-Ball">
+      <crx-by-ball></crx-by-ball>
+    </mat-tab>
+
+    <mat-tab label="Scorecard">
+      <crx-player-score-card></crx-player-score-card>
+    </mat-tab>
+
+    <!-- <mat-tab label="TEST">
+      <button (click)="testPreGameDataService()">TEST</button>
+    </mat-tab> -->
+  </mat-tab-group>
+</div>
+
 <!-- Uncomment Later -->
-<crx-pre-game *ngIf="!stepperClosed.isOn"></crx-pre-game>
 
 <!-- Scoring Component -->
 <!-- *ngIf="stepperClosed.isOn" -->
-<mat-tab-group
-  mat-align-tabs="end"
-  color="primary"
-  backgroundColor="primary"
-  *ngIf="stepperClosed.isOn"
->
-  <mat-tab label="Scorer">
-    <div fxLayout="column">
-      <div
-        class="bgx"
-        fxLayout.lg="row"
-        fxLayout.md="column"
-        fxLayout.xs="column"
-        fxLayout.sm="column"
-        fxLayoutAlign="space-between start"
-        fxFlexOrder="2"
-      >
-        <div class="container-1" fxFlex fxFill>
-          <crx-match-summary></crx-match-summary>
-        </div>
-
-        <div class="container-1" fxFlex fxFill>
-          <crx-batter-panel></crx-batter-panel>
-        </div>
-
-        <div class="container-1" fxFlex fxFill>
-          <crx-bowler-panel></crx-bowler-panel>
-        </div>
-      </div>
-
-      <div
-        class="bgx"
-        fxLayout.lg="row"
-        fxLayout.md="column"
-        fxLayout.xs="column"
-        fxLayout.sm="column"
-        fxLayoutAlign="start stretch"
-        fxFlexOrder="1"
-      >
-        <div class="container-1" fxFlex fxFill>
-          <crx-runs-panel></crx-runs-panel>
-        </div>
-        <div class="container-1" fxFlex="100%" fxFlex.gt-md="25%" fxFill>
-          <crx-wagon-wheel-selector></crx-wagon-wheel-selector>
-        </div>
-
-        <!-- <div class="container-1" fxFlex fxFill>
-        
-        <div class="container-1" fxFlex.lg="90" fxFill>
-          
-        </div>
-      </div> -->
-      </div>
-    </div>
-  </mat-tab>
-
-  <mat-tab label="Ball-by-Ball">
-    <crx-by-ball></crx-by-ball>
-  </mat-tab>
-
-  <mat-tab label="Scorecard">
-    <crx-player-score-card></crx-player-score-card>
-  </mat-tab>
-
-  <!-- <mat-tab label="TEST">
-    <button (click)="testPreGameDataService()">TEST</button>
-  </mat-tab> -->
-</mat-tab-group>
