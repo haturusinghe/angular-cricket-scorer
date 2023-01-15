@@ -61,6 +61,7 @@ export class AuthServiceService {
         }
         sessionStorage.setItem('access_token', res.success.access_token);
         sessionStorage.setItem('user', JSON.stringify(res.user));
+        sessionStorage.setItem('user_id', JSON.stringify(res.user.id));
       });
   }
   getToken() {
