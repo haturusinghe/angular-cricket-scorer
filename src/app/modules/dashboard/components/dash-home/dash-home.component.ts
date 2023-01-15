@@ -86,7 +86,7 @@ export class DashHomeComponent implements OnInit {
   }
 
   navHome() {
-    this.router.navigate(['dashboard/start']);
+    this.router.navigate(['dashboard/']);
   }
 
   navScore() {
