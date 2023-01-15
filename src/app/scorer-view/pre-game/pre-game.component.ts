@@ -24,6 +24,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MatchMetaDataService } from 'src/app/shared/services/match-meta-data.service';
 
 @Component({
   selector: 'crx-pre-game',
@@ -31,7 +32,22 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./pre-game.component.scss'],
 })
 export class PreGameComponent implements OnInit {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private preGameDataService: PreGameDataService,
+    private matchDataService: MatchDataServiceService,
+    private teamDataService: TeamDataService,
+    private matchMetaService: MatchMetaDataService,
+    breakpointObserver: BreakpointObserver
+  ) {
+    this.stepperOrientation = breakpointObserver
+      .observe('(min-width: 800px)')
+      .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
+  }
+
   stepperOrientation: Observable<StepperOrientation>;
+
+  @Output() preGameCloseEvent = new EventEmitter<boolean>();
 
   @Output('stepperClosed') setstepperClosed: EventEmitter<any> =
     new EventEmitter();
@@ -431,25 +447,13 @@ export class PreGameComponent implements OnInit {
     });
   }
 
-  constructor(
-    private _formBuilder: FormBuilder,
-    private preGameDataService: PreGameDataService,
-    private matchDataService: MatchDataServiceService,
-    private teamDataService: TeamDataService,
-    breakpointObserver: BreakpointObserver
-  ) {
-    this.stepperOrientation = breakpointObserver
-      .observe('(min-width: 800px)')
-      .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
-  }
-
   startScoring() {
     this.matchMetaData.match_id = this.generateMatchId(
       this.matchMetaData.teamA.teamName,
       this.matchMetaData.teamB.teamName
     );
 
-    this.matchMetaData.match_id = 'test_match_x';
+    // this.matchMetaData.match_id = 'test_match_x';
 
     if (this.tossWonBy == 'teamA') {
       this.matchMetaData.teamA.tossWon = true;
@@ -474,6 +478,13 @@ export class PreGameComponent implements OnInit {
 
     this.stepperClosed.isOn = true;
     this.matchDataService.loadPreGameDataFromService();
+
+    this.matchMetaService.startScoringNewMatch();
+    this.showPreGameComp(false);
+  }
+
+  showPreGameComp(val: boolean) {
+    this.preGameCloseEvent.emit(false);
   }
 
   isLinear = false;
