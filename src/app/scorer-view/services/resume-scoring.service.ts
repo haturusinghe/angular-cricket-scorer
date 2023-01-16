@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Ball } from '../i/ball';
 import { Over } from '../i/over';
@@ -12,7 +13,10 @@ export class ResumeScoringService {
   summaryList: MatchSummary[] = [];
   resumeData: ResumeCard[] = [];
 
-  constructor(private teamDataService: TeamDataService) {
+  constructor(
+    private teamDataService: TeamDataService,
+    private router: Router
+  ) {
     // this.initResumeCard();
     // this.getMatchList();
   }
@@ -40,6 +44,15 @@ export class ResumeScoringService {
       });
   } */
 
+  resumeOldMatch() {
+    sessionStorage.setItem(
+      'match_starting_status',
+      JSON.stringify({ startingNewMatch: false })
+    );
+
+    this.router.navigate(['dashboard/scorer']);
+  }
+
   getResumeCardFromApi(match_id: string) {
     // let id = 'r_' + match_id;
     this.teamDataService.getSingleMatchData(match_id).subscribe((response) => {
@@ -49,6 +62,7 @@ export class ResumeScoringService {
         'resuming_match',
         JSON.stringify(this.resumeData[0])
       );
+      this.resumeOldMatch();
     });
   }
 
