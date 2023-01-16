@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatchSummary } from 'src/app/scorer-view/services/resume-scoring.service';
+import {
+  MatchSummary,
+  ResumeScoringService,
+} from 'src/app/scorer-view/services/resume-scoring.service';
 
 @Component({
   selector: 'crx-match-card',
@@ -14,7 +17,11 @@ export class MatchCardComponent implements OnInit {
     team_two: '',
   };
 
-  constructor() {}
+  constructor(private resumeScoringService: ResumeScoringService) {}
 
   ngOnInit(): void {}
+
+  resumeScoring() {
+    this.resumeScoringService.getResumeCardFromApi(this.data.match_id);
+  }
 }
