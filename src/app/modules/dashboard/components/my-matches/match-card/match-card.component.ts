@@ -7,10 +7,6 @@ import { MatchSummary } from 'src/app/scorer-view/services/resume-scoring.servic
   styleUrls: ['./match-card.component.scss'],
 })
 export class MatchCardComponent implements OnInit {
-  teamA = 'Team A';
-  teamB = 'Team B';
-  date = 'DD/MM/YYYY';
-
   @Input() data: MatchSummary = {
     date: '',
     match_id: '',

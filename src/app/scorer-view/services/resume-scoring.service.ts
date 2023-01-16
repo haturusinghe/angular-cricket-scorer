@@ -13,7 +13,7 @@ export class ResumeScoringService {
   resumeData: ResumeCard[] = [];
 
   constructor(private teamDataService: TeamDataService) {
-    this.initResumeCard();
+    // this.initResumeCard();
     // this.getMatchList();
   }
 

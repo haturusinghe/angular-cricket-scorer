@@ -28,6 +28,18 @@ import { ResumeScoringService } from './resume-scoring.service';
   providedIn: 'root',
 })
 export class MatchDataServiceService {
+  constructor(
+    private preGameDataService: PreGameDataService,
+    private playerDataService: PlayerDataService,
+    private playerChangeService: PlayerChangeService,
+    private local: LocalStorageService,
+    private session: SessionStorageService,
+    private postGameService: PostGameService,
+    private testMatchService: TestMatchScorerService,
+    private resumeService: ResumeScoringService,
+    private _snackBar: MatSnackBar
+  ) {}
+
   format = 'test';
   // Properties
   ballLeftForOver: number = 6;
@@ -119,18 +131,6 @@ export class MatchDataServiceService {
   matchId: any;
   isResuming: boolean = false;
   notSwapped = false; // true/false if after the end of the inning teams are swapped ?
-
-  constructor(
-    private preGameDataService: PreGameDataService,
-    private playerDataService: PlayerDataService,
-    private playerChangeService: PlayerChangeService,
-    private local: LocalStorageService,
-    private session: SessionStorageService,
-    private postGameService: PostGameService,
-    private testMatchService: TestMatchScorerService,
-    private resumeService: ResumeScoringService,
-    private _snackBar: MatSnackBar
-  ) {}
 
   //Loads Data from Pre-Game Component
   /*

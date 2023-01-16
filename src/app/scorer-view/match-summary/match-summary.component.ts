@@ -80,12 +80,6 @@ export class MatchSummaryComponent implements OnInit {
       .subscribe((s) => console.log(s));
   }
 
-  testResumeCard() {
-    console.log('Test Resume Card');
-    // this.resumeScoringService.initResumeCard();
-    this.matchDataService.resumeScoringSession();
-  }
-
   endInning() {
     this.testMatchService.getInnings().subscribe((s) => console.log(s));
     this.matchDataService.endInnings();
