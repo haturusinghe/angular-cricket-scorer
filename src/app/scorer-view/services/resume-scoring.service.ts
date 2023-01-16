@@ -35,15 +35,6 @@ export class ResumeScoringService {
     });
   }
 
-  /* initResumeCard() {
-    this.teamDataService
-      .getSingleMatchData('resume_test_match_x')
-      .subscribe((response) => {
-        this.resumeData[0] = JSON.parse(response.scorecard);
-        // console.log(this.resumeData[0]);
-      });
-  } */
-
   resumeOldMatch() {
     sessionStorage.setItem(
       'match_starting_status',
