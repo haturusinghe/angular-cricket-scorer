@@ -49,13 +49,4 @@ export class MyMatchesComponent implements OnInit {
 
     this.router.navigate(['dashboard/scorer']);
   }
-
-  resumeOldMatch() {
-    sessionStorage.setItem(
-      'match_starting_status',
-      JSON.stringify({ startingNewMatch: false })
-    );
-
-    this.router.navigate(['dashboard/scorer']);
-  }
 }

@@ -527,8 +527,7 @@ export class PreGameComponent implements OnInit {
   generateMatchId(teamAId: number, teamBId: number): string {
     let date_code = this.getDateCode(new Date().toLocaleDateString());
     const id = sessionStorage.getItem('user_id');
-    let code =
-      this.formatTeamIds(teamAId, teamBId) + '_' + date_code + '_' + id;
+    let code = this.formatTeamIds(teamAId, teamBId) + date_code + id;
     return code;
   }
 
@@ -542,6 +541,6 @@ export class PreGameComponent implements OnInit {
       smallerNumber = num2;
       largerNumber = num1;
     }
-    return `${smallerNumber}_${largerNumber}`;
+    return `${smallerNumber}${largerNumber}`;
   }
 }
