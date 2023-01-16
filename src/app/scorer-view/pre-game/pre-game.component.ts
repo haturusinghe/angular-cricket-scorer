@@ -449,8 +449,8 @@ export class PreGameComponent implements OnInit {
 
   startScoring() {
     this.matchMetaData.match_id = this.generateMatchId(
-      this.matchMetaData.teamA.teamName,
-      this.matchMetaData.teamB.teamName
+      this.matchMetaData.teamA.teamId,
+      this.matchMetaData.teamB.teamId
     );
 
     // this.matchMetaData.match_id = 'test_match_x';
@@ -473,18 +473,18 @@ export class PreGameComponent implements OnInit {
 
     // console.log(this.matchMetaData);
 
-    this.preGameDataService.setStart(true);
+    // this.preGameDataService.setStart(true);
     this.preGameDataService.setMatchMetaData(this.matchMetaData);
 
-    this.stepperClosed.isOn = true;
+    // this.stepperClosed.isOn = true;
     this.matchDataService.loadPreGameDataFromService();
 
-    this.matchMetaService.startScoringNewMatch();
+    // this.matchMetaService.startScoringNewMatch();
     this.showPreGameComp(false);
   }
 
   showPreGameComp(val: boolean) {
-    this.preGameCloseEvent.emit(false);
+    this.preGameCloseEvent.emit(val);
   }
 
   isLinear = false;
@@ -524,17 +524,24 @@ export class PreGameComponent implements OnInit {
     return month + day + year.slice(-2);
   }
 
-  generateMatchId(teamA: string, teamB: string): string {
+  generateMatchId(teamAId: number, teamBId: number): string {
     let date_code = this.getDateCode(new Date().toLocaleDateString());
     const id = sessionStorage.getItem('user_id');
     let code =
-      this.generateKey(teamA) +
-      '_' +
-      this.generateKey(teamB) +
-      '_' +
-      date_code +
-      '_' +
-      id;
+      this.formatTeamIds(teamAId, teamBId) + '_' + date_code + '_' + id;
     return code;
+  }
+
+  formatTeamIds(num1: number, num2: number): string {
+    let smallerNumber: number;
+    let largerNumber: number;
+    if (num1 < num2) {
+      smallerNumber = num1;
+      largerNumber = num2;
+    } else {
+      smallerNumber = num2;
+      largerNumber = num1;
+    }
+    return `${smallerNumber}_${largerNumber}`;
   }
 }
