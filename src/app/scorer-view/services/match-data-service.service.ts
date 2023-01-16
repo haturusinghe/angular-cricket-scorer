@@ -22,7 +22,7 @@ import { PostGameService } from './post-game.service';
 import { ScoreCard } from './score-card';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TestMatchScorerService } from './updated-scorer-service.service';
-import { ResumeScoringService } from './resume-scoring.service';
+import { ResumeCard, ResumeScoringService } from './resume-scoring.service';
 
 @Injectable({
   providedIn: 'root',
@@ -172,40 +172,43 @@ export class MatchDataServiceService {
   //Resumes Session
   resumeScoringSession() {
     this.isResuming = true;
-    this.resumeService.getResumeCardArr0().subscribe((s) => {
-      if (s.length > 0) {
-        console.log(s[0]);
+    let localResumeData: ResumeCard[] = [];
+    let s = sessionStorage.getItem('resuming_match');
+    if (s) {
+      let data: ResumeCard = JSON.parse(s);
+      localResumeData.push(data);
+    }
+    if (localResumeData.length > 0) {
+      console.log(localResumeData[0]);
 
-        this.matchId = s[0].match_id;
-        this.tournamentName = s[0].tournament_name;
+      this.matchId = localResumeData[0].match_id;
+      this.tournamentName = localResumeData[0].tournament_name;
 
-        this.ballLeftForOver = s[0].over_data.ballLeftForOver;
-        this.currentOverNumber = s[0].over_data.currentOverNumber;
-        this.totalOvers = s[0].over_data.totalOvers;
+      this.ballLeftForOver = localResumeData[0].over_data.ballLeftForOver;
+      this.currentOverNumber = localResumeData[0].over_data.currentOverNumber;
+      this.totalOvers = localResumeData[0].over_data.totalOvers;
 
-        this.allOvers = s[0].over_data.allOvers;
-        this.currentOver = s[0].over_data.currentOver;
-        this.ballsForThisOver = s[0].over_data.ballsForThisOver;
+      this.allOvers = localResumeData[0].over_data.allOvers;
+      this.currentOver = localResumeData[0].over_data.currentOver;
+      this.ballsForThisOver = localResumeData[0].over_data.ballsForThisOver;
 
-        this.isTestMatch = s[0].inning_data.isTestMatch;
-        this.inningThreshold = s[0].inning_data.inningThreshold;
-        this.currentInning = s[0].inning_data.currentInning;
+      this.isTestMatch = localResumeData[0].inning_data.isTestMatch;
+      this.inningThreshold = localResumeData[0].inning_data.inningThreshold;
+      this.currentInning = localResumeData[0].inning_data.currentInning;
 
-        this.battingTeamScore = s[0].battingTeamScore;
+      this.battingTeamScore = localResumeData[0].battingTeamScore;
 
-        this.teamPlayerScores = s[0].teamPlayerScores;
+      this.teamPlayerScores = localResumeData[0].teamPlayerScores;
 
-        this.battingTeamIndex = s[0].team_data.battingTeamIndex;
-        this.bowlerTeamIndex = s[0].team_data.bowlerTeamIndex;
-        this.teams = s[0].team_data.teams;
+      this.battingTeamIndex = localResumeData[0].team_data.battingTeamIndex;
+      this.bowlerTeamIndex = localResumeData[0].team_data.bowlerTeamIndex;
+      this.teams = localResumeData[0].team_data.teams;
 
-        this.bowler = s[0].current_players.bowler;
-        this.striker = s[0].current_players.striker;
-        this.nonStriker = s[0].current_players.nonStriker;
-      }
-    });
+      this.bowler = localResumeData[0].current_players.bowler;
+      this.striker = localResumeData[0].current_players.striker;
+      this.nonStriker = localResumeData[0].current_players.nonStriker;
+    }
   }
-
   //match-summary
   getBattingTeamScore(): Observable<TeamScore> {
     const bts = of(this.battingTeamScore);
