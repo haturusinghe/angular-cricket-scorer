@@ -22,6 +22,7 @@ export class MyMatchesComponent implements OnInit {
   }
 
   getMatchesList() {
+    this.manageMatchesService.getMatchesList();
     this.manageMatchesService.getMatchSummaryList().subscribe((m) => {
       this.matchList = m;
     });

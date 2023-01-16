@@ -14,10 +14,11 @@ export class ManageMatchesService {
   summaryList: MatchSummary[] = [];
 
   constructor(private matchesDataService: MatchesDataService) {
-    this.getMatchesList();
+    // this.getMatchesList();
   }
 
   getMatchesList(): void {
+    this.summaryList = [];
     this.matchesDataService.getMatches().subscribe((s) => {
       this.allMatches = s.data;
       this.allMatches.forEach((m) => {
