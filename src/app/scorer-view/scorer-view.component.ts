@@ -14,7 +14,7 @@ export class ScorerViewComponent implements OnInit {
 
   showPreGameComp: boolean = true;
 
-  constructor(private preGameService: PreGameDataService) {}
+  constructor(private matchDataService: MatchDataServiceService) {}
 
   ngOnInit(): void {
     this.checkStartingStatus();
@@ -39,6 +39,9 @@ export class ScorerViewComponent implements OnInit {
     if (local_data) {
       status = JSON.parse(local_data);
       this.showPreGameComp = status.startingNewMatch;
+    }
+    if (this.showPreGameComp == false) {
+      this.matchDataService.resumeScoringSession();
     }
   }
 }
