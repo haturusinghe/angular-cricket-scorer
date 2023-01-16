@@ -133,10 +133,6 @@ export class MatchDataServiceService {
   notSwapped = false; // true/false if after the end of the inning teams are swapped ?
 
   //Loads Data from Pre-Game Component
-  /*
-    # Used By:
-      #
-  */
   loadPreGameDataFromService() {
     this.preGameDataService.getMatchId().subscribe((id) => (this.matchId = id));
 
@@ -372,57 +368,6 @@ export class MatchDataServiceService {
     this.selectOpeningPlayers();
   }
 
-  /* createScoreCard(): ScoreCard {
-    let today = new Date().toLocaleDateString('en-GB');
-    let bowlers = [];
-    if (this.scoreTeamIndex) {
-      bowlers = this.teamPlayerScores[1].bowling.map((b) => ({
-        name: b.player.name,
-        overs: b.overs,
-        runs: b.runs,
-        fours: 0,
-      }));
-    } else {
-      bowlers = this.teamPlayerScores[0].bowling.map((b) => ({
-        name: b.player.name,
-        overs: b.overs,
-        runs: b.runs,
-        fours: 0,
-      }));
-    }
-
-    let scoreCard = new ScoreCard(
-      'test_match_1',
-      today,
-      'Over',
-      this.teams[this.battingTeamIndex].teamName,
-      this.teams[this.bowlerTeamIndex].teamName,
-      {}
-    );
-
-    let inningsRecord = {
-      overs: this.currentOver.currentOver - 1,
-      batting: {
-        runs: this.battingTeamScore.totalScore,
-        wickets: this.battingTeamScore.wickets,
-      },
-      bowling: {
-        bowlers: bowlers,
-      },
-      ball_by_ball: {},
-    };
-
-    scoreCard.score_card['innings'] = {
-      batting: this.battingTeamScore.teamName,
-      bowling: this.battingTeamScore.bowlingTeam,
-      score: inningsRecord,
-    };
-
-    console.log(scoreCard);
-    return scoreCard;
-  }
- */
-
   generateResumeCard(): ScoreCard {
     let today = new Date().toLocaleDateString('en-GB');
     let resume_id = 'r_' + this.matchId;
@@ -477,10 +422,13 @@ export class MatchDataServiceService {
   generateScoreCard(): ScoreCard {
     let today = new Date().toLocaleDateString('en-GB');
 
+    let scorer_id = sessionStorage.getItem('user_id');
+    let description = { scorer_id: scorer_id, isOver: false };
+
     let scoreCard = new ScoreCard(
       this.matchId,
       today,
-      'ONGOING',
+      JSON.stringify(description),
       this.teams[this.battingTeamIndex].teamName,
       this.teams[this.bowlerTeamIndex].teamName,
       {}
