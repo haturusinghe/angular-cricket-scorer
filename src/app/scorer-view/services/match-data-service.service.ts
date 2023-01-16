@@ -466,33 +466,6 @@ export class MatchDataServiceService {
     return overs;
   }
 
-  //Saving Data Locally
-  saveAllOversLocally() {
-    this.local.set('CURRENT_MATCH', {
-      // teams: this.teams,
-      // battingTeamScore: this.battingTeamScore,
-      // battingTeamIndex: this.battingTeamIndex,
-      // bowlerTeamIndex: this.bowlerTeamIndex,
-      // totalOvers: this.totalOvers,
-      // currentOver: this.currentOver,
-      allOvers: this.allOvers,
-      // striker: this.striker,
-      // nonStriker: this.nonStriker,
-      // bowler: this.bowler,
-    });
-  }
-
-  saveCurrentOver() {
-    this.local.set('CURRENT_OVER', {
-      currentOver: this.currentOver,
-    });
-  }
-
-  readLocalData() {
-    let d = this.local.get('CURRENT_OVER');
-    console.log(d);
-  }
-
   updatePlayerInfoForBall(ball: Ball) {
     //Update the Striker and Bowler for this
     ball.bowler = this.bowler.player;
