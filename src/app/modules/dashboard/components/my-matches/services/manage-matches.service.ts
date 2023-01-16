@@ -21,6 +21,10 @@ export class ManageMatchesService {
     this.matchesDataService.getMatches().subscribe((s) => {
       this.allMatches = s.data;
       this.allMatches.forEach((m) => {
+        try {
+          let description = JSON.parse(m.description);
+          console.log(description);
+        } catch (error) {}
         this.summaryList.push({
           team_one: m.team_one,
           team_two: m.team_two,

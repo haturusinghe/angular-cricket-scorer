@@ -47,6 +47,7 @@ export class TestMatchScorerService {
   }
 
   sendScores(scoreCard: ScoreCard) {
+    console.log('HELLO FROM UPDATED SCORER SERVICE');
     this.postGameService.postScorecardToApi(scoreCard).subscribe((s) => {
       // console.log(s);
     });

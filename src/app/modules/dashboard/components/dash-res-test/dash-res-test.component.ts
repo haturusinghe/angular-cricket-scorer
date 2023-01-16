@@ -23,12 +23,12 @@ export class DashResTestComponent implements OnInit {
   ngOnInit(): void {}
 
   resumeMatch() {
-    this.preGameDataService.setStart(true);
+    /* this.preGameDataService.setStart(true);
     this.matchService.resumeScoringSession();
-    this.router.navigate(['dashboard/scorer']);
+    this.router.navigate(['dashboard/scorer']); */
   }
 
   newMatch() {
-    this.router.navigate(['dashboard/scorer']);
+    // this.router.navigate(['dashboard/scorer']);
   }
 }
