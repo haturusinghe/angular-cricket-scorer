@@ -31,13 +31,25 @@ export class ResumeScoringService {
     });
   }
 
-  initResumeCard() {
+  /* initResumeCard() {
     this.teamDataService
       .getSingleMatchData('resume_test_match_x')
       .subscribe((response) => {
         this.resumeData[0] = JSON.parse(response.scorecard);
         // console.log(this.resumeData[0]);
       });
+  } */
+
+  getResumeCardFromApi(match_id: string) {
+    // let id = 'r_' + match_id;
+    this.teamDataService.getSingleMatchData(match_id).subscribe((response) => {
+      this.resumeData[0] = JSON.parse(response.scorecard);
+      console.log(this.resumeData[0]);
+      sessionStorage.setItem(
+        'resuming_match',
+        JSON.stringify(this.resumeData[0])
+      );
+    });
   }
 
   /* initResumeCard(match_id: string) {
