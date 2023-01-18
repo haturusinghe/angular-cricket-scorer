@@ -41,7 +41,11 @@ export class ScorerViewComponent implements OnInit {
       this.showPreGameComp = status.startingNewMatch;
     }
     if (this.showPreGameComp == false) {
+      console.log('RESUMING OLD MATCH');
       this.matchDataService.resumeScoringSession();
+    } else {
+      console.log('STARTING NEW MATCH');
+      this.matchDataService.resetScoringSession();
     }
   }
 }
