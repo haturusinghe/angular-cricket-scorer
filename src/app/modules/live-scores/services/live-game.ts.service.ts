@@ -4,6 +4,15 @@ import { Observable, of, throwError } from 'rxjs';
 import { Scorecard, CurrentPlayers } from '../i/i/score-card';
 import { TeamScore } from '../i/i/team-score';
 import { GetLiveScoresService } from './get-live-scores.service';
+import { BatterScore } from '../i/i/player-score';
+import { BowlerScore } from '../i/i/bowler-score';
+import { ScoringService } from './scoring.service';
+import { Ball } from '../i/i/ball';
+import { PostScore } from '../i/i/post-scores';
+import { Team } from '../i/i/team';
+import { OverData } from '../i/i/over-data';
+import { Over } from '../i/i/over';
+import { PlayerDataService } from './player-data.service';
 
 @Injectable({
   providedIn: 'root',
@@ -1203,22 +1212,25 @@ export class LiveGameTsService {
   currentUser = {};
   loginStatus = { isLoggedIn: false };
 
-  constructor(private getLiveScoresService: GetLiveScoresService) {
-    this.setScorecard('test_match_x');
-  }
-
-  ngOninit() {
-    this.setScorecard('test_match_x');
-  }
+  constructor(
+    private getLiveScoresService: GetLiveScoresService,
+    private scoringService: ScoringService,
+    private playerDataService: PlayerDataService
+  ) {}
 
   getScorecard(): Observable<Scorecard> {
     const scorecard = of(this.scoreCard);
     return scorecard;
   }
   getSummary(): Observable<TeamScore> {
-    this.setScorecard('test_match_x');
+    this.setScorecard('test_match_2');
+    this.resumeScoringSession();
+
+    this.resumeScoringSession();
+    this.getOverDetails();
+    this.getCurrentOver();
     console.log(this.scoreCard);
-    this.setScorecard('test_match_x');
+    this.setScorecard('test_match_2');
     console.log(this.scoreCard);
     let teamScore: TeamScore = {
       teamName: this.scoreCard.score_card.summary.teamName,
@@ -1286,5 +1298,143 @@ export class LiveGameTsService {
       msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(msg);
+  }
+
+  format = 'test';
+  // Properties
+  ballLeftForOver: number = 6;
+  currentOverNumber: number = 1;
+  ballsForThisOver = new Array<Ball>();
+
+  inningThreshold: number = 0;
+
+  allOvers: Over[] = [];
+
+  tournamentName: string = 'England Tour of Sri Lanka';
+
+  teams: Team[] = this.playerDataService.getTeams();
+
+  battingTeamIndex: number = 1;
+  bowlerTeamIndex: number = 0;
+  totalOvers: number = 3;
+
+  battingTeamScore: TeamScore = {
+    teamName: this.teams[this.battingTeamIndex].teamName,
+    bowlingTeam: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName,
+    inning: '1',
+    totalScore: 0,
+    wickets: 0,
+  };
+
+  preGameData = { tournamentName: '', totalOvers: 69 };
+
+  currentOver: OverData = { currentOver: 1, ballsLeft: 6 };
+
+  firstTeamBattingScores = new Array<BatterScore>();
+  secondTeamBattingScores = new Array<BatterScore>();
+  firstTeamBowlingScores = new Array<BowlerScore>();
+  secondTeamBowlingScores = new Array<BowlerScore>();
+  scoreTeamIndex = true;
+
+  teamPlayerScores: PostScore[] = [
+    {
+      teamName: this.teams[this.battingTeamIndex].teamName,
+      batting: this.firstTeamBattingScores,
+      bowling: this.firstTeamBowlingScores,
+    },
+    {
+      teamName: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName,
+      batting: this.secondTeamBattingScores,
+      bowling: this.secondTeamBowlingScores,
+    },
+  ];
+
+  // Batters
+  striker: BatterScore = {
+    player: this.teams[this.battingTeamIndex].selectedPlayers[2],
+    runs: 0,
+    ballsFaced: 0,
+    fours: 0,
+    sixes: 0,
+    strikeRate: 0,
+    isStrikingNow: true,
+  };
+  lastShotPlayed: string = '';
+  lastShotAngle: number = 0;
+
+  nonStriker: BatterScore = {
+    player: this.teams[this.battingTeamIndex].selectedPlayers[3],
+    runs: 0,
+    ballsFaced: 0,
+    fours: 0,
+    sixes: 0,
+    strikeRate: 0,
+    isStrikingNow: false,
+  };
+
+  //Bowler
+  bowler: BowlerScore = {
+    player: this.teams[this.bowlerTeamIndex].selectedPlayers[3],
+    runs: 0,
+    maidenOvers: 0,
+    overs: 0,
+    wickets: 0,
+    economyRate: 0,
+  };
+  lastBowlSpeed: number = 0;
+  lastBowlType: string = '';
+
+  meta: any;
+
+  currentInning: number = 1;
+
+  isTestMatch = true;
+
+  matchId: any;
+
+  resumeScoringSession() {
+    this.scoringService.getResumeCardArr0().subscribe((s) => {
+      console.log('dasda', s[0]);
+
+      this.tournamentName = s[0].tournament_name;
+
+      this.ballLeftForOver = s[0].over_data.ballLeftForOver;
+      this.currentOverNumber = s[0].over_data.currentOverNumber;
+      this.totalOvers = s[0].over_data.totalOvers;
+
+      this.allOvers = s[0].over_data.allOvers;
+      this.currentOver = s[0].over_data.currentOver;
+      this.ballsForThisOver = s[0].over_data.ballsForThisOver;
+      console.log('ppp', s[0].over_data.ballsForThisOver);
+      this.isTestMatch = s[0].inning_data.isTestMatch;
+      this.inningThreshold = s[0].inning_data.inningThreshold;
+      this.currentInning = s[0].inning_data.currentInning;
+
+      this.battingTeamScore = s[0].battingTeamScore;
+
+      this.teamPlayerScores = s[0].teamPlayerScores;
+
+      this.battingTeamIndex = s[0].team_data.battingTeamIndex;
+      this.bowlerTeamIndex = s[0].team_data.bowlerTeamIndex;
+      this.teams = s[0].team_data.teams;
+
+      this.bowler = s[0].current_players.bowler;
+      this.striker = s[0].current_players.striker;
+      this.nonStriker = s[0].current_players.nonStriker;
+    });
+  }
+
+  getOverDetails(): Observable<Over[]> {
+    this.resumeScoringSession();
+    const overs = of(this.allOvers);
+
+    console.log('sssssssssss', this.allOvers);
+
+    return overs;
+  }
+  getCurrentOver(): Observable<OverData> {
+    this.resumeScoringSession();
+    const c = of(this.currentOver);
+    return c;
   }
 }

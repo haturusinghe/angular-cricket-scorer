@@ -1,10 +1,13 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Select Option</mat-card-title>
-  </mat-card-header>
-  <mat-card-actions align="end">
-    <button mat-button (click)="newMatch()">Watch Live Game</button>
-  </mat-card-actions>
-</mat-card>
-
-<router-outlet></router-outlet>
+<div>
+  <h1>Matches</h1>
+  <div *ngFor="let match of summaryList">
+    <mat-card *ngIf="start" (onload)="newMatch()">
+      <mat-card-header>
+        <mat-card-title>Select Option</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions align="end">
+        <button mat-button (click)="newMatch()">Watch Live Game</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -23,6 +23,39 @@ export class GetLiveScoresService {
   currentUser = {};
   loginStatus = { isLoggedIn: false };
 
+  getMatches(): Observable<any> {
+    let api = `${this.endpoint}/scores/get-all-scorecards`;
+    return this.http.get(api, { headers: this.headers }).pipe(
+      map((res) => {
+        return res || {};
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  
+  getMatchIds(): Observable<any> {
+    let api = `${this.endpoint}/scores/get-all-scorecards`;
+    return this.http.get(api, { headers: this.headers }).pipe(
+      map((res) => {
+        return res || {};
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  
+
+  getSingleMatchData(id: string): Observable<any> {
+    let api = `${this.endpoint}/scores/live-score/${id}`;
+    return this.http.get(api, { headers: this.headers }).pipe(
+      map((res) => {
+        return res || 'Error';
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   getScoreCard(): Observable<any> {
     let api = `${this.endpoint}/scores/live-score/${this.matchid}`;
     return this.http.get(api, { headers: this.headers }).pipe(

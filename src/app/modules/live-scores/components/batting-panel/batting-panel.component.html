@@ -1,5 +1,5 @@
 <mat-tab-group mat-align-tabs="start" color="primary" backgroundColor="primary">
-  <mat-tab label="LIVE" fxLayout="row" fxLayoutAlign="space-between start">
+  <mat-tab label="LIVE">
     <!-- <mat-grid-list
       cols="2"
       rowHeight="3:1"
@@ -9,6 +9,11 @@
     <div
       class="bgx"
       fxLayout="row"
+      fxLayout.lg="row"
+      fxLayout.md="column"
+      fxLayout.xs="column"
+      fxLayout.sm="column"
+      fxFlexOrder="1"
       fxLayoutAlign="center start"
       *ngIf="
         scorecard.summary.teamName == scorecard.innings.a_1.teamName &&
@@ -329,5 +334,8 @@
     </div>
     <!-- </mat-grid-list> -->
     <mat-divider></mat-divider>
+  </mat-tab>
+  <mat-tab label="Ball-by-Ball">
+    <crx-by-ball></crx-by-ball>
   </mat-tab>
 </mat-tab-group>
