@@ -15,17 +15,14 @@
       fxLayout.sm="column"
       fxFlexOrder="1"
       fxLayoutAlign="center start"
-      *ngIf="
-        scorecard.summary.teamName == scorecard.innings.a_1.teamName &&
-        scorecard.summary.inning == '1'
-      "
+      *ngIf="scoreCard[0].innings.a_1.batting.length > 0"
     >
       <div class="container-1" fxFlex="50" fxFill>
         <mat-card>
-          <mat-card-title>Batting Scores</mat-card-title>
-          <mat-card-subtitle
-            >{{ scorecard.summary.teamName }} 1st inning</mat-card-subtitle
+          <mat-card-title
+            >{{ scoreCard[0].innings.a_1.teamName }} 1st inning</mat-card-title
           >
+          <mat-card-subtitle>Batting</mat-card-subtitle>
           <mat-card-content>
             <table class="table table-striped" [width]="500">
               <thead>
@@ -39,7 +36,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let s of scorecard.innings.a_1.batting; index as i">
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.a_1.batting; index as i"
+                >
                   <td>
                     {{ s.player.name }}
                   </td>
@@ -59,7 +58,7 @@
         <mat-card>
           <mat-card-title>Bowling Scores</mat-card-title>
           <mat-card-subtitle
-            >{{ scorecard.summary.bowlingTeam }} bowling</mat-card-subtitle
+            >{{ scoreCard[0].innings.b_1.teamName }} bowling</mat-card-subtitle
           >
           <mat-card-content>
             <table class="table table-striped" [width]="500">
@@ -74,7 +73,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let s of scorecard.innings.b_1.bowling; index as i">
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.b_1.bowling; index as i"
+                >
                   <td>
                     {{ s.player.name }}
                   </td>
@@ -95,17 +96,14 @@
       class="bgx"
       fxLayout="row"
       fxLayoutAlign="center start"
-      *ngIf="
-        scorecard.summary.teamName == scorecard.innings.b_1.teamName &&
-        scorecard.summary.inning == '1'
-      "
+      *ngIf="scoreCard[0].innings.b_1.batting.length > 0"
     >
       <div class="container-1" fxFlex="50" fxFill>
         <mat-card>
-          <mat-card-title>Batting Scores</mat-card-title>
-          <mat-card-subtitle
-            >{{ scorecard.summary.teamName }} 1st inning</mat-card-subtitle
+          <mat-card-title
+            >{{ scoreCard[0].innings.b_1.teamName }} 1st inning</mat-card-title
           >
+          <mat-card-subtitle>Batting</mat-card-subtitle>
           <mat-card-content>
             <table class="table table-striped" [width]="500">
               <thead>
@@ -119,7 +117,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let s of scorecard.innings.b_1.batting; index as i">
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.b_1.batting; index as i"
+                >
                   <td>
                     {{ s.player.name }}
                   </td>
@@ -139,7 +139,7 @@
         <mat-card>
           <mat-card-title>Bowling Scores</mat-card-title>
           <mat-card-subtitle
-            >{{ scorecard.summary.bowlingTeam }} bowling</mat-card-subtitle
+            >{{ scoreCard[0].innings.a_1.teamName }} bowling</mat-card-subtitle
           >
           <mat-card-content>
             <table class="table table-striped" [width]="500">
@@ -154,7 +154,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let s of scorecard.innings.a_1.bowling; index as i">
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.a_1.bowling; index as i"
+                >
                   <td>
                     {{ s.player.name }}
                   </td>
@@ -175,17 +177,14 @@
       class="bgx"
       fxLayout="row"
       fxLayoutAlign="center start"
-      *ngIf="
-        scorecard.summary.teamName == scorecard.innings.a_2.teamName &&
-        scorecard.summary.inning == '2'
-      "
+      *ngIf="scoreCard[0].innings.a_2.batting.length > 0"
     >
       <div class="container-1" fxFlex="50" fxFill>
         <mat-card>
-          <mat-card-title>Batting Scores</mat-card-title>
-          <mat-card-subtitle
-            >{{ scorecard.summary.teamName }} 2nd inning</mat-card-subtitle
+          <mat-card-title
+            >{{ scoreCard[0].innings.a_2.teamName }} 2nd inning</mat-card-title
           >
+          <mat-card-subtitle>Batting</mat-card-subtitle>
           <mat-card-content>
             <table class="table table-striped" [width]="500">
               <thead>
@@ -199,7 +198,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let s of scorecard.innings.a_2.batting; index as i">
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.a_2.batting; index as i"
+                >
                   <td>
                     {{ s.player.name }}
                   </td>
@@ -219,7 +220,7 @@
         <mat-card>
           <mat-card-title>Bowling Scores</mat-card-title>
           <mat-card-subtitle
-            >{{ scorecard.summary.bowlingTeam }} bowling</mat-card-subtitle
+            >{{ scoreCard[0].innings.b_2.teamName }} bowling</mat-card-subtitle
           >
           <mat-card-content>
             <table class="table table-striped" [width]="500">
@@ -234,7 +235,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let s of scorecard.innings.b_2.bowling; index as i">
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.b_2.bowling; index as i"
+                >
                   <td>
                     {{ s.player.name }}
                   </td>
@@ -255,18 +258,16 @@
       class="bgx"
       fxLayout="row"
       fxLayoutAlign="center start"
-      *ngIf="
-        scorecard.summary.teamName == scorecard.innings.b_2.teamName &&
-        scorecard.summary.inning == '2'
-      "
+      *ngIf="scoreCard[0].innings.b_2.batting.length > 0"
     >
       <div class="container-1" fxFlex="50" fxFill>
         <mat-card>
-          <mat-card-title>Batting Scores</mat-card-title>
-          <mat-card-subtitle
-            >{{ scorecard.summary.teamName }} ,
-            {{ scorecard.innings.b_2.teamName }}
-            2nd inning</mat-card-subtitle
+          <mat-card-title>
+            {{ scoreCard[0].innings.b_2.teamName }} 2nd inning</mat-card-title
+          >
+          <mat-card-subtitle>
+            {{ scoreCard[0].innings.b_2.teamName }}
+            Batting</mat-card-subtitle
           >
           <mat-card-content>
             <table class="table table-striped" [width]="500">
@@ -281,7 +282,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let s of scorecard.innings.b_2.batting; index as i">
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.b_2.batting; index as i"
+                >
                   <td>
                     {{ s.player.name }}
                   </td>
@@ -301,7 +304,7 @@
         <mat-card>
           <mat-card-title>Bowling Scores</mat-card-title>
           <mat-card-subtitle
-            >{{ scorecard.summary.bowlingTeam }} bowling</mat-card-subtitle
+            >{{ scoreCard[0].innings.a_2.teamName }} bowling</mat-card-subtitle
           >
           <mat-card-content>
             <table class="table table-striped" [width]="500">
@@ -316,7 +319,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let s of scorecard.innings.a_2.bowling; index as i">
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.a_2.bowling; index as i"
+                >
                   <td>
                     {{ s.player.name }}
                   </td>
