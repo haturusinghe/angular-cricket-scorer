@@ -179,7 +179,7 @@ export class MatchDataServiceService {
 
     this.tournamentName = 'RESET T';
 
-    teams: Team[] = this.playerDataService.getTeams();
+    this.teams = this.playerDataService.getTeams();
 
     this.battingTeamIndex = 1;
     this.bowlerTeamIndex = 0;
