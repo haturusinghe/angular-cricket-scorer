@@ -1,18 +1,42 @@
 <div>
   <h1>Matches</h1>
-  <div *ngFor="let match of summaryList">
-    <mat-card *ngIf="start">
-      <mat-card-header>
-        <mat-card-title
-          >{{ match.team_one }} V.S {{ match.team_two }}
-        </mat-card-title>
-        <mat-card-subtitle> {{ match.date }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-actions align="end">
-        <button mat-button (click)="newMatch(match.match_id)">
-          Go to Game
-        </button>
-      </mat-card-actions>
-    </mat-card>
+
+  <div *ngIf="liveMatchList.length > 0">
+    <h2>Live Matches</h2>
+    <div *ngFor="let match of liveMatchList">
+      <mat-divider></mat-divider>
+      <mat-card *ngIf="start">
+        <mat-card-header>
+          <mat-card-title
+            >{{ match.team_one }} V.S {{ match.team_two }}
+          </mat-card-title>
+          <mat-card-subtitle> {{ match.date }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions align="end">
+          <button mat-button (click)="newMatch(match.match_id)">
+            Watch Game
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-divider></mat-divider>
+    </div>
+  </div>
+  <div *ngIf="pastMatchList.length > 0">
+    <h2>Past Matches</h2>
+    <div *ngFor="let match of pastMatchList">
+      <mat-card *ngIf="start">
+        <mat-card-header>
+          <mat-card-title
+            >{{ match.team_one }} V.S {{ match.team_two }}
+          </mat-card-title>
+          <mat-card-subtitle> {{ match.date }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions align="end">
+          <button mat-button (click)="newMatch(match.match_id)">
+            Go to Game
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
 </div>

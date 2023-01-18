@@ -34,6 +34,7 @@ export class BattingPanelComponent implements OnInit {
     private getLiveScoresService: GetLiveScoresService,
     private activatedRoute: ActivatedRoute
   ) {
+    this.updateDs();
     // this.getTeamNames();
   }
 
@@ -41,6 +42,8 @@ export class BattingPanelComponent implements OnInit {
     // this.updateData();
 
     this.updateDs();
+
+    console.log(this.scoreCard[0]);
   }
   // getTeamNames() {
   //   this.teamsNames = {
@@ -53,11 +56,13 @@ export class BattingPanelComponent implements OnInit {
     this.getLiveScoresService
       .getScoreCard(localStorage.getItem('match_id') || '')
       .subscribe((s) => {
+        this.scoreCard[0] = JSON.parse(s.scorecard);
+
         this.teamsNames.batters = this.scoreCard[0].summary.teamName;
         this.teamsNames.bowlers = this.scoreCard[0].summary.bowlingTeam;
         this.inning = this.scoreCard[0].summary.inning;
-
-        console.log('Score', this.scoreCard[0]);
+        console.log(this.scoreCard[0]);
+        console.log(s.scorecard);
       });
   }
 }

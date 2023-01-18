@@ -10,7 +10,8 @@ import { Over } from '../i/i/over';
 })
 export class ScoringService {
   allMatches: AllMatchesList[] = [];
-  summaryList: MatchSummary[] = [];
+  liveMatchList: MatchSummary[] = [];
+  pastMatchList: MatchSummary[] = [];
   resumeData: ResumeCard[] = [];
 
   constructor(private teamDataService: GetLiveScoresService) {
@@ -23,20 +24,32 @@ export class ScoringService {
       this.allMatches = s.data;
       let isOver = true;
       this.allMatches.forEach((m) => {
-        if (m.description == 'ONGOING') {
-          isOver = false;
-        } else {
-          const d = JSON.parse(m.description);
-          isOver = d.isOver;
-        }
+        if (m.match_id.indexOf('r_') == -1) {
+          if (m.description == 'ONGOING') {
+            isOver = false;
+          } else {
+            const d = JSON.parse(m.description);
+            isOver = d.isOver;
+          }
 
-        this.summaryList.push({
-          team_one: m.team_one,
-          team_two: m.team_two,
-          isOver: isOver,
-          date: m.date,
-          match_id: m.match_id,
-        });
+          if (isOver) {
+            this.pastMatchList.push({
+              team_one: m.team_one,
+              team_two: m.team_two,
+              isOver: isOver,
+              date: m.date,
+              match_id: m.match_id,
+            });
+          } else {
+            this.liveMatchList.push({
+              team_one: m.team_one,
+              team_two: m.team_two,
+              isOver: isOver,
+              date: m.date,
+              match_id: m.match_id,
+            });
+          }
+        }
       });
     });
   }
@@ -58,8 +71,12 @@ export class ScoringService {
     });
   } */
 
-  getMatchSummaryList(): Observable<MatchSummary[]> {
-    const summaryList = of(this.summaryList);
+  getLiveMatchList(): Observable<MatchSummary[]> {
+    const summaryList = of(this.liveMatchList);
+    return summaryList;
+  }
+  getPastMatchList(): Observable<MatchSummary[]> {
+    const summaryList = of(this.pastMatchList);
     return summaryList;
   }
 

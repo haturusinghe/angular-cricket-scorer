@@ -18,11 +18,14 @@ export class GetLiveComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getMatches();
-    console.log(this.summaryList);
+    this.getLiveMatches();
+    this.getPastMatches();
+    console.log(this.liveMatchList);
   }
 
-  summaryList: MatchSummary[] = [];
+  liveMatchList: MatchSummary[] = [];
+  pastMatchList: MatchSummary[] = [];
+
   newMatch(match_id: string) {
     this.start = 0;
     this.liveGameTsService.setScorecard(match_id);
@@ -32,9 +35,14 @@ export class GetLiveComponent implements OnInit {
     this.router.navigate(['live-scores/live']);
   }
 
-  getMatches() {
+  getLiveMatches() {
     this.scoringService
-      .getMatchSummaryList()
-      .subscribe((s) => (this.summaryList = s));
+      .getLiveMatchList()
+      .subscribe((s) => (this.liveMatchList = s));
+  }
+  getPastMatches() {
+    this.scoringService
+      .getPastMatchList()
+      .subscribe((s) => (this.pastMatchList = s));
   }
 }
