@@ -12,7 +12,7 @@ const routes: Routes = [
     component: DashHomeComponent,
     children: [
       { path: 'scorer', component: ScorerViewComponent },
-      { path: 'start', component: DashResTestComponent },
+      // { path: 'start', component: DashResTestComponent },
       { path: 'my-matches', component: MyMatchesComponent },
       { path: '', redirectTo: 'my-matches', pathMatch: 'full' },
     ],

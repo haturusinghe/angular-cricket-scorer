@@ -602,7 +602,7 @@ export class MatchDataServiceService {
                 .changeStriker('Select Next Striker')
                 .subscribe((p) => {
                   this.changeStriker(p);
-                  //this.updateBackEnd();
+                  this.updateBackEnd();
                 });
             } else {
               this.addToTeamScores(structuredClone(this.nonStriker)); // Add this strikers personal score to object containing batter scores
@@ -611,7 +611,7 @@ export class MatchDataServiceService {
                 .changeStriker('Select Next Non-Striker')
                 .subscribe((p) => {
                   this.changeNonStriker(p);
-                  //this.updateBackEnd();
+                  this.updateBackEnd();
                 });
             }
           }
@@ -624,7 +624,7 @@ export class MatchDataServiceService {
               .changeStriker('Select Next Striker')
               .subscribe((p) => {
                 this.changeStriker(p);
-                //this.updateBackEnd();
+                this.updateBackEnd();
               });
           }
         }
@@ -641,7 +641,7 @@ export class MatchDataServiceService {
             .changeBowler('Select Next Bowler')
             .subscribe((p) => {
               this.changeBowler(p);
-              //this.updateBackEnd();
+              this.updateBackEnd();
             });
         }
       }
@@ -689,7 +689,7 @@ export class MatchDataServiceService {
               .changeStriker('Select Next Striker')
               .subscribe((p) => {
                 this.changeStriker(p);
-                //this.updateBackEnd();
+                this.updateBackEnd();
               });
           } else {
             this.addToTeamScores(structuredClone(this.nonStriker)); // Add this strikers personal score to object containing batter scores
@@ -698,7 +698,7 @@ export class MatchDataServiceService {
               .changeStriker('Select Next Non-Striker')
               .subscribe((p) => {
                 this.changeNonStriker(p);
-                //this.updateBackEnd();
+                this.updateBackEnd();
               });
           }
         }
@@ -711,7 +711,7 @@ export class MatchDataServiceService {
             .changeStriker('Select Next Striker')
             .subscribe((p) => {
               this.changeStriker(p);
-              //this.updateBackEnd();
+              this.updateBackEnd();
             });
         }
       }
@@ -725,7 +725,7 @@ export class MatchDataServiceService {
           .changeBowler('Select Next Bowler')
           .subscribe((p) => {
             this.changeBowler(p);
-            //this.updateBackEnd();
+            this.updateBackEnd();
           });
       }
 
@@ -834,7 +834,7 @@ export class MatchDataServiceService {
                 .changeBowler('Select Starting Bowler')
                 .subscribe((p) => {
                   this.changeBowler(p);
-                  //this.updateBackEnd();
+                  this.updateBackEnd();
                 });
             });
         });
@@ -909,12 +909,12 @@ export class MatchDataServiceService {
   }
 
   updateBackEnd() {
-    this.testMatchService.updateInningData(
+    /* this.testMatchService.updateInningData(
       structuredClone(this.teamPlayerScores),
       this.currentInning,
       this.generateScoreCard(),
       this.notSwapped
-    );
+    ); */
     this.sendResumeCard(this.generateResumeCard());
   }
 }
