@@ -106,9 +106,16 @@ export interface ResumeCard {
   inning_data: InningData;
   team_data: TeamData;
   battingTeamScore: BattingTeamScore;
+  other: OtherData;
   teamPlayerScores: TeamPlayerScore[];
   match_id: string;
   tournament_name: string;
+}
+
+export interface OtherData {
+  scoreTeamIndex: boolean;
+  notSwapped: boolean;
+  currentInning: number;
 }
 
 export interface BattingTeamScore {
