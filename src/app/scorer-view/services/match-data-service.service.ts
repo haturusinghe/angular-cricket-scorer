@@ -46,7 +46,7 @@ export class MatchDataServiceService {
   currentOverNumber: number = 1;
   ballsForThisOver = new Array<Ball>();
 
-  inningThreshold: number = 0;
+  inningThreshold: number = 0; //#TODO : Check if we resume after inning change, still works
 
   allOvers = new Array<Over>();
 
@@ -165,6 +165,98 @@ export class MatchDataServiceService {
       .subscribe((arr) => (this.teams = arr));
   }
 
+  //Resets Session
+  resetScoringSession() {
+    this.format = 'test';
+    // Properties
+    this.ballLeftForOver = 6;
+    this.currentOverNumber = 1;
+    this.ballsForThisOver = new Array<Ball>();
+
+    this.inningThreshold = 0; //#TODO : Check if we resume after inning change, still works
+
+    this.allOvers = new Array<Over>();
+
+    this.tournamentName = 'RESET T';
+
+    teams: Team[] = this.playerDataService.getTeams();
+
+    this.battingTeamIndex = 1;
+    this.bowlerTeamIndex = 0;
+    this.totalOvers = 3;
+
+    this.battingTeamScore = {
+      teamName: this.teams[this.battingTeamIndex].teamName,
+      bowlingTeam: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName,
+      inning: '1',
+      totalScore: 0,
+      wickets: 0,
+    };
+
+    this.preGameData = { tournamentName: '', totalOvers: 69 };
+
+    this.currentOver = { currentOver: 1, ballsLeft: 6 };
+
+    this.firstTeamBattingScores = new Array<BatterScore>();
+    this.secondTeamBattingScores = new Array<BatterScore>();
+    this.firstTeamBowlingScores = new Array<BowlerScore>();
+    this.secondTeamBowlingScores = new Array<BowlerScore>();
+    this.scoreTeamIndex = true;
+    this.teamPlayerScores = [
+      {
+        teamName: this.teams[this.battingTeamIndex].teamName,
+        batting: this.firstTeamBattingScores,
+        bowling: this.firstTeamBowlingScores,
+      },
+      {
+        teamName: this.teams[this.battingTeamIndex == 0 ? 1 : 0].teamName,
+        batting: this.secondTeamBattingScores,
+        bowling: this.secondTeamBowlingScores,
+      },
+    ];
+
+    // Batters
+    this.striker = {
+      player: this.teams[this.battingTeamIndex].selectedPlayers[2],
+      runs: 0,
+      ballsFaced: 0,
+      fours: 0,
+      sixes: 0,
+      strikeRate: 0,
+      isStrikingNow: true,
+    };
+    this.lastShotPlayed = '';
+    this.lastShotAngle = 0;
+
+    this.nonStriker = {
+      player: this.teams[this.battingTeamIndex].selectedPlayers[3],
+      runs: 0,
+      ballsFaced: 0,
+      fours: 0,
+      sixes: 0,
+      strikeRate: 0,
+      isStrikingNow: false,
+    };
+
+    //Bowler
+    this.bowler = {
+      player: this.teams[this.bowlerTeamIndex].selectedPlayers[3],
+      runs: 0,
+      maidenOvers: 0,
+      overs: 0,
+      wickets: 0,
+      economyRate: 0,
+    };
+    this.lastBowlSpeed = 0;
+    this.lastBowlType = '';
+
+    this.currentInning = 1;
+
+    this.isTestMatch = true;
+    this.isResuming = false;
+    this.notSwapped = false; // true/false if after the end of the inning teams are swapped ?
+  }
+
   //Resumes Session
   resumeScoringSession() {
     this.isResuming = true;
@@ -205,6 +297,7 @@ export class MatchDataServiceService {
       this.nonStriker = localResumeData[0].current_players.nonStriker;
     }
   }
+
   //match-summary
   getBattingTeamScore(): Observable<TeamScore> {
     const bts = of(this.battingTeamScore);
