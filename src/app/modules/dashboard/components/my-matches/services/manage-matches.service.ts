@@ -18,20 +18,26 @@ export class ManageMatchesService {
   }
 
   getMatchesList(): void {
+    let description = { scorer_id: '-Z', isOver: true };
     this.summaryList = [];
     this.matchesDataService.getMatches().subscribe((s) => {
       this.allMatches = s.data;
       this.allMatches.forEach((m) => {
         try {
-          let description = JSON.parse(m.description);
+          description = JSON.parse(m.description);
           console.log(description);
         } catch (error) {}
-        this.summaryList.push({
-          team_one: m.team_one,
-          team_two: m.team_two,
-          date: m.date,
-          match_id: m.match_id,
-        });
+
+        if (description.scorer_id == sessionStorage.getItem('user_id')) {
+          if (m.match_id.startsWith('r_')) {
+            this.summaryList.push({
+              team_one: m.team_one,
+              team_two: m.team_two,
+              date: m.date,
+              match_id: m.match_id,
+            });
+          }
+        }
       });
     });
   }
