@@ -24,12 +24,11 @@ export class MatchSummaryComponent implements OnInit {
     tournamentName: 'Tour of india',
   };
 
-  getSummary(): void {
-    this.liveGameTsService.setScorecard('test_match_2');
+  getSummary(matchid: string): void {
     this.liveGameTsService.resumeScoringSession();
     this.liveGameTsService.getOverDetails();
     this.liveGameTsService.getCurrentOver();
-    this.getLiveScoresService.getScoreCard().subscribe((scoreCard) => {
+    this.getLiveScoresService.getScoreCard(matchid).subscribe((scoreCard) => {
       let score_card: ScoreCard = JSON.parse(scoreCard.scorecard);
 
       this.summary.teamName = score_card.summary.teamName;
@@ -52,8 +51,8 @@ export class MatchSummaryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.liveGameTsService.setScorecard('test_match_2');
-    this.getSummary();
+    this.liveGameTsService.setScorecard(localStorage.getItem('match_id') || '');
+    this.getSummary(localStorage.getItem('match_id') || '');
   }
 
   dash() {

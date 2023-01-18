@@ -23,9 +23,10 @@ export class GetLiveComponent implements OnInit {
   }
 
   summaryList: MatchSummary[] = [];
-  newMatch() {
+  newMatch(match_id: string) {
     this.start = 0;
-    this.liveGameTsService.setScorecard('test_match_x');
+    this.liveGameTsService.setScorecard(match_id);
+    localStorage.setItem('match_id', match_id);
     this.liveGameTsService.resumeScoringSession();
 
     this.router.navigate(['live-scores/live']);

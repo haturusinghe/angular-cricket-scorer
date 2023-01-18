@@ -21,11 +21,19 @@ export class ScoringService {
   getMatchList(): void {
     this.teamDataService.getMatches().subscribe((s) => {
       this.allMatches = s.data;
+      let isOver = true;
       this.allMatches.forEach((m) => {
+        if (m.description == 'ONGOING') {
+          isOver = false;
+        } else {
+          const d = JSON.parse(m.description);
+          isOver = d.isOver;
+        }
+
         this.summaryList.push({
           team_one: m.team_one,
           team_two: m.team_two,
-          isOver: m.description.isOver,
+          isOver: isOver,
           date: m.date,
           match_id: m.match_id,
         });
@@ -68,7 +76,7 @@ export interface AllMatchesList {
   scorecard?: string;
   created_at: Date;
   updated_at: Date;
-  description: Description;
+  description: string;
   team_one: string;
   team_two: string;
   date: string;

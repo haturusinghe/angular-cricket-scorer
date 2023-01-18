@@ -12,7 +12,7 @@ import { Observable, map, catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class GetLiveScoresService {
-  matchid: string = 'test_match_x';
+  matchid = localStorage.getItem('match_id');
   endpoint: string = 'https://cricketchampx.com/v1/api';
   constructor(
     private http: HttpClient,
@@ -33,7 +33,6 @@ export class GetLiveScoresService {
     );
   }
 
-  
   getMatchIds(): Observable<any> {
     let api = `${this.endpoint}/scores/get-all-scorecards`;
     return this.http.get(api, { headers: this.headers }).pipe(
@@ -43,8 +42,6 @@ export class GetLiveScoresService {
       catchError(this.handleError)
     );
   }
-
-  
 
   getSingleMatchData(id: string): Observable<any> {
     let api = `${this.endpoint}/scores/live-score/${id}`;
@@ -56,8 +53,8 @@ export class GetLiveScoresService {
     );
   }
 
-  getScoreCard(): Observable<any> {
-    let api = `${this.endpoint}/scores/live-score/${this.matchid}`;
+  getScoreCard(matchid: string): Observable<any> {
+    let api = `${this.endpoint}/scores/live-score/${matchid}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res) => {
         console.log(res);

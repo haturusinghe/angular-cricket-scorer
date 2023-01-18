@@ -96,9 +96,11 @@ export class BattingViewComponent implements OnInit {
   };
 
   getCurrentBatsmen(): void {
-    this.getLiveScoresService.getScoreCard().subscribe((s) => {
-      this.batsmen = JSON.parse(s.scorecard).current_players;
-    });
+    this.getLiveScoresService
+      .getScoreCard(localStorage.getItem('match_id') || '')
+      .subscribe((s) => {
+        this.batsmen = JSON.parse(s.scorecard).current_players;
+      });
   }
 
   constructor(

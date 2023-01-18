@@ -1230,15 +1230,17 @@ export class BattingPanelComponent implements OnInit {
   // }
 
   updateDs() {
-    this.getLiveScoresService.getScoreCard().subscribe((s) => {
-      this.scorecard = JSON.parse(s.scorecard);
+    this.getLiveScoresService
+      .getScoreCard(localStorage.getItem('match_id') || '')
+      .subscribe((s) => {
+        this.scorecard = JSON.parse(s.scorecard);
 
-      this.teamsNames.batters = this.scorecard.summary.teamName;
-      this.teamsNames.bowlers = this.scorecard.summary.bowlingTeam;
-      this.inning = this.scorecard.summary.inning;
+        this.teamsNames.batters = this.scorecard.summary.teamName;
+        this.teamsNames.bowlers = this.scorecard.summary.bowlingTeam;
+        this.inning = this.scorecard.summary.inning;
 
-      console.log(this.scorecard);
-    });
+        console.log(this.scorecard);
+      });
   }
 
   getBattingDetails() {

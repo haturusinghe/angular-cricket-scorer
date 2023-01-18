@@ -1,12 +1,17 @@
 <div>
   <h1>Matches</h1>
   <div *ngFor="let match of summaryList">
-    <mat-card *ngIf="start" (onload)="newMatch()">
+    <mat-card *ngIf="start">
       <mat-card-header>
-        <mat-card-title>Select Option</mat-card-title>
+        <mat-card-title
+          >{{ match.team_one }} V.S {{ match.team_two }}
+        </mat-card-title>
+        <mat-card-subtitle> {{ match.date }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-actions align="end">
-        <button mat-button (click)="newMatch()">Watch Live Game</button>
+        <button mat-button (click)="newMatch(match.match_id)">
+          Go to Game
+        </button>
       </mat-card-actions>
     </mat-card>
   </div>

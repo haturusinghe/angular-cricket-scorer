@@ -1223,14 +1223,14 @@ export class LiveGameTsService {
     return scorecard;
   }
   getSummary(): Observable<TeamScore> {
-    this.setScorecard('test_match_2');
+    // this.setScorecard('test_match_2');
     this.resumeScoringSession();
 
     this.resumeScoringSession();
     this.getOverDetails();
     this.getCurrentOver();
     console.log(this.scoreCard);
-    this.setScorecard('test_match_2');
+
     console.log(this.scoreCard);
     let teamScore: TeamScore = {
       teamName: this.scoreCard.score_card.summary.teamName,
@@ -1251,16 +1251,18 @@ export class LiveGameTsService {
   }
 
   setScorecard(matchid: string) {
-    this.getLiveScoresService.getScoreCard().subscribe((s) => {
-      this.scoreCard.score_card = JSON.parse(s.scorecard);
-      this.scoreCard.created_at = s.created_at;
-      this.scoreCard.date = s.date;
-      this.scoreCard.match_id = s.match_id;
-      this.scoreCard.team_one = s.team_one;
-      this.scoreCard.team_two = s.team_two;
-      this.scoreCard.description = s.description;
-      this.scoreCard.updated_at = s.updated_at;
-    });
+    this.getLiveScoresService
+      .getScoreCard(localStorage.getItem('match_id') || '')
+      .subscribe((s) => {
+        this.scoreCard.score_card = JSON.parse(s.scorecard);
+        this.scoreCard.created_at = s.created_at;
+        this.scoreCard.date = s.date;
+        this.scoreCard.match_id = s.match_id;
+        this.scoreCard.team_one = s.team_one;
+        this.scoreCard.team_two = s.team_two;
+        this.scoreCard.description = s.description;
+        this.scoreCard.updated_at = s.updated_at;
+      });
   }
 
   getCurrentBatsman(): Observable<any> {
