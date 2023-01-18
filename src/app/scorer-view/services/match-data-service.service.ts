@@ -295,6 +295,10 @@ export class MatchDataServiceService {
       this.bowler = localResumeData[0].current_players.bowler;
       this.striker = localResumeData[0].current_players.striker;
       this.nonStriker = localResumeData[0].current_players.nonStriker;
+
+      this.notSwapped = localResumeData[0].other.notSwapped;
+      this.scoreTeamIndex = localResumeData[0].other.scoreTeamIndex;
+      // this.currentInning = localResumeData[0].other.currentInning
     }
   }
 
@@ -508,6 +512,11 @@ export class MatchDataServiceService {
     resumeCard.score_card['battingTeamScore'] = this.battingTeamScore;
     resumeCard.score_card['teamPlayerScores'] = this.teamPlayerScores;
 
+    resumeCard.score_card['other'] = {
+      notSwapped: this.notSwapped,
+      currentInning: this.currentInning,
+      scoreTeamIndex: this.scoreTeamIndex,
+    };
     // console.log(resumeCard);
     return resumeCard;
   }
@@ -685,6 +694,7 @@ export class MatchDataServiceService {
     }
 
     if (!this.isTestMatch) {
+      //FOR ODI
       if (this.currentOver.currentOver <= this.totalOvers) {
         if (ball.Out.isOut && ball.Out.type == 'RON') {
           if (this.battingTeamScore.wickets < 10) {
@@ -822,7 +832,7 @@ export class MatchDataServiceService {
           });
       }
 
-      // Swap Batting Team when Overs over
+      // Swap Batting Team when All out
       if (this.battingTeamScore.wickets >= 10) {
         this._snackBar.open('Switching Batting Team', '', {
           horizontalPosition: 'start',
@@ -903,8 +913,10 @@ export class MatchDataServiceService {
       this.notSwapped = ans.switch;
       console.log(ans);
       if (ans.switch) {
+        console.log('ENDING INNING : SWITCHING TEAM');
         this.swapBattingTeam(true);
       } else {
+        console.log('ENDING INNING : NOT S');
         this.swapBattingTeam(false);
       }
     });
