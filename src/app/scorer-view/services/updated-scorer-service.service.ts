@@ -1,4 +1,4 @@
-import { ResumeCard } from './resume-scoring.service';
+import { ResumeCard, CurrentPlayers } from './resume-scoring.service';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { PostScore } from '../i/post-scores';
@@ -93,6 +93,8 @@ export class TestMatchScorerService {
         scoreObj[1].teamName == resumeCard.score_card.battingTeamScore.teamName
       ) {
         const overdata1 = resumeCard.score_card.over_data.allOvers;
+        const current_players = resumeCard.score_card.current_players;
+        scoreObj[1].current_players = current_players;
         scoreObj[1].allOvers = overdata1;
         scoreObj[1].totalScore = totalRuns;
         scoreObj[1].extras = extras;
@@ -104,6 +106,8 @@ export class TestMatchScorerService {
         scoreObj[0].teamName == resumeCard.score_card.battingTeamScore.teamName
       ) {
         const overdata = resumeCard.score_card.over_data.allOvers;
+        const current_players = resumeCard.score_card.current_players;
+        scoreObj[0].current_players = current_players;
         scoreObj[0].allOvers = overdata;
         scoreObj[0].totalScore = totalRuns;
         scoreObj[0].extras = extras;
@@ -121,6 +125,8 @@ export class TestMatchScorerService {
           resumeCard.score_card.battingTeamScore.teamName
         ) {
           const overdata1 = resumeCard.score_card.over_data.allOvers;
+          const current_players = resumeCard.score_card.current_players;
+          scoreObj[1].current_players = current_players;
           scoreObj[1].allOvers = overdata1;
           scoreObj[1].totalScore = totalRuns;
           scoreObj[1].extras = extras;
@@ -133,6 +139,8 @@ export class TestMatchScorerService {
           resumeCard.score_card.battingTeamScore.teamName
         ) {
           const overdata = resumeCard.score_card.over_data.allOvers;
+          const current_players = resumeCard.score_card.current_players;
+          scoreObj[0].current_players = current_players;
           scoreObj[0].allOvers = overdata;
           scoreObj[0].totalScore = totalRuns;
           scoreObj[0].extras = extras;
@@ -146,6 +154,8 @@ export class TestMatchScorerService {
           resumeCard.score_card.battingTeamScore.teamName
         ) {
           const overdata1 = resumeCard.score_card.over_data.allOvers;
+          const current_players = resumeCard.score_card.current_players;
+          scoreObj[0].current_players = current_players;
           scoreObj[0].allOvers = overdata1;
           scoreObj[0].totalScore = totalRuns;
           scoreObj[0].extras = extras;
@@ -158,6 +168,8 @@ export class TestMatchScorerService {
           resumeCard.score_card.battingTeamScore.teamName
         ) {
           const overdata = resumeCard.score_card.over_data.allOvers;
+          const current_players = resumeCard.score_card.current_players;
+          scoreObj[1].current_players = current_players;
           scoreObj[1].allOvers = overdata;
           scoreObj[1].totalScore = totalRuns;
           scoreObj[1].extras = extras;
@@ -193,6 +205,7 @@ export interface InningScore {
   extras?: number;
   allOvers?: Over[];
   currentOver?: Over;
+  current_players?: CurrentPlayers;
 }
 export interface Inning {
   a_1: InningScore;

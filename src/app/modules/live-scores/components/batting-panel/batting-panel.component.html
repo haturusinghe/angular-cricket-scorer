@@ -21,7 +21,6 @@
         fxLayout.sm="column"
         fxFlexOrder="1"
         fxLayoutAlign="center start"
-        *ngIf="a_1Wickets.length > 0"
       >
         <div class="container-1" fxFlex="50" fxFill>
           <mat-card>
@@ -54,30 +53,112 @@
                       {{ s.player.name }}
                     </td>
                     <td>{{ wicketDetails(s.player.name, a_1Wickets) }}</td>
-                    <!-- <td *ngFor="let wicket in a_1Wickets"> <td *ngIf=""></td> </td> -->
+
                     <td>{{ s.runs | number }}</td>
                     <td>{{ s.ballsFaced | number }}</td>
                     <td>{{ s.sixes | number }}</td>
                     <td>{{ s.fours | number }}</td>
                     <td>{{ s.strikeRate | number }}</td>
                   </tr>
-                  <tr
-                  *ngFor="
-                    let s of scoreCard[0].current_players.a_1.batting;
-                    index as i
-                  "
-                >
-                  <td>
-                    {{ s.player.name }}
-                  </td>
-                  <td>{{ wicketDetails(s.player.name, a_1Wickets) }}</td>
-                  <!-- <td *ngFor="let wicket in a_1Wickets"> <td *ngIf=""></td> </td> -->
-                  <td>{{ s.runs | number }}</td>
-                  <td>{{ s.ballsFaced | number }}</td>
-                  <td>{{ s.sixes | number }}</td>
-                  <td>{{ s.fours | number }}</td>
-                  <td>{{ s.strikeRate | number }}</td>
-                </tr>
+                  <tr *ngIf="scoreCard[0].innings.a_1.current_players">
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.striker.player
+                          .name
+                      }}
+                    </td>
+                    <td>Not Out</td>
+
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.striker.runs
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.striker
+                          .ballsFaced
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.striker.sixes
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.striker.fours
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.striker
+                          .strikeRate
+                      }}
+                    </td>
+                  </tr>
+                  <tr *ngIf="scoreCard[0].innings.a_1.current_players">
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.nonStriker
+                          .player.name
+                      }}
+                    </td>
+                    <td>Not Out</td>
+
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.nonStriker.runs
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.nonStriker
+                          .ballsFaced
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.nonStriker
+                          .sixes
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.nonStriker
+                          .fours
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_1.current_players.nonStriker
+                          .strikeRate
+                      }}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Extras</b></td>
+                    <td></td>
+                    <td>
+                      <b>{{ scoreCard[0].innings.a_1.extras }}</b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><b>Total</b></td>
+                    <td></td>
+                    <td>
+                      <b>{{ scoreCard[0].innings.a_1.totalScore }}</b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
                 </tbody>
               </table>
             </mat-card-content>
@@ -128,6 +209,7 @@
         </div>
       </div>
       <mat-divider></mat-divider>
+
       <div
         class="bgx"
         fxLayout="row"
@@ -137,7 +219,10 @@
         fxLayout.sm="column"
         fxFlexOrder="1"
         fxLayoutAlign="center start"
-        *ngIf="scoreCard[0].innings.a_1.bowling.length > 0"
+        *ngIf="
+          scoreCard[0].innings.b_1 &&
+          scoreCard[0].innings.a_1.bowling.length > 0
+        "
       >
         <div class="container-1" fxFlex="50" fxFill>
           <mat-card>
@@ -145,12 +230,13 @@
               >{{ scoreCard[0].innings.b_1.teamName }} 1st
               inning</mat-card-title
             >
-            <mat-card-subtitle>Batting</mat-card-subtitle>
+            <mat-card-subtitle>Wickets</mat-card-subtitle>
             <mat-card-content>
               <table class="table table-striped" [width]="500">
                 <thead>
                   <tr>
                     <th scope="col">Batsman</th>
+                    <th scope="col">details</th>
                     <th scope="col">R</th>
                     <th scope="col">B</th>
                     <th scope="col">6s</th>
@@ -168,11 +254,112 @@
                     <td>
                       {{ s.player.name }}
                     </td>
+                    <td>{{ wicketDetails(s.player.name, b_1Wickets) }}</td>
+
                     <td>{{ s.runs | number }}</td>
                     <td>{{ s.ballsFaced | number }}</td>
                     <td>{{ s.sixes | number }}</td>
                     <td>{{ s.fours | number }}</td>
                     <td>{{ s.strikeRate | number }}</td>
+                  </tr>
+                  <tr *ngIf="scoreCard[0].innings.b_1.current_players">
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.striker.player
+                          .name
+                      }}
+                    </td>
+                    <td>Not Out</td>
+
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.striker.runs
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.striker
+                          .ballsFaced
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.striker.sixes
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.striker.fours
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.striker
+                          .strikeRate
+                      }}
+                    </td>
+                  </tr>
+                  <tr *ngIf="scoreCard[0].innings.b_1.current_players">
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.nonStriker
+                          .player.name
+                      }}
+                    </td>
+                    <td>Not Out</td>
+
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.nonStriker.runs
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.nonStriker
+                          .ballsFaced
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.nonStriker
+                          .sixes
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.nonStriker
+                          .fours
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.b_1.current_players.nonStriker
+                          .strikeRate
+                      }}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Extras</b></td>
+                    <td></td>
+                    <td>
+                      <b>{{ scoreCard[0].innings.b_1.extras }}</b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><b>Total</b></td>
+                    <td></td>
+                    <td>
+                      <b>{{ scoreCard[0].innings.b_1.totalScore }}</b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -224,6 +411,7 @@
         </div>
       </div>
       <mat-divider></mat-divider>
+
       <div
         class="bgx"
         fxLayout="row"
@@ -233,20 +421,24 @@
         fxLayout.sm="column"
         fxFlexOrder="1"
         fxLayoutAlign="center start"
-        *ngIf="scoreCard[0].innings.b_2.bowling"
+        *ngIf="
+          scoreCard[0].innings.a_2 &&
+          scoreCard[0].innings.b_2.bowling.length > 0
+        "
       >
         <div class="container-1" fxFlex="50" fxFill>
           <mat-card>
             <mat-card-title
-              >{{ scoreCard[0].innings.a_2.teamName }} 2nd
+              >{{ scoreCard[0].innings.a_2.teamName }} 1st
               inning</mat-card-title
             >
-            <mat-card-subtitle>Batting</mat-card-subtitle>
+            <mat-card-subtitle>Wickets</mat-card-subtitle>
             <mat-card-content>
               <table class="table table-striped" [width]="500">
                 <thead>
                   <tr>
                     <th scope="col">Batsman</th>
+                    <th scope="col">details</th>
                     <th scope="col">R</th>
                     <th scope="col">B</th>
                     <th scope="col">6s</th>
@@ -264,11 +456,112 @@
                     <td>
                       {{ s.player.name }}
                     </td>
+                    <td>{{ wicketDetails(s.player.name, a_2Wickets) }}</td>
+
                     <td>{{ s.runs | number }}</td>
                     <td>{{ s.ballsFaced | number }}</td>
                     <td>{{ s.sixes | number }}</td>
                     <td>{{ s.fours | number }}</td>
                     <td>{{ s.strikeRate | number }}</td>
+                  </tr>
+                  <tr *ngIf="scoreCard[0].innings.a_2.current_players">
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.striker.player
+                          .name
+                      }}
+                    </td>
+                    <td>Not Out</td>
+
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.striker.runs
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.striker
+                          .ballsFaced
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.striker.sixes
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.striker.fours
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.striker
+                          .strikeRate
+                      }}
+                    </td>
+                  </tr>
+                  <tr *ngIf="scoreCard[0].innings.a_2.current_players">
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.nonStriker
+                          .player.name
+                      }}
+                    </td>
+                    <td>Not Out</td>
+
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.nonStriker.runs
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.nonStriker
+                          .ballsFaced
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.nonStriker
+                          .sixes
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.nonStriker
+                          .fours
+                      }}
+                    </td>
+                    <td>
+                      {{
+                        scoreCard[0].innings.a_2.current_players.nonStriker
+                          .strikeRate
+                      }}
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td><b>Extras</b></td>
+                    <td></td>
+                    <td>
+                      <b>{{ scoreCard[0].innings.a_2.extras }}</b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td><b>Total</b></td>
+                    <td></td>
+                    <td>
+                      <b>{{ scoreCard[0].innings.a_2.totalScore }}</b>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -320,102 +613,188 @@
         </div>
       </div>
       <mat-divider></mat-divider>
-      <div
-        class="bgx"
-        fxLayout="row"
-        fxLayout.lg="row"
-        fxLayout.md="column"
-        fxLayout.xs="column"
-        fxLayout.sm="column"
-        fxFlexOrder="1"
-        fxLayoutAlign="center start"
-        *ngIf="scoreCard[0].innings.a_2.bowling"
-      >
-        <div class="container-1" fxFlex="50" fxFill>
-          <mat-card>
-            <mat-card-title>
-              {{ scoreCard[0].innings.b_2.teamName }} 2nd inning</mat-card-title
-            >
-            <mat-card-subtitle>
-              {{ scoreCard[0].innings.b_2.teamName }}
-              Batting</mat-card-subtitle
-            >
-            <mat-card-content>
-              <table class="table table-striped" [width]="500">
-                <thead>
-                  <tr>
-                    <th scope="col">Batsman</th>
-                    <th scope="col">R</th>
-                    <th scope="col">B</th>
-                    <th scope="col">6s</th>
-                    <th scope="col">4s</th>
-                    <th scope="col">SR</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    *ngFor="
-                      let s of scoreCard[0].innings.b_2.batting;
-                      index as i
-                    "
-                  >
-                    <td>
-                      {{ s.player.name }}
-                    </td>
-                    <td>{{ s.runs | number }}</td>
-                    <td>{{ s.ballsFaced | number }}</td>
-                    <td>{{ s.sixes | number }}</td>
-                    <td>{{ s.fours | number }}</td>
-                    <td>{{ s.strikeRate | number }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </mat-card-content>
-          </mat-card>
-        </div>
+    </div>
+    <mat-divider></mat-divider>
 
-        <div class="container-1" fxFlex fxFill>
-          <mat-card>
-            <mat-card-title>Bowling Scores</mat-card-title>
-            <mat-card-subtitle
-              >{{
-                scoreCard[0].innings.a_2.teamName
-              }}
-              bowling</mat-card-subtitle
-            >
-            <mat-card-content>
-              <table class="table table-striped" [width]="500">
-                <thead>
-                  <tr>
-                    <th scope="col">Bowler</th>
-                    <th scope="col">R</th>
-                    <th scope="col">M</th>
-                    <th scope="col">O</th>
-                    <th scope="col">W</th>
-                    <th scope="col">ER</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr
-                    *ngFor="
-                      let s of scoreCard[0].innings.a_2.bowling;
-                      index as i
-                    "
-                  >
-                    <td>
-                      {{ s.player.name }}
-                    </td>
-                    <td>{{ s.runs | number }}</td>
-                    <td>{{ s.maidenOvers | number }}</td>
-                    <td>{{ s.overs | number }}</td>
-                    <td>{{ s.wickets | number }}</td>
-                    <td>{{ s.economyRate | number }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </mat-card-content>
-          </mat-card>
-        </div>
+    <div
+      class="bgx"
+      fxLayout="row"
+      fxLayout.lg="row"
+      fxLayout.md="column"
+      fxLayout.xs="column"
+      fxLayout.sm="column"
+      fxFlexOrder="1"
+      fxLayoutAlign="center start"
+      *ngIf="
+        scoreCard[0].innings.b_2 && scoreCard[0].innings.a_2.bowling.length > 0
+      "
+    >
+      <div class="container-1" fxFlex="50" fxFill>
+        <mat-card>
+          <mat-card-title
+            >{{ scoreCard[0].innings.b_2.teamName }} 1st inning</mat-card-title
+          >
+          <mat-card-subtitle>Wickets</mat-card-subtitle>
+          <mat-card-content>
+            <table class="table table-striped" [width]="500">
+              <thead>
+                <tr>
+                  <th scope="col">Batsman</th>
+                  <th scope="col">details</th>
+                  <th scope="col">R</th>
+                  <th scope="col">B</th>
+                  <th scope="col">6s</th>
+                  <th scope="col">4s</th>
+                  <th scope="col">SR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.b_2.batting; index as i"
+                >
+                  <td>
+                    {{ s.player.name }}
+                  </td>
+                  <td>{{ wicketDetails(s.player.name, b_2Wickets) }}</td>
+
+                  <td>{{ s.runs | number }}</td>
+                  <td>{{ s.ballsFaced | number }}</td>
+                  <td>{{ s.sixes | number }}</td>
+                  <td>{{ s.fours | number }}</td>
+                  <td>{{ s.strikeRate | number }}</td>
+                </tr>
+                <tr *ngIf="scoreCard[0].innings.b_2.current_players">
+                  <td>
+                    {{
+                      scoreCard[0].innings.b_2.current_players.striker.player
+                        .name
+                    }}
+                  </td>
+                  <td>Not Out</td>
+
+                  <td>
+                    {{ scoreCard[0].innings.b_2.current_players.striker.runs }}
+                  </td>
+                  <td>
+                    {{
+                      scoreCard[0].innings.b_2.current_players.striker
+                        .ballsFaced
+                    }}
+                  </td>
+                  <td>
+                    {{ scoreCard[0].innings.b_2.current_players.striker.sixes }}
+                  </td>
+                  <td>
+                    {{ scoreCard[0].innings.b_2.current_players.striker.fours }}
+                  </td>
+                  <td>
+                    {{
+                      scoreCard[0].innings.b_2.current_players.striker
+                        .strikeRate
+                    }}
+                  </td>
+                </tr>
+                <tr *ngIf="scoreCard[0].innings.b_2.current_players">
+                  <td>
+                    {{
+                      scoreCard[0].innings.b_2.current_players.nonStriker.player
+                        .name
+                    }}
+                  </td>
+                  <td>Not Out</td>
+
+                  <td>
+                    {{
+                      scoreCard[0].innings.b_2.current_players.nonStriker.runs
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      scoreCard[0].innings.b_2.current_players.nonStriker
+                        .ballsFaced
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      scoreCard[0].innings.b_2.current_players.nonStriker.sixes
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      scoreCard[0].innings.b_2.current_players.nonStriker.fours
+                    }}
+                  </td>
+                  <td>
+                    {{
+                      scoreCard[0].innings.b_2.current_players.nonStriker
+                        .strikeRate
+                    }}
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b>Extras</b></td>
+                  <td></td>
+                  <td>
+                    <b>{{ scoreCard[0].innings.b_2.extras }}</b>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><b>Total</b></td>
+                  <td></td>
+                  <td>
+                    <b>{{ scoreCard[0].innings.b_2.totalScore }}</b>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="container-1" fxFlex fxFill>
+        <mat-card>
+          <mat-card-title>Bowling Scores</mat-card-title>
+          <mat-card-subtitle
+            >{{ scoreCard[0].innings.b_2.teamName }} bowling</mat-card-subtitle
+          >
+          <mat-card-content>
+            <table class="table table-striped" [width]="500">
+              <thead>
+                <tr>
+                  <th scope="col">Bowler</th>
+                  <th scope="col">R</th>
+                  <th scope="col">M</th>
+                  <th scope="col">O</th>
+                  <th scope="col">W</th>
+                  <th scope="col">ER</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let s of scoreCard[0].innings.b_2.bowling; index as i"
+                >
+                  <td>
+                    {{ s.player.name }}
+                  </td>
+                  <td>{{ s.runs | number }}</td>
+                  <td>{{ s.maidenOvers | number }}</td>
+                  <td>{{ s.overs | number }}</td>
+                  <td>{{ s.wickets | number }}</td>
+                  <td>{{ s.economyRate | number }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
     <mat-divider></mat-divider>

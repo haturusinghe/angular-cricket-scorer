@@ -38,7 +38,7 @@ export class BattingViewComponent implements OnInit {
       strikeRate: 400,
       isStrikingNow: true,
     },
-    non_striker: {
+    nonStriker: {
       player: {
         id: 100058,
         name: 'Mohommed Aaqil',

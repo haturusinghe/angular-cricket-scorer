@@ -1,3 +1,4 @@
+import { CurrentBatsmans } from './../../i/i/score-card';
 import { map } from 'rxjs';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -27,6 +28,10 @@ export class BattingPanelComponent implements OnInit {
   bowlingfig: BowlerScore[] = [];
   teamsNames = { batters: '', bowlers: '' };
   inning: string = '1';
+  a_1currentBatsmans: CurrentBatsmans[] = [];
+  b_1currentBatsmans: CurrentBatsmans[] = [];
+  a_2currentBatsmans: CurrentBatsmans[] = [];
+  b_2currentBatsmans: CurrentBatsmans[] = [];
 
   scoreCard: ScoreCard[] = [];
 
@@ -62,6 +67,13 @@ export class BattingPanelComponent implements OnInit {
         this.teamsNames.batters = this.scoreCard[0].summary.teamName;
         this.teamsNames.bowlers = this.scoreCard[0].summary.bowlingTeam;
         this.inning = this.scoreCard[0].summary.inning;
+
+        // this.a_1currentBatsmans.push({
+        //   striker: this.scoreCard[0].innings.a_1.currentPlayers.striker,
+        //   non_striker: this.scoreCard[0].innings.a_1.currentPlayers.non_striker,
+        // });
+
+        console.log('Scoredd', this.scoreCard[0]);
         this.geta_1Wickets(this.scoreCard[0]);
         this.getb_1Wickets(this.scoreCard[0]);
         this.geta_2Wickets(this.scoreCard[0]);

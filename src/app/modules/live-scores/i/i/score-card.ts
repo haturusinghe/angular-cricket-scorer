@@ -75,10 +75,14 @@ export interface Pivot {
 
 export interface CurrentPlayers {
   striker: NonStriker;
-  non_striker: NonStriker;
+  nonStriker: NonStriker;
   bowler: Bowl;
 }
 
+export interface CurrentBatsmans {
+  striker: NonStriker;
+  non_striker: NonStriker;
+}
 export interface Bowl {
   player: Player;
   runs: number;
@@ -110,7 +114,10 @@ export interface A1 {
   batting: NonStriker[];
   bowling: Bowl[];
   allOvers: Over[];
-} 
+  current_players: CurrentPlayers;
+  totalScore?:number;
+  extras?:number;
+}
 export interface A2 {}
 
 export interface Meta {
