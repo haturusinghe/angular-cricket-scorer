@@ -466,6 +466,10 @@ export class MatchDataServiceService {
     while (this.allOvers.length > 0) {
       this.allOvers.pop();
     }
+
+    while (this.ballsForThisOver.length > 0) {
+      this.ballsForThisOver.pop();
+    }
     this.selectOpeningPlayers();
   }
 
