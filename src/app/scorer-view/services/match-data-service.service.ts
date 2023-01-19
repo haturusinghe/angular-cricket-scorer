@@ -444,12 +444,12 @@ export class MatchDataServiceService {
 
     // This keeps track if the batting teams change
     // Needed for keeping track of indivigual player scores
-    this.scoreTeamIndex = !this.scoreTeamIndex;
 
     if (swith) {
       let temp = this.battingTeamIndex;
       this.battingTeamIndex = this.bowlerTeamIndex;
       this.bowlerTeamIndex = temp;
+      this.scoreTeamIndex = !this.scoreTeamIndex;
     }
 
     this.currentOver.currentOver = 1;
@@ -523,7 +523,7 @@ export class MatchDataServiceService {
       currentInning: this.currentInning,
       scoreTeamIndex: this.scoreTeamIndex,
     };
-    // console.log(resumeCard);
+    console.log(resumeCard);
     return resumeCard;
   }
 
