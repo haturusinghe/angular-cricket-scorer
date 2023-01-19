@@ -78,6 +78,11 @@ export interface CurrentPlayers {
   nonStriker: NonStriker;
   bowler: Bowl;
 }
+export interface Current_Players {
+  striker: NonStriker;
+  non_striker: NonStriker;
+  bowler: Bowl;
+}
 
 export interface CurrentBatsmans {
   striker: NonStriker;
@@ -115,8 +120,8 @@ export interface A1 {
   bowling: Bowl[];
   allOvers: Over[];
   current_players: CurrentPlayers;
-  totalScore?:number;
-  extras?:number;
+  totalScore?: number;
+  extras?: number;
 }
 export interface A2 {}
 

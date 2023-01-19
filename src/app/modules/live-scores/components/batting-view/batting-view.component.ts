@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentPlayers } from '../../i/i/score-card';
+import { CurrentPlayers, Current_Players } from '../../i/i/score-card';
 import { GetLiveScoresService } from '../../services/get-live-scores.service';
 import { LiveGameTsService } from '../../services/live-game.ts.service';
 
@@ -9,7 +9,7 @@ import { LiveGameTsService } from '../../services/live-game.ts.service';
   styleUrls: ['./batting-view.component.scss'],
 })
 export class BattingViewComponent implements OnInit {
-  batsmen: CurrentPlayers = {
+  batsmen: Current_Players = {
     striker: {
       player: {
         id: 100057,
@@ -38,7 +38,7 @@ export class BattingViewComponent implements OnInit {
       strikeRate: 400,
       isStrikingNow: true,
     },
-    nonStriker: {
+    non_striker: {
       player: {
         id: 100058,
         name: 'Mohommed Aaqil',
