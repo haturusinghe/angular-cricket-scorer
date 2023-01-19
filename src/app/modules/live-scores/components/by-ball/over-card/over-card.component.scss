@@ -29,7 +29,7 @@ mat-list-item {
   padding-bottom: 10px !important;
 }
 
-mat-chip-list {
+/* mat-chip-list {
   margin: 5px 0 5px 0;
 }
 
@@ -37,6 +37,14 @@ mat-chip {
   width: fit-content;
   height: fit-content;
   margin: 5px 0 5px 0;
+} */
+
+.chip-circle {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 50px;
+  text-align: center;
 }
 
 p {
@@ -48,4 +56,66 @@ p {
 .osum-header,
 .osum-chips {
   padding: 5px;
+}
+
+/* ******* */
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}
+
+@media (max-width: 849px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
+
+@media (min-width: 850px) {
+  .show-on-mobile {
+    display: none;
+    font-size: xx-large !important;
+  }
+}
+
+@media (max-width: 399px) {
+  .row {
+    height: 100px;
+  }
+}
+
+@media (max-width: 399px) {
+  .font-on-mobile {
+    font-size: smaller;
+  }
+
+  .font-on-mobile-m {
+    font-size: medium;
+  }
+}
+
+@media (min-width: 400px) {
+  .row {
+    height: 50px;
+  }
+}
+
+@media (max-width: 399px) {
+  .mobile-list-item {
+    height: 150px;
+  }
+}
+
+@media (min-width: 400px) {
+  .mobile-list-item {
+    height: 100px;
+  }
 }

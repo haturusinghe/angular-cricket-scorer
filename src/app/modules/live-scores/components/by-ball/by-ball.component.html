@@ -1,79 +1,88 @@
 <mat-divider></mat-divider>
 
-<mat-card *ngIf="scoreCard[0].innings.a_1.allOvers.length > 0">
-  <mat-card-title
-    >{{ scoreCard[0].innings.a_1.teamName }} 1st Inning Over
-    Summary</mat-card-title
-  >
-  <mat-divider></mat-divider>
-  <mat-card-content *ngFor="let o of scoreCard[0].innings.a_1.allOvers">
-    <mat-divider></mat-divider>
-    <crx-over-card [over]="o"></crx-over-card>
-  </mat-card-content>
-</mat-card>
-
-<mat-divider></mat-divider>
-
-<mat-card *ngIf="scoreCard[0].innings.b_1.allOvers.length > 0">
-  <mat-card-title
-    >{{ scoreCard[0].innings.b_1.teamName }} 1st Inning Over
-    Summary</mat-card-title
-  >
-  <mat-divider></mat-divider>
-  <mat-card-content *ngFor="let o of scoreCard[0].innings.b_1.allOvers">
-    <mat-divider></mat-divider>
-    <crx-over-card [over]="o"></crx-over-card>
-  </mat-card-content>
-</mat-card>
-
-<mat-divider></mat-divider>
-
-<mat-card
+<section
   *ngIf="
-    scoreCard[0].innings.b_2 && scoreCard[0].innings.a_2.allOvers.length > 0
+    scoreCard[0].innings.a_1 && scoreCard[0].innings.a_1.allOvers.length > 0
   "
 >
-  <mat-card-title
-    >{{ scoreCard[0].innings.a_2.teamName }} 2nd Inning Over
-    Summary</mat-card-title
-  >
-  <mat-divider></mat-divider>
-  <mat-card-content *ngFor="let o of scoreCard[0].innings.a_2.allOvers">
-    <mat-divider></mat-divider>
-    <crx-over-card [over]="o"></crx-over-card>
-  </mat-card-content>
-</mat-card>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ scoreCard[0].innings.a_1.teamName }} 1st Inning
+      </mat-panel-title>
+      <mat-panel-description> Overs Summary </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- Content -->
 
+    <div *ngFor="let o of scoreCard[0].innings.a_1.allOvers">
+      <mat-divider></mat-divider>
+      <crx-over-card [over]="o"></crx-over-card>
+    </div>
+    <!-- End of Content -->
+  </mat-expansion-panel>
+</section>
 <mat-divider></mat-divider>
+<section
+  *ngIf="
+    scoreCard[0].innings.b_1 && scoreCard[0].innings.b_1.allOvers.length > 0
+  "
+>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ scoreCard[0].innings.b_1.teamName }} 1st Inning
+      </mat-panel-title>
+      <mat-panel-description> Overs Summary </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- Content -->
 
-<mat-card
+    <div *ngFor="let o of scoreCard[0].innings.b_1.allOvers">
+      <mat-divider></mat-divider>
+      <crx-over-card [over]="o"></crx-over-card>
+    </div>
+    <!-- End of Content -->
+  </mat-expansion-panel>
+</section>
+<section
+  *ngIf="
+    scoreCard[0].innings.a_2 && scoreCard[0].innings.a_2.allOvers.length > 0
+  "
+>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ scoreCard[0].innings.a_2.teamName }} 2nd Inning
+      </mat-panel-title>
+      <mat-panel-description> Overs Summary </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- Content -->
+
+    <div *ngFor="let o of scoreCard[0].innings.a_2.allOvers">
+      <mat-divider></mat-divider>
+      <crx-over-card [over]="o"></crx-over-card>
+    </div>
+    <!-- End of Content -->
+  </mat-expansion-panel>
+</section>
+
+<section
   *ngIf="
     scoreCard[0].innings.b_2 && scoreCard[0].innings.b_2.allOvers.length > 0
   "
 >
-  <mat-card-title
-    >{{ scoreCard[0].innings.b_2.teamName }} 1st Inning Over
-    Summary</mat-card-title
-  >
-  <mat-divider></mat-divider>
-  <mat-card-content *ngFor="let o of scoreCard[0].innings.b_2.allOvers">
-    <mat-divider></mat-divider>
-    <crx-over-card [over]="o"></crx-over-card>
-  </mat-card-content>
-</mat-card>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ scoreCard[0].innings.b_2.teamName }} 1st Inning
+      </mat-panel-title>
+      <mat-panel-description> Overs Summary </mat-panel-description>
+    </mat-expansion-panel-header>
+    <!-- Content -->
 
-<mat-divider></mat-divider>
-<!-- <div class="mat-typography">
-  <h1 class="mat-display-4">display-4 &mdash; 112px light</h1>
-  <h2 class="mat-display-3">display-3 &mdash; 56px normal</h2>
-  <h3 class="mat-display-2">display-2 &mdash; 45px normal</h3>
-  <h4 class="mat-display-1">display-1 &mdash; 34px normal</h4>
-  <h1 class="mat-headline">headline (h1) &mdash; 24px normal</h1>
-  <h2 class="mat-title">title (h2) &mdash; 20px medium</h2>
-  <h6 class="mat-subheading-2">subheading-2 (h3) &mdash; 16px normal</h6>
-  <h4 class="mat-subheading-1">subheading-1 (h4) &mdash; 15px normal</h4>
-  <p class="mat-body-1">body-1 &mdash; 14px normal</p>
-  <p class="mat-body-2">body-2 &mdash; 14px medium</p>
-  <p class="mat-caption">caption &mdash; 12px normal</p>
-</div>
- -->
+    <div *ngFor="let o of scoreCard[0].innings.b_2.allOvers">
+      <mat-divider></mat-divider>
+      <crx-over-card [over]="o"></crx-over-card>
+    </div>
+    <!-- End of Content -->
+  </mat-expansion-panel>
+</section>
