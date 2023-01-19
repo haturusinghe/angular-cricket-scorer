@@ -289,7 +289,7 @@ export class LiveGameTsService {
       innings: {
         a_1: {
           teamName: 'SLC CRIC',
-
+          allOvers: [],
           batting: [
             {
               player: {
@@ -491,7 +491,7 @@ export class LiveGameTsService {
 
         a_2: {
           teamName: 'SLC CRIC',
-
+          allOvers: [],
           batting: [
             {
               player: {
@@ -691,6 +691,7 @@ export class LiveGameTsService {
           ],
         },
         b_1: {
+          allOvers: [],
           teamName: 'SACK 1st XI',
 
           batting: [
@@ -948,6 +949,7 @@ export class LiveGameTsService {
           ],
         },
         b_2: {
+          allOvers: [],
           teamName: 'SACK 1st XI',
 
           batting: [

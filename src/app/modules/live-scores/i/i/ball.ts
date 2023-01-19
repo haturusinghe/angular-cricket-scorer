@@ -9,7 +9,7 @@ export interface Ball {
   is4: boolean;
   is6: boolean;
   extras: string[];
-  striker?: Player;
+  striker: Player;
   shotType?: string;
   shotAngle?: number;
   nonStriker?: Player;

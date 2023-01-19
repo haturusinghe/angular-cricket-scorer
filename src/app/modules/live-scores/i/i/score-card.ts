@@ -1,3 +1,5 @@
+import { Over } from './over';
+
 export interface Scorecard {
   match_id: string;
   date: string;
@@ -107,8 +109,8 @@ export interface A1 {
   teamName: string;
   batting: NonStriker[];
   bowling: Bowl[];
-}
-
+  allOvers: Over[];
+} 
 export interface A2 {}
 
 export interface Meta {

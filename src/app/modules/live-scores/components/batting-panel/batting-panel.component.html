@@ -21,7 +21,7 @@
         fxLayout.sm="column"
         fxFlexOrder="1"
         fxLayoutAlign="center start"
-        *ngIf="scoreCard[0].innings.a_1.batting"
+        *ngIf="a_1Wickets.length > 0"
       >
         <div class="container-1" fxFlex="50" fxFill>
           <mat-card>
@@ -29,12 +29,13 @@
               >{{ scoreCard[0].innings.a_1.teamName }} 1st
               inning</mat-card-title
             >
-            <mat-card-subtitle>Batting</mat-card-subtitle>
+            <mat-card-subtitle>Wickets</mat-card-subtitle>
             <mat-card-content>
               <table class="table table-striped" [width]="500">
                 <thead>
                   <tr>
                     <th scope="col">Batsman</th>
+                    <th scope="col">details</th>
                     <th scope="col">R</th>
                     <th scope="col">B</th>
                     <th scope="col">6s</th>
@@ -52,12 +53,31 @@
                     <td>
                       {{ s.player.name }}
                     </td>
+                    <td>{{ wicketDetails(s.player.name, a_1Wickets) }}</td>
+                    <!-- <td *ngFor="let wicket in a_1Wickets"> <td *ngIf=""></td> </td> -->
                     <td>{{ s.runs | number }}</td>
                     <td>{{ s.ballsFaced | number }}</td>
                     <td>{{ s.sixes | number }}</td>
                     <td>{{ s.fours | number }}</td>
                     <td>{{ s.strikeRate | number }}</td>
                   </tr>
+                  <tr
+                  *ngFor="
+                    let s of scoreCard[0].current_players.a_1.batting;
+                    index as i
+                  "
+                >
+                  <td>
+                    {{ s.player.name }}
+                  </td>
+                  <td>{{ wicketDetails(s.player.name, a_1Wickets) }}</td>
+                  <!-- <td *ngFor="let wicket in a_1Wickets"> <td *ngIf=""></td> </td> -->
+                  <td>{{ s.runs | number }}</td>
+                  <td>{{ s.ballsFaced | number }}</td>
+                  <td>{{ s.sixes | number }}</td>
+                  <td>{{ s.fours | number }}</td>
+                  <td>{{ s.strikeRate | number }}</td>
+                </tr>
                 </tbody>
               </table>
             </mat-card-content>

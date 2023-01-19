@@ -2,8 +2,9 @@ import { GetLiveScoresService } from './get-live-scores.service';
 import { GetLiveComponent } from './../components/get-live/get-live.component';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Ball } from '../i/i/score-card';
+
 import { Over } from '../i/i/over';
+import { Ball } from '../i/i/ball';
 
 @Injectable({
   providedIn: 'root',
@@ -195,30 +196,30 @@ export interface OverData {
   totalOvers: number;
 }
 
-/* export interface AllOver {
-  overNumber: number;
-  balls: Ball[];
-  score: number;
-  wickets: number;
-  striker: NonStriker;
-  nonStriker: NonStriker;
-  bowler: Bowl;
-} */
+// export interface AllOver {
+//   overNumber: number;
+//   balls: Ball[];
+//   score: number;
+//   wickets: number;
+//   striker: NonStriker;
+//   nonStriker: NonStriker;
+//   bowler: Bowl;
+// }
 
-/* export interface Ball {
-  runs: number;
-  is4: boolean;
-  is6: boolean;
-  extras: string[];
-  Out: Out;
-  bowler: Player;
-  bowlType: string;
-  bowlSpeed: number;
-  striker: Player;
-  shotType: string;
-  shotAngle: number;
-  nonStriker: Player;
-} */
+// export interface Ball {
+//   runs: number;
+//   is4: boolean;
+//   is6: boolean;
+//   extras: string[];
+//   Out: Out;
+//   bowler: Player;
+//   bowlType: string;
+//   bowlSpeed: number;
+//   striker: Player;
+//   shotType: string;
+//   shotAngle: number;
+//   nonStriker: Player;
+// }
 
 export interface Out {
   isOut: boolean;
