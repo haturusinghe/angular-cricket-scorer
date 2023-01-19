@@ -10,7 +10,9 @@
           <mat-card-title
             >{{ match.team_one }} V.S {{ match.team_two }}
           </mat-card-title>
-          <mat-card-subtitle> {{ match.date }}</mat-card-subtitle>
+          <mat-card-subtitle>
+            {{ match.date }} match_id : {{ match.match_id }}
+          </mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions align="end">
           <button mat-button (click)="newMatch(match.match_id)">

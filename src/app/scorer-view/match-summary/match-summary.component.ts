@@ -81,7 +81,7 @@ export class MatchSummaryComponent implements OnInit {
   }
 
   endInning() {
-    this.testMatchService.getInnings().subscribe((s) => console.log(s));
+    // this.testMatchService.getInnings().subscribe((s) => console.log(s));
     this.matchDataService.endInnings();
   }
 }
