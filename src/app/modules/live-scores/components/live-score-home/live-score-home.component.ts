@@ -1,8 +1,9 @@
 import { GetLiveScoresService } from './../../services/get-live-scores.service';
 import { ScoringService } from './../../services/scoring.service';
 import { ScoreCard } from './../../../../scorer-view/services/score-card';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LiveGameTsService } from '../../services/live-game.ts.service';
+import { Subject, switchMap, takeUntil, tap, timer } from 'rxjs';
 
 @Component({
   selector: 'crx-live-score-home',
@@ -11,7 +12,7 @@ import { LiveGameTsService } from '../../services/live-game.ts.service';
 })
 export class LiveScoreHomeComponent implements OnInit {
   // scoreCard = this.liveGameTsService.getMatch('test_1999');
-
+  private unsub = new Subject<void>();
   constructor(
     private liveGameTsService: LiveGameTsService,
     private getLiveScoresService: GetLiveScoresService,
@@ -20,7 +21,9 @@ export class LiveScoreHomeComponent implements OnInit {
 
   getScorecard() {
     this.liveGameTsService.resumeScoringSession();
-    this.getLiveScoresService.getSingleMatchData('resume_test_match_x');
+    // this.getLiveScoresService.getSingleMatchData(
+    //   localStorage.getItem('match_id') || ''
+    // );
     this.scoringService.initResumeCard();
     this.liveGameTsService.getOverDetails();
     this.liveGameTsService.getCurrentOver();

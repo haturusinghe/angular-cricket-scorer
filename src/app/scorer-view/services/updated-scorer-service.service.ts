@@ -1,3 +1,4 @@
+
 import { Scorecard } from './../i/score-card';
 import { TeamDataService } from './team-data.service';
 import { ResumeCard, CurrentPlayers } from './resume-scoring.service';
@@ -206,15 +207,16 @@ export class TestMatchScorerService {
     this.teamDataService.getSingleMatchData(matchId).subscribe((s) => {
       let scorecard = JSON.parse(s.scorecard);
       console.log('Post card', s);
-      if (scorecard.innings.a_1) {
-        this.innings.a_1 = scorecard.innings.a_1;
-      } else if (s.scorecard.innings.b_1) {
-        this.innings.b_1 = scorecard.innings.b_1;
-      } else if (s.scorecard.innings.a_2) {
-        this.innings.a_2 = scorecard.innings.a_2;
-      } else if (s.scorecard.innings.b_2) {
-        this.innings.b_2 = scorecard.innings.b_2;
-      }
+      this.innings = scorecard.innings;
+    //   if (scorecard.innings.a_1) {
+    //     this.innings.a_1 = scorecard.innings.a_1;
+    //   } else if (s.scorecard.innings.b_1) {
+    //     this.innings.b_1 = scorecard.innings.b_1;
+    //   } else if (s.scorecard.innings.a_2) {
+    //     this.innings.a_2 = scorecard.innings.a_2;
+    //   } else if (s.scorecard.innings.b_2) {
+    //     this.innings.b_2 = scorecard.innings.b_2;
+    //   }
     });
   }
 }

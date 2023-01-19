@@ -1,3 +1,4 @@
+import { TestMatchScorerService } from './../../../../../scorer-view/services/updated-scorer-service.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 import {
@@ -18,11 +19,17 @@ export class MatchCardComponent implements OnInit {
     team_two: '',
   };
 
-  constructor(private resumeScoringService: ResumeScoringService) {}
+  constructor(
+    private resumeScoringService: ResumeScoringService,
+    private testMatchScorerService: TestMatchScorerService
+  ) {}
 
   ngOnInit(): void {}
 
   resumeScoring() {
     this.resumeScoringService.getResumeCardFromApi(this.data.match_id);
+    this.testMatchScorerService.getScores(this.data.match_id.replace('r_', ''));
+
+    console.log('id', this.data.match_id.replace('r_', ''));
   }
 }
