@@ -4,6 +4,7 @@ import { LiveGameTsService } from './../../services/live-game.ts.service';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { OverData } from '../../i/i/over-data';
 import { Over } from '../../i/i/over';
+import { ScoreCard } from '../../i/i/score-card';
 
 @Component({
   selector: 'crx-by-ball',
@@ -23,21 +24,17 @@ export class ByBallComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.getAllOvers();
   }
-  allOvers: Over[] = [];
+  scoreCard: ScoreCard[] = [];
   currentOver: OverData = { currentOver: 1, ballsLeft: -1 };
 
   getAllOvers(): void {
     this.getLiveScoresService
-      .getSingleMatchData('resume_test_match_x')
-      .subscribe((response) => {
-        let scorecard = JSON.parse(response.scorecard);
-        this.allOvers = scorecard.over_data.allOvers;
+      .getScoreCard(localStorage.getItem('match_id') || '')
+      .subscribe((s) => {
+        this.scoreCard[0] = JSON.parse(s.scorecard);
 
-        this.currentOver = scorecard.over_data.currentOver;
-        console.log('dsadsadsa', scorecard.over_data.allOvers);
+        // this.currentOver = scorecard.over_data.currentOver;
       });
-
-    console.log('adasdas', this.allOvers);
   }
 
   // getCurrentOver(): void {

@@ -1,18 +1,68 @@
-<crx-over-card
-  *ngIf="currentOver.ballsLeft <= 5"
-  [currentOver]="currentOver"
-></crx-over-card>
 <mat-divider></mat-divider>
 
-<mat-card *ngIf="allOvers.length > 0">
-  <mat-card-title>Over Summary</mat-card-title>
+<mat-card *ngIf="scoreCard[0].innings.a_1.allOvers.length > 0">
+  <mat-card-title
+    >{{ scoreCard[0].innings.a_1.teamName }} 1st Inning Over
+    Summary</mat-card-title
+  >
   <mat-divider></mat-divider>
-  <mat-card-content *ngFor="let o of allOvers">
+  <mat-card-content *ngFor="let o of scoreCard[0].innings.a_1.allOvers">
     <mat-divider></mat-divider>
     <crx-over-card [over]="o"></crx-over-card>
   </mat-card-content>
 </mat-card>
 
+<mat-divider></mat-divider>
+
+<mat-card *ngIf="scoreCard[0].innings.b_1.allOvers.length > 0">
+  <mat-card-title
+    >{{ scoreCard[0].innings.b_1.teamName }} 1st Inning Over
+    Summary</mat-card-title
+  >
+  <mat-divider></mat-divider>
+  <mat-card-content *ngFor="let o of scoreCard[0].innings.b_1.allOvers">
+    <mat-divider></mat-divider>
+    <crx-over-card [over]="o"></crx-over-card>
+  </mat-card-content>
+</mat-card>
+
+<mat-divider></mat-divider>
+
+<mat-card
+  *ngIf="
+    scoreCard[0].innings.b_2 && scoreCard[0].innings.a_2.allOvers.length > 0
+  "
+>
+  <mat-card-title
+    >{{ scoreCard[0].innings.a_2.teamName }} 2nd Inning Over
+    Summary</mat-card-title
+  >
+  <mat-divider></mat-divider>
+  <mat-card-content *ngFor="let o of scoreCard[0].innings.a_2.allOvers">
+    <mat-divider></mat-divider>
+    <crx-over-card [over]="o"></crx-over-card>
+  </mat-card-content>
+</mat-card>
+
+<mat-divider></mat-divider>
+
+<mat-card
+  *ngIf="
+    scoreCard[0].innings.b_2 && scoreCard[0].innings.b_2.allOvers.length > 0
+  "
+>
+  <mat-card-title
+    >{{ scoreCard[0].innings.b_2.teamName }} 1st Inning Over
+    Summary</mat-card-title
+  >
+  <mat-divider></mat-divider>
+  <mat-card-content *ngFor="let o of scoreCard[0].innings.b_2.allOvers">
+    <mat-divider></mat-divider>
+    <crx-over-card [over]="o"></crx-over-card>
+  </mat-card-content>
+</mat-card>
+
+<mat-divider></mat-divider>
 <!-- <div class="mat-typography">
   <h1 class="mat-display-4">display-4 &mdash; 112px light</h1>
   <h2 class="mat-display-3">display-3 &mdash; 56px normal</h2>
