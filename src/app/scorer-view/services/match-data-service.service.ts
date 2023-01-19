@@ -429,6 +429,8 @@ export class MatchDataServiceService {
 
   //Swap Batting Teams when Overs/Wickets are over
   swapBattingTeam(swith: boolean) {
+    // #NANDUN : This method has the logic for what to do when the batting teams change
+    // DONT CHANGE THIS METHOD
     if (this.currentInning == 2 && this.inningThreshold == 0) {
       this.teamPlayerScores.forEach((s) => {
         while (s.batting.length > 0) {
@@ -440,6 +442,8 @@ export class MatchDataServiceService {
       });
     }
 
+    // This keeps track if the batting teams change
+    // Needed for keeping track of indivigual player scores
     this.scoreTeamIndex = !this.scoreTeamIndex;
 
     if (swith) {
@@ -466,6 +470,8 @@ export class MatchDataServiceService {
   }
 
   generateResumeCard(): ScoreCard {
+    // #NANDUN : This methods create one ohject which has the entire state of the Scorer at a given moment
+    // DO NOT CHANGE THIS
     let today = new Date().toLocaleDateString('en-GB');
     let resume_id = 'r_' + this.matchId;
     let scorer_id = sessionStorage.getItem('user_id');
@@ -522,6 +528,7 @@ export class MatchDataServiceService {
   }
 
   generateScoreCard(): ScoreCard {
+    // #NANDUN (better not to use this)
     let today = new Date().toLocaleDateString('en-GB');
 
     let scorer_id = sessionStorage.getItem('user_id');
@@ -848,6 +855,7 @@ export class MatchDataServiceService {
 
         this.inningThreshold++;
         if (this.inningThreshold == 2) {
+          // #NANDUN : need to uncomment
           /* this.testMatchService.updateInningData(
             this.teamPlayerScores,
             this.currentInning,
@@ -863,7 +871,7 @@ export class MatchDataServiceService {
       }
     }
 
-    // this.saveAllOversLocally();
+    // #NANDUN : need to uncomment
     /* this.testMatchService.updateInningData(
       this.teamPlayerScores,
       this.currentInning,
@@ -881,6 +889,8 @@ export class MatchDataServiceService {
   }
 
   endInnings() {
+    // #NANDUN : This method is called when the user press END INNING button
+    // DO NOT CHANGE
     this.isResuming = false;
     /*RESET OVERS AND BALLS*/
     /*     this.ballLeftForOver = 6; //Update Number of balls for new Over
@@ -910,6 +920,8 @@ export class MatchDataServiceService {
     }
     // this.sendResumeCard(this.generateResumeCard());
     this.playerChangeService.askForTeamChange().subscribe((ans) => {
+      // #NANDUN : This asks the user if he needs to switch teams after ending inning
+      // DO NOT CHANGE THIS
       this.notSwapped = ans.switch;
       console.log(ans);
       if (ans.switch) {
@@ -1014,12 +1026,15 @@ export class MatchDataServiceService {
   }
 
   updateBackEnd() {
-    /* this.testMatchService.updateInningData(
+    // #NANDUN : uncomment this
+    /* this.testMatchService.updateInningData( 
       structuredClone(this.teamPlayerScores),
       this.currentInning,
       this.generateScoreCard(),
       this.notSwapped
     ); */
+
+    // DO NOT REMOVE THE FOLLOWING LINE
     this.sendResumeCard(this.generateResumeCard());
   }
 }
