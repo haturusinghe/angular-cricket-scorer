@@ -9,8 +9,9 @@
         fxLayout="row"
         fxLayoutAlign="space-between center"
         fxLayoutGap="10"
-      ></div
-    ></mat-card-title>
+      ></div>
+    </mat-card-title>
+
     <mat-card-subtitle>
       <button
         mat-raised-button
@@ -23,27 +24,36 @@
     >
     <mat-card-content>
       <mat-divider></mat-divider>
-      <div *ngIf="summary.teamName">
-        <div>
-          <div fxFlex="40" fxFill>
-            <div class="batting-team-title">
-              <h1>
-                {{ summary.teamName }}, {{ summary.inning }} Inning
-                <h2>
-                  {{ summary.totalScore }} - {{ summary.wickets }}
+      <div
+        *ngIf="summary.teamName"
+        fxLayoutAlign="space-between center"
+        fxFill
+        fxLayout="row"
+        fxLayout.lg="row"
+        fxLayout.md="column"
+        fxLayout.xs="column"
+        fxLayout.sm="column"
+        fxFlexOrder="1"
+      >
+        <div fxFlex="40" fxFill>
+          <div class="batting-team-title">
+            <h1>
+              {{ summary.teamName }}, {{ summary.inning }} Inning
+              <h2>
+                {{ summary.totalScore }} - {{ summary.wickets }}
 
-                  ({{ summary.currentOver }}.{{ summary.overBallsBowled }}/{{
-                    summary.totalOvers
-                  }}
-                  Overs )
-                </h2>
-              </h1>
-            </div>
+                ({{ summary.currentOver }}.{{ summary.overBallsBowled }}
+                <span *ngIf="summary.totalOvers">
+                  /{{ summary.totalOvers }}
+                </span>
+                Overs )
+              </h2>
+            </h1>
           </div>
-          <mat-divider [vertical]="true"></mat-divider>
-          <div fxFlex fxFill>
-            <crx-batting-view></crx-batting-view>
-          </div>
+        </div>
+        <mat-divider [vertical]="true"></mat-divider>
+        <div fxFlex fxFill>
+          <crx-batting-view></crx-batting-view>
         </div>
 
         <!-- Team Score -->

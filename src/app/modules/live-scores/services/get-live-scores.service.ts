@@ -12,7 +12,7 @@ import { Observable, map, catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class GetLiveScoresService {
-  matchid: string = 'test_match_x';
+  matchid = localStorage.getItem('match_id');
   endpoint: string = 'https://cricketchampx.com/v1/api';
   constructor(
     private http: HttpClient,
@@ -23,8 +23,38 @@ export class GetLiveScoresService {
   currentUser = {};
   loginStatus = { isLoggedIn: false };
 
-  getScoreCard(): Observable<any> {
-    let api = `${this.endpoint}/scores/live-score/${this.matchid}`;
+  getMatches(): Observable<any> {
+    let api = `${this.endpoint}/scores/get-all-scorecards`;
+    return this.http.get(api, { headers: this.headers }).pipe(
+      map((res) => {
+        return res || {};
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getMatchIds(): Observable<any> {
+    let api = `${this.endpoint}/scores/get-all-scorecards`;
+    return this.http.get(api, { headers: this.headers }).pipe(
+      map((res) => {
+        return res || {};
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getSingleMatchData(id: string): Observable<any> {
+    let api = `${this.endpoint}/scores/live-score/${id}`;
+    return this.http.get(api, { headers: this.headers }).pipe(
+      map((res) => {
+        return res || 'Error';
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  getScoreCard(matchid: string): Observable<any> {
+    let api = `${this.endpoint}/scores/live-score/${matchid}`;
     return this.http.get(api, { headers: this.headers }).pipe(
       map((res) => {
         console.log(res);

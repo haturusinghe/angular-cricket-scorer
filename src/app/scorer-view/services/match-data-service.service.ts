@@ -856,11 +856,11 @@ export class MatchDataServiceService {
         this.inningThreshold++;
         if (this.inningThreshold == 2) {
           // #NANDUN : need to uncomment
-          /* this.testMatchService.updateInningData(
+            this.testMatchService.updateInningData(
             this.teamPlayerScores,
             this.currentInning,
             this.generateScoreCard()
-          ); */
+          ); 
           this.inningThreshold = 0;
           if (this.currentInning == 1) {
             this.currentInning = 2;
@@ -872,12 +872,12 @@ export class MatchDataServiceService {
     }
 
     // #NANDUN : need to uncomment
-    /* this.testMatchService.updateInningData(
+     this.testMatchService.updateInningData(
       this.teamPlayerScores,
       this.currentInning,
       this.generateScoreCard(),
       this.notSwapped
-    ); */
+    ); 
 
     this.sendResumeCard(this.generateResumeCard());
   }
@@ -1027,12 +1027,12 @@ export class MatchDataServiceService {
 
   updateBackEnd() {
     // #NANDUN : uncomment this
-    /* this.testMatchService.updateInningData( 
+    this.testMatchService.updateInningData( 
       structuredClone(this.teamPlayerScores),
       this.currentInning,
       this.generateScoreCard(),
       this.notSwapped
-    ); */
+    ); 
 
     // DO NOT REMOVE THE FOLLOWING LINE
     this.sendResumeCard(this.generateResumeCard());
