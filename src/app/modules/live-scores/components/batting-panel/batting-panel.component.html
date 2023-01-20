@@ -26,12 +26,17 @@
         fxLayout.sm="column"
         fxFlexOrder="1"
         fxLayoutAlign="center start"
-        *ngIf="
-          scoreCard[0].innings.a_1 &&
-          scoreCard[0].innings.b_1.bowling.length > 0
-        "
+        *ngIf="scoreCard[0].innings.a_1"
       >
-        <div class="container-1" fxFlex="50" fxFill>
+        <div
+          class="container-1"
+          fxFlex="50"
+          fxFill
+          *ngIf="
+            scoreCard[0].innings.a_1.current_players ||
+            scoreCard[0].innings.a_1.batting.length > 0
+          "
+        >
           <mat-card>
             <mat-card-title
               >{{ scoreCard[0].innings.a_1.teamName }} 1st
@@ -228,12 +233,17 @@
         fxLayout.sm="column"
         fxFlexOrder="1"
         fxLayoutAlign="center start"
-        *ngIf="
-          scoreCard[0].innings.b_1 &&
-          scoreCard[0].innings.a_1.bowling.length > 0
-        "
+        *ngIf="scoreCard[0].innings.b_1"
       >
-        <div class="container-1" fxFlex="50" fxFill>
+        <div
+          class="container-1"
+          fxFlex="50"
+          fxFill
+          *ngIf="
+            scoreCard[0].innings.b_1.batting.length > 0 ||
+            scoreCard[0].innings.b_1.current_players
+          "
+        >
           <mat-card>
             <mat-card-title
               >{{ scoreCard[0].innings.b_1.teamName }} 1st
@@ -376,7 +386,12 @@
           </mat-card>
         </div>
 
-        <div class="container-1" fxFlex fxFill>
+        <div
+          class="container-1"
+          fxFlex
+          fxFill
+          *ngIf="scoreCard[0].innings.a_1.bowling.length > 0"
+        >
           <mat-card>
             <mat-card-title>Bowling Scores</mat-card-title>
             <mat-card-subtitle
@@ -430,12 +445,17 @@
         fxLayout.sm="column"
         fxFlexOrder="1"
         fxLayoutAlign="center start"
-        *ngIf="
-          scoreCard[0].innings.a_2 &&
-          scoreCard[0].innings.b_2.bowling.length > 0
-        "
+        *ngIf="scoreCard[0].innings.a_2"
       >
-        <div class="container-1" fxFlex="50" fxFill>
+        <div
+          class="container-1"
+          fxFlex="50"
+          fxFill
+          *ngIf="
+            scoreCard[0].innings.a_2.batting.length > 0 ||
+            scoreCard[0].innings.a_2.current_players
+          "
+        >
           <mat-card>
             <mat-card-title
               >{{ scoreCard[0].innings.a_2.teamName }} 2nd
@@ -578,7 +598,12 @@
           </mat-card>
         </div>
 
-        <div class="container-1" fxFlex fxFill>
+        <div
+          class="container-1"
+          fxFlex
+          fxFill
+          *ngIf="scoreCard[0].innings.b_2.bowling.length > 0"
+        >
           <mat-card>
             <mat-card-title>Bowling Scores</mat-card-title>
             <mat-card-subtitle
@@ -634,11 +659,17 @@
       fxLayout.sm="column"
       fxFlexOrder="1"
       fxLayoutAlign="center start"
-      *ngIf="
-        scoreCard[0].innings.b_2 && scoreCard[0].innings.a_2.bowling.length > 0
-      "
+      *ngIf="scoreCard[0].innings.b_2"
     >
-      <div class="container-1" fxFlex="50" fxFill>
+      <div
+        class="container-1"
+        fxFlex="50"
+        fxFill
+        *ngIf="
+          scoreCard[0].innings.b_2.batting.length > 0 ||
+          scoreCard[0].innings.b_2.current_players
+        "
+      >
         <mat-card>
           <mat-card-title
             >{{ scoreCard[0].innings.b_2.teamName }} 2nd inning</mat-card-title
@@ -769,7 +800,12 @@
         </mat-card>
       </div>
 
-      <div class="container-1" fxFlex fxFill>
+      <div
+        class="container-1"
+        fxFlex
+        fxFill
+        *ngIf="scoreCard[0].innings.a_2.bowling.length > 0"
+      >
         <mat-card>
           <mat-card-title>Bowling Scores</mat-card-title>
           <mat-card-subtitle
