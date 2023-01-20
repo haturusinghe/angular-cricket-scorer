@@ -1,4 +1,3 @@
-
 import { Scorecard } from './../i/score-card';
 import { TeamDataService } from './team-data.service';
 import { ResumeCard, CurrentPlayers } from './resume-scoring.service';
@@ -83,7 +82,6 @@ export class TestMatchScorerService {
     notSwapped: boolean = false
     //after the end of the ending , did the teams switch ?
   ) {
-    this.getScores(resumeCard.score_card.match_id);
     console.log('Resume', resumeCard);
     console.log('svvvvvs', this.innings);
 
@@ -107,6 +105,9 @@ export class TestMatchScorerService {
         scoreObj[1].extras = extras;
 
         this.innings.b_1 = scoreObj[1];
+
+        this.innings.a_1.teamName = scoreObj[0].teamName;
+        this.innings.a_1.batting = scoreObj[0].batting;
         this.innings.a_1.bowling = scoreObj[0].bowling;
         console.log('hi from 2');
       } else if (
@@ -208,15 +209,15 @@ export class TestMatchScorerService {
       let scorecard = JSON.parse(s.scorecard);
       console.log('Post card', s);
       this.innings = scorecard.innings;
-    //   if (scorecard.innings.a_1) {
-    //     this.innings.a_1 = scorecard.innings.a_1;
-    //   } else if (s.scorecard.innings.b_1) {
-    //     this.innings.b_1 = scorecard.innings.b_1;
-    //   } else if (s.scorecard.innings.a_2) {
-    //     this.innings.a_2 = scorecard.innings.a_2;
-    //   } else if (s.scorecard.innings.b_2) {
-    //     this.innings.b_2 = scorecard.innings.b_2;
-    //   }
+      //   if (scorecard.innings.a_1) {
+      //     this.innings.a_1 = scorecard.innings.a_1;
+      //   } else if (s.scorecard.innings.b_1) {
+      //     this.innings.b_1 = scorecard.innings.b_1;
+      //   } else if (s.scorecard.innings.a_2) {
+      //     this.innings.a_2 = scorecard.innings.a_2;
+      //   } else if (s.scorecard.innings.b_2) {
+      //     this.innings.b_2 = scorecard.innings.b_2;
+      //   }
     });
   }
 }

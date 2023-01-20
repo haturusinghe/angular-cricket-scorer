@@ -42,14 +42,11 @@ export class BattingPanelComponent implements OnInit {
   ) {
     this.updateDs();
 
-    console.log('bla bla', this.a_1Wickets);
     // this.getTeamNames();
   }
 
   ngOnInit(): void {
     // this.updateData();
-
-    console.log(this.scoreCard[0]);
   }
   // getTeamNames() {
   //   this.teamsNames = {
@@ -90,7 +87,6 @@ export class BattingPanelComponent implements OnInit {
   b_2Wickets: Ball[] = [];
 
   geta_1Wickets(scoreCard: ScoreCard) {
-    console.log('testin loop');
     scoreCard.innings.a_1.allOvers.forEach((over) => {
       over.balls.forEach((ball) => {
         if (ball.Out.isOut) {
@@ -101,7 +97,6 @@ export class BattingPanelComponent implements OnInit {
   }
 
   getb_1Wickets(scoreCard: ScoreCard) {
-    console.log('testin loop');
     scoreCard.innings.b_1.allOvers.forEach((over) => {
       over.balls.forEach((ball) => {
         if (ball.Out.isOut) {
@@ -111,7 +106,6 @@ export class BattingPanelComponent implements OnInit {
     });
   }
   geta_2Wickets(scoreCard: ScoreCard) {
-    console.log('testin loop');
     scoreCard.innings.a_2.allOvers.forEach((over) => {
       over.balls.forEach((ball) => {
         if (ball.Out.isOut) {
@@ -122,19 +116,15 @@ export class BattingPanelComponent implements OnInit {
   }
 
   wicketDetails(striker: string, wickets: Ball[]): string {
-    console.log('Hi from wickets');
     let str = '';
     wickets.forEach((wicket) => {
-      console.log('Hi from loop');
       if (wicket.striker.name == striker) {
-        console.log('Hi from if');
         str = wicket.Out.type + ' by ' + wicket.bowler?.name;
       }
     });
     return str;
   }
   getb_2Wickets(scoreCard: ScoreCard) {
-    console.log('testin loop');
     scoreCard.innings.b_2.allOvers.forEach((over) => {
       over.balls.forEach((ball) => {
         if (ball.Out.isOut) {

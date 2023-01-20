@@ -22,15 +22,15 @@
         fxFlexOrder="1"
         fxLayoutAlign="center start"
         *ngIf="
-          scoreCard[0].innings.a_2 &&
-          scoreCard[0].innings.b_2.bowling.length > 0
+          scoreCard[0].innings.a_1 &&
+          scoreCard[0].innings.b_1.bowling.length > 0
         "
       >
         <div
           class="container-1"
           fxFlex="50"
           fxFill
-          *ngIf="scoreCard[0].innings.b_2.batting.length > 0"
+          *ngIf="scoreCard[0].innings.a_1.batting.length > 0"
         >
           <mat-card>
             <mat-card-title
