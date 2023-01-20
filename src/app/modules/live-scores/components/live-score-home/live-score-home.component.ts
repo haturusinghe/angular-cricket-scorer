@@ -10,15 +10,15 @@ import { Subject, switchMap, takeUntil, tap, timer } from 'rxjs';
   templateUrl: './live-score-home.component.html',
   styleUrls: ['./live-score-home.component.scss'],
 })
-export class LiveScoreHomeComponent implements OnInit {
+export class LiveScoreHomeComponent implements OnInit, OnDestroy {
   // scoreCard = this.liveGameTsService.getMatch('test_1999');
-  private unsub = new Subject<void>();
+
   constructor(
     private liveGameTsService: LiveGameTsService,
     private getLiveScoresService: GetLiveScoresService,
     private scoringService: ScoringService
   ) {}
-
+  id = 0;
   getScorecard() {
     this.liveGameTsService.resumeScoringSession();
     // this.getLiveScoresService.getSingleMatchData(
@@ -30,6 +30,15 @@ export class LiveScoreHomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.setInterval(() => {
+      window.location.reload();
+    }, 60000);
     this.getScorecard();
+  }
+
+  ngOnDestroy() {
+    if (this.id) {
+      clearInterval(this.id);
+    }
   }
 }
