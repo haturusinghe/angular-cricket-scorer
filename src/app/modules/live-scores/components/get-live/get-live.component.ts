@@ -30,7 +30,7 @@ export class GetLiveComponent implements OnInit {
     this.start = 0;
     this.liveGameTsService.setScorecard(match_id);
     localStorage.setItem('match_id', match_id);
-    this.liveGameTsService.resumeScoringSession();
+    // this.liveGameTsService.resumeScoringSession();
 
     this.router.navigate(['live-scores/live']);
   }

@@ -204,7 +204,44 @@ export class TestMatchScorerService {
     });
   }
 
+  clearinnings() {
+    this.innings = {
+      a_1: {
+        teamName: '',
+        batting: [],
+        bowling: [],
+        totalScore: 0,
+        extras: 0,
+        allOvers: [],
+      },
+      b_1: {
+        teamName: '',
+        batting: [],
+        bowling: [],
+        totalScore: 0,
+        extras: 0,
+        allOvers: [],
+      },
+      a_2: {
+        teamName: '',
+        batting: [],
+        bowling: [],
+        totalScore: 0,
+        extras: 0,
+        allOvers: [],
+      },
+      b_2: {
+        teamName: '',
+        batting: [],
+        bowling: [],
+        totalScore: 0,
+        extras: 0,
+        allOvers: [],
+      },
+    };
+  }
   getScores(matchId: string) {
+    this.clearinnings();
     this.teamDataService.getSingleMatchData(matchId).subscribe((s) => {
       let scorecard = JSON.parse(s.scorecard);
       console.log('Post card', s);

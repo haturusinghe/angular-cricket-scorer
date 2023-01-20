@@ -1258,14 +1258,14 @@ export class LiveGameTsService {
     this.getLiveScoresService
       .getScoreCard(localStorage.getItem('match_id') || '')
       .subscribe((s) => {
-        this.scoreCard[0].score_card = JSON.parse(s.scorecard);
-        this.scoreCard[0].created_at = s.created_at;
-        this.scoreCard[0].date = s.date;
-        this.scoreCard[0].match_id = s.match_id;
-        this.scoreCard[0].team_one = s.team_one;
-        this.scoreCard[0].team_two = s.team_two;
-        this.scoreCard[0].description = s.description;
-        this.scoreCard[0].updated_at = s.updated_at;
+        // this.scoreCard[0]['score_card'] = JSON.parse(s.scorecard);
+        // this.scoreCard[0].created_at = s.created_at;
+        // this.scoreCard[0].date = s.date;
+        // this.scoreCard[0].match_id = s.match_id;
+        // this.scoreCard[0].team_one = s.team_one;
+        // this.scoreCard[0].team_two = s.team_two;
+        // this.scoreCard[0].description = s.description;
+        // this.scoreCard[0].updated_at = s.updated_at;
       });
   }
 
@@ -1398,40 +1398,40 @@ export class LiveGameTsService {
 
   matchId: any;
 
-  resumeScoringSession() {
-    this.scoringService.getResumeCardArr0().subscribe((s) => {
-      console.log('dasda', s[0]);
+  // resumeScoringSession() {
+  //   this.scoringService.getResumeCardArr0().subscribe((s) => {
+  //     console.log('dasda', s[0]);
 
-      this.tournamentName = s[0].tournament_name;
+  //     this.tournamentName = s[0].tournament_name;
 
-      this.ballLeftForOver = s[0].over_data.ballLeftForOver;
-      this.currentOverNumber = s[0].over_data.currentOverNumber;
-      this.totalOvers = s[0].over_data.totalOvers;
+  //     this.ballLeftForOver = s[0].over_data.ballLeftForOver;
+  //     this.currentOverNumber = s[0].over_data.currentOverNumber;
+  //     this.totalOvers = s[0].over_data.totalOvers;
 
-      this.allOvers = s[0].over_data.allOvers;
-      this.currentOver = s[0].over_data.currentOver;
-      this.ballsForThisOver = s[0].over_data.ballsForThisOver;
-      console.log('ppp', s[0].over_data.ballsForThisOver);
-      this.isTestMatch = s[0].inning_data.isTestMatch;
-      this.inningThreshold = s[0].inning_data.inningThreshold;
-      this.currentInning = s[0].inning_data.currentInning;
+  //     this.allOvers = s[0].over_data.allOvers;
+  //     this.currentOver = s[0].over_data.currentOver;
+  //     this.ballsForThisOver = s[0].over_data.ballsForThisOver;
+  //     console.log('ppp', s[0].over_data.ballsForThisOver);
+  //     this.isTestMatch = s[0].inning_data.isTestMatch;
+  //     this.inningThreshold = s[0].inning_data.inningThreshold;
+  //     this.currentInning = s[0].inning_data.currentInning;
 
-      this.battingTeamScore = s[0].battingTeamScore;
+  //     this.battingTeamScore = s[0].battingTeamScore;
 
-      this.teamPlayerScores = s[0].teamPlayerScores;
+  //     this.teamPlayerScores = s[0].teamPlayerScores;
 
-      this.battingTeamIndex = s[0].team_data.battingTeamIndex;
-      this.bowlerTeamIndex = s[0].team_data.bowlerTeamIndex;
-      this.teams = s[0].team_data.teams;
+  //     this.battingTeamIndex = s[0].team_data.battingTeamIndex;
+  //     this.bowlerTeamIndex = s[0].team_data.bowlerTeamIndex;
+  //     this.teams = s[0].team_data.teams;
 
-      this.bowler = s[0].current_players.bowler;
-      this.striker = s[0].current_players.striker;
-      this.nonStriker = s[0].current_players.nonStriker;
-    });
-  }
+  //     this.bowler = s[0].current_players.bowler;
+  //     this.striker = s[0].current_players.striker;
+  //     this.nonStriker = s[0].current_players.nonStriker;
+  //   });
+  // }
 
   getOverDetails(): Observable<Over[]> {
-    this.resumeScoringSession();
+    // this.resumeScoringSession();
     const overs = of(this.allOvers);
 
     console.log('sssssssssss', this.allOvers);
@@ -1439,7 +1439,6 @@ export class LiveGameTsService {
     return overs;
   }
   getCurrentOver(): Observable<OverData> {
-    this.resumeScoringSession();
     const c = of(this.currentOver);
     return c;
   }

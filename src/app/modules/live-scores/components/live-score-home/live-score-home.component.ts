@@ -20,11 +20,11 @@ export class LiveScoreHomeComponent implements OnInit, OnDestroy {
   ) {}
   id = 0;
   getScorecard() {
-    this.liveGameTsService.resumeScoringSession();
+    // this.liveGameTsService.resumeScoringSession();
     // this.getLiveScoresService.getSingleMatchData(
     //   localStorage.getItem('match_id') || ''
     // );
-    this.scoringService.initResumeCard();
+    // this.scoringService.initResumeCard();
     this.liveGameTsService.getOverDetails();
     this.liveGameTsService.getCurrentOver();
   }

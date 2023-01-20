@@ -16,7 +16,7 @@ export class ScoringService {
   resumeData: ResumeCard[] = [];
 
   constructor(private teamDataService: GetLiveScoresService) {
-    this.initResumeCard();
+    // this.initResumeCard();
     this.getMatchList();
   }
 
@@ -55,14 +55,14 @@ export class ScoringService {
     });
   }
 
-  initResumeCard() {
-    this.teamDataService
-      .getSingleMatchData('resume_test_match_x')
-      .subscribe((response) => {
-        this.resumeData[0] = JSON.parse(response.scorecard);
-        console.log(this.resumeData[0]);
-      });
-  }
+  // initResumeCard() {
+  //   this.teamDataService
+  //     .getSingleMatchData('resume_test_match_x')
+  //     .subscribe((response) => {
+  //       this.resumeData[0] = JSON.parse(response.scorecard);
+  //       console.log(this.resumeData[0]);
+  //     });
+  // }
 
   /* initResumeCard(match_id: string) {
     let id = 'resume_' + match_id;

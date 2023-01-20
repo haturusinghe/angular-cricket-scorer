@@ -1,5 +1,10 @@
-<mat-tab-group mat-align-tabs="start" color="primary" backgroundColor="primary">
-  <mat-tab label="LIVE">
+<mat-tab-group
+  mat-align-tabs="start"
+  color="primary"
+  backgroundColor="primary"
+  *ngIf="scoreCard[0]"
+>
+  <mat-tab label="LIVE" *ngIf="scoreCard[0].innings">
     <!-- <mat-grid-list
       cols="2"
       rowHeight="3:1"

@@ -25,7 +25,7 @@ export class MatchSummaryComponent implements OnInit {
   };
 
   getSummary(matchid: string): void {
-    this.liveGameTsService.resumeScoringSession();
+    // this.liveGameTsService.resumeScoringSession();
     this.liveGameTsService.getOverDetails();
     this.liveGameTsService.getCurrentOver();
     this.getLiveScoresService.getScoreCard(matchid).subscribe((scoreCard) => {
